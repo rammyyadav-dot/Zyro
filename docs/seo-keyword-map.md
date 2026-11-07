@@ -1,4 +1,4 @@
-# Zytrostyle: SEO, GEO and AEO keyword map (Patna and Bihar)
+# Zyrostyle: SEO, GEO and AEO keyword map (Patna and Bihar)
 
 Each page gets one main keyword cluster, so pages don't compete with each other for the same search. Main keywords go in the `<title>`, H1, first paragraph, meta description and URL. Secondary keywords appear naturally in the body copy, the FAQs and the "What's included" lists.
 
@@ -42,7 +42,7 @@ Each page gets one main keyword cluster, so pages don't compete with each other 
 
 **Fill in before publishing:**
 - `PACKAGES[*].price` in `build/landing_content.py`. Real starting prices make the cost and cheap pages much stronger.
-- `COURSE` details (duration, fee, next batch). Publish the course and institute pages only if Zytrostyle actually runs training.
+- `COURSE` details (duration, fee, next batch). Publish the course and institute pages only if Zyrostyle actually runs training.
 
 ## Keywords left out on purpose
 

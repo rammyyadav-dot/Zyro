@@ -3,4 +3,4 @@ Allow: /
 Disallow: /build/
 Disallow: /docs/
 
-Sitemap: https://www.zytrostyle.com/sitemap.xml
+Sitemap: https://www.zyrostyle.com/sitemap.xml

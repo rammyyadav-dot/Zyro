@@ -1,9 +1,14 @@
-/* Zytrostyle — site behaviour (progressive enhancement; the site works without JS) */
+/* Zyrostyle — site behaviour & scroll motion.
+   Progressive enhancement: content is fully readable without JS, and all motion
+   is skipped for visitors who prefer reduced motion. */
 (function () {
   'use strict';
-  document.documentElement.classList.add('js');
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vh = window.innerHeight, vw = window.innerWidth;
 
-  // Mobile navigation
+  // ── Mobile navigation ────────────────────────────────────────────────
   var toggle = document.querySelector('.nav-toggle');
   var menu = document.getElementById('nav-menu');
   if (toggle && menu) {
@@ -14,56 +19,141 @@
     });
   }
 
-  // Scroll reveal
-  var reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
+  // ── Split headings into words (keeps <em> and other inline markup) ───
+  function splitWords(el) {
+    var i = 0;
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 3) {
+          var parts = ch.textContent.split(/(\s+)/), frag = document.createDocumentFragment();
+          parts.forEach(function (p) {
+            if (!p) return;
+            if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(' ')); return; }
+            var w = document.createElement('span'); w.className = 'w';
+            var wi = document.createElement('span'); wi.className = 'wi'; wi.textContent = p;
+            wi.style.setProperty('--i', i++); w.appendChild(wi); frag.appendChild(w);
+          });
+          node.replaceChild(frag, ch);
+        } else if (ch.nodeType === 1 && ch.tagName !== 'BR') { walk(ch); }
+      });
+    })(el);
+    el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+  }
+  var splits = Array.prototype.slice.call(document.querySelectorAll('.split, .section .h-lg, .manifesto h2'));
+  splits = splits.filter(function (el) { return !el.classList.contains('scrub'); });
+  if (!reduce) splits.forEach(function (el) { el.classList.add('split'); splitWords(el); });
+
+  // ── Scroll-lit text: wrap words so they brighten with scroll ─────────
+  var scrubs = Array.prototype.slice.call(document.querySelectorAll('.scrub'));
+  var scrubWords = [];
+  scrubs.forEach(function (el) {
+    var words = el.textContent.trim().split(/\s+/);
+    el.setAttribute('aria-label', el.textContent.trim());
+    el.innerHTML = words.map(function (w) { return '<span class="sw" aria-hidden="true">' + w + '</span>'; }).join(' ');
+    scrubWords.push({ el: el, words: el.querySelectorAll('.sw') });
+  });
+
+  // ── Reveal on enter (fade-ups, image clip reveals, split headings) ───
+  var revealables = document.querySelectorAll('.reveal, .img-reveal, .split');
+  if ('IntersectionObserver' in window && !reduce) {
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        if (e.isIntersecting) { e.target.classList.add('visible', 'in'); obs.unobserve(e.target); }
       });
-    }, { threshold: 0.08 });
-    reveals.forEach(function (r) { obs.observe(r); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    revealables.forEach(function (r) { obs.observe(r); });
   } else {
-    reveals.forEach(function (r) { r.classList.add('visible'); });
+    revealables.forEach(function (r) { r.classList.add('visible', 'in'); });
   }
 
-  // Contact form: if no backend endpoint is configured (data-endpoint empty),
-  // hand the enquiry to WhatsApp (if a number is set) or the visitor's email client.
+  // ── Horizontal pinned showcase ───────────────────────────────────────
+  var hs = document.querySelector('.hs');
+  var hsTrack = hs && hs.querySelector('.hs-track');
+  function setupShowcase() {
+    if (!hs || !hsTrack) return;
+    var enable = !reduce && vw > 960 && vh >= 680;
+    hs.classList.toggle('pinned', enable);
+    if (enable) {
+      var dist = hsTrack.scrollWidth - vw;
+      hs.style.height = (vh + Math.max(dist, 0)) + 'px';
+    } else {
+      hs.style.height = ''; hsTrack.style.transform = '';
+    }
+  }
+
+  // ── Scroll-driven frame loop ─────────────────────────────────────────
+  var progress = document.querySelector('.scroll-progress span');
+  var parallax = Array.prototype.slice.call(document.querySelectorAll('[data-speed]'));
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.mm-row'));
+  var ticking = false;
+
+  function frame() {
+    ticking = false;
+    var y = window.scrollY || window.pageYOffset;
+    var docH = root.scrollHeight - vh;
+    if (progress) progress.style.transform = 'scaleX(' + (docH > 0 ? y / docH : 0) + ')';
+
+    if (!reduce) {
+      parallax.forEach(function (el) {
+        var r = el.parentNode.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        var center = r.top + r.height / 2 - vh / 2;
+        el.style.transform = 'translate3d(0,' + (-center * parseFloat(el.getAttribute('data-speed'))).toFixed(1) + 'px,0)';
+      });
+      rows.forEach(function (row) {
+        var r = row.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        var dir = parseFloat(row.getAttribute('data-dir')) || 1;
+        var shift = (r.top - vh) * 0.45 * dir - (dir > 0 ? vw * 0.6 : vw * 0.2);
+        row.firstElementChild.style.transform = 'translate3d(' + shift.toFixed(1) + 'px,0,0)';
+      });
+      if (hs && hs.classList.contains('pinned')) {
+        var hr = hs.getBoundingClientRect();
+        var max = hsTrack.scrollWidth - vw;
+        var p = Math.min(Math.max(-hr.top / (hr.height - vh), 0), 1);
+        hsTrack.style.transform = 'translate3d(' + (-p * max).toFixed(1) + 'px,0,0)';
+      }
+    }
+    scrubWords.forEach(function (s) {
+      var r = s.el.getBoundingClientRect();
+      var p = reduce ? 1 : Math.min(Math.max((vh * 0.85 - r.top) / (r.height + vh * 0.35), 0), 1);
+      var lit = Math.round(p * s.words.length);
+      for (var i = 0; i < s.words.length; i++) s.words[i].classList.toggle('on', i < lit);
+    });
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function () { vh = window.innerHeight; vw = window.innerWidth; setupShowcase(); onScroll(); });
+  window.addEventListener('load', function () { setupShowcase(); onScroll(); });
+  setupShowcase(); frame();
+
+  // ── Contact form: WhatsApp / email hand-off when no backend endpoint ──
   var form = document.getElementById('enquiry-form');
   if (form) {
     form.addEventListener('submit', function (ev) {
-      var endpoint = form.getAttribute('data-endpoint');
-      if (endpoint) return; // a real form handler (e.g. Formspree / Netlify Forms) takes over
+      if (form.getAttribute('data-endpoint')) return;
       ev.preventDefault();
       if (!form.reportValidity()) return;
       var d = new FormData(form);
-      var services = d.getAll('services').join(', ');
-      var lines = [
-        'New enquiry from zytrostyle website',
+      var body = [
+        'New enquiry from the Zyrostyle website',
         'Name: ' + (d.get('name') || ''),
         'Company / Brand: ' + (d.get('company') || ''),
         'Website: ' + (d.get('website') || '-'),
         'Mobile / WhatsApp: ' + (d.get('phone') || ''),
         'Email: ' + (d.get('email') || ''),
-        'Services: ' + (services || d.get('service') || ''),
+        'Service: ' + (d.get('service') || ''),
         'Monthly budget: ' + (d.get('budget') || '-'),
         'Goals: ' + (d.get('goals') || '')
-      ];
-      var body = lines.join('\n');
-      var wa = form.getAttribute('data-whatsapp');
-      var mail = form.getAttribute('data-email');
+      ].join('\n');
+      var wa = form.getAttribute('data-whatsapp'), mail = form.getAttribute('data-email');
+      if (wa) window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(body), '_blank', 'noopener');
+      else if (mail) window.location.href = 'mailto:' + mail + '?subject=' + encodeURIComponent('Marketing consultation request — ' + (d.get('company') || d.get('name') || '')) + '&body=' + encodeURIComponent(body);
       var status = document.getElementById('form-status');
-      if (wa) {
-        window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(body), '_blank', 'noopener');
-      } else if (mail) {
-        window.location.href = 'mailto:' + mail + '?subject=' +
-          encodeURIComponent('Marketing consultation request — ' + (d.get('company') || d.get('name') || '')) +
-          '&body=' + encodeURIComponent(body);
-      }
       if (status) status.textContent = 'Thank you — your enquiry is ready to send. Our strategists respond within one working day.';
     });
   }
 
-  var y = document.getElementById('year');
-  if (y) y.textContent = new Date().getFullYear();
+  var yr = document.getElementById('year');
+  if (yr) yr.textContent = new Date().getFullYear();
 })();

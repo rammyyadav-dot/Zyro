@@ -1,6 +1,6 @@
-# Zytrostyle website
+# Zyrostyle website
 
-A multi-page static website for **Zytrostyle**, an award-winning content marketing, SEO and digital marketing agency in Patna, Bihar. It is built for SEO, local SEO with geo tags, GEO (AI search) and AEO (answer engines).
+A multi-page static website for **Zyrostyle**, an award-winning content marketing, SEO and digital marketing agency in Patna, Bihar. It is built for SEO, local SEO with geo tags, GEO (AI search) and AEO (answer engines).
 
 ## Pages
 
