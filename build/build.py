@@ -348,6 +348,49 @@ def showcase(ctx):
 """
 
 
+def x3d_home(ctx):
+    """Home hero: sticky WebGL particle scene + scroll-driven story chapters.
+    The H1 and all copy are real HTML (indexable); the canvas is decoration."""
+    chapters = [
+        ("01", "Discover", "Get Found.", "SEO, local SEO and AI-search optimisation put your business in front of customers the moment they search — on Google, Google Maps and AI assistants.", "seo-services-patna", "SEO Services"),
+        ("02", "Connect", "Get Noticed.", "Content, storytelling and social media connect your brand to the right audience in Patna and Bihar — in English, Hindi and Hinglish.", "content-marketing-services-patna", "Content Marketing"),
+        ("03", "Grow", "Get Chosen.", "Performance ads, landing pages and conversion tracking turn attention into enquiries, admissions, bookings and revenue.", "digital-marketing-agency-patna", "Digital Marketing"),
+    ]
+    ch = "".join(f"""<div class="x3d-chapter" data-index="{i+1}">
+      <span class="x3d-num">{n} — {k}</span>
+      <h2 class="x3d-ch-title">{t}</h2>
+      <p>{d}</p>
+      <a class="link-arrow" href="{ctx.href(sl)}">{lbl}</a>
+    </div>""" for i, (n, k, t, d, sl, lbl) in enumerate(chapters))
+    return f"""<section class="x3d" id="top" aria-label="Zyrostyle — digital marketing and SEO agency in Patna">
+  <div class="x3d-sticky">
+    <div class="x3d-fallback">{pic(ctx, "marketing-strategy-team-patna", "hero-img", eager=True)}</div>
+    <canvas class="x3d-canvas" aria-hidden="true"></canvas>
+    <div class="x3d-vignette"></div>
+    <div class="x3d-hud" aria-hidden="true"><span>Patna · 25.59°N 85.13°E</span><span class="x3d-hud-step">00 / 03</span></div>
+    <div class="wrap x3d-intro">
+      <span class="eyebrow">Award-Winning Marketing Agency in Patna · SEO · GEO · Content · Creative Growth</span>
+      <h1 class="h-xl x3d-title"><span class="kt">Digital Marketing &amp; SEO Agency in Patna</span> <span class="kt">That Turns Visibility <em>Into Growth.</em></span></h1>
+      <p class="x3d-rotator" aria-label="Get Found. Get Noticed. Get Chosen.">Get <span class="rot"><span class="rot-w is-on">Found.</span><span class="rot-w">Noticed.</span><span class="rot-w">Chosen.</span></span></p>
+      <p class="lead">We are an award-winning content marketing and SEO agency, helping brands build organic growth engines that drive traffic, leads and revenue across Patna, Bihar and India.</p>
+      <div class="btn-row"><a class="btn btn-light" href="{ctx.href('contact')}">Get Your Free Marketing Consultation</a><a class="btn btn-line" href="#services">Explore Our Services</a></div>
+    </div>
+    <div class="wrap x3d-chapters">{ch}</div>
+    <div class="x3d-scroll" aria-hidden="true"><span class="scroll-line"></span>Scroll to explore the growth engine</div>
+  </div>
+</section>
+"""
+
+
+def kinetic_statement():
+    words = "We don't just market brands. We make them matter.".split()
+    spans = "".join(f'<span class="k3-w" style="--k:{i}">{w}</span> ' for i, w in enumerate(words))
+    return f"""<section class="k3" aria-label="We don't just market brands. We make them matter.">
+  <div class="k3-sticky"><p class="k3-text">{spans}</p></div>
+</section>
+"""
+
+
 def hero(ctx, eyebrow, h1, lead, crumbs=None, strap=None, ctas=None, meta=None, sub=True, photo=None):
     bc = f'<nav aria-label="Breadcrumb">{breadcrumb(ctx, crumbs)}</nav>' if crumbs else ""
     strap_html = f'<p class="hero-strap">{strap}</p>' if strap else ""
@@ -548,12 +591,7 @@ def build_home():
     pillars = "".join(f'<div class="pillar"><h3>{n}</h3><p>{d}</p></div>' for n, d in PILLARS)
     body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, None, faqs=HOME_FAQS)) + nav(ctx)
     body += '<main id="main">\n'
-    body += hero(ctx, "Award-Winning Marketing Agency in Patna · Digital Marketing • SEO • Content Marketing • Creative Growth",
-                 "Digital Marketing &amp; SEO Agency in Patna That Turns Visibility <em>Into Growth.</em>",
-                 "We are an award-winning content marketing and SEO agency, helping brands build organic growth engines that drive traffic, leads and revenue. Zyrostyle helps businesses in Patna and across Bihar get discovered, earn trust and turn marketing into a powerful engine for sustainable growth.",
-                 strap="Get Found. Get Noticed. Get Chosen.",
-                 meta=["Patna, Bihar", "SEO · GEO · AEO", "Content-Led Growth", "English · Hindi · Hinglish"],
-                 sub=False)
+    body += x3d_home(ctx)
     body += ticker()
     body += f"""<section class="section">
   <div class="wrap grid-2">
@@ -581,6 +619,7 @@ def build_home():
 </section>
 """
     body += showcase(ctx)
+    body += kinetic_statement()
     body += mega_marquee()
     body += img_band(ctx, "We don't chase vanity metrics. <em>We build marketing around business outcomes.</em>", label="The Zyrostyle Way")
     body += triad_section(ctx)
@@ -612,6 +651,9 @@ def build_home():
 </section>
 """
     body += "</main>\n" + footer(ctx)
+    body = body.replace("<body>", '<body class="home">', 1)
+    body = body.replace("</body>", f'<script src="{ctx.asset("js/vendor/three.min.js")}" defer></script>\n'
+                        f'<script src="{ctx.asset("js/home3d.js")}" defer></script>\n</body>')
     write("", body, "1.0")
 
 

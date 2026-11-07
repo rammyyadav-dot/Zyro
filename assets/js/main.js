@@ -7,6 +7,8 @@
   root.classList.add('js');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var vh = window.innerHeight, vw = window.innerWidth;
+  function setHdr() { var h = document.querySelector('.site-header'); if (h) root.style.setProperty('--hdr', h.offsetHeight + 'px'); }
+  setHdr(); window.addEventListener('resize', setHdr);
 
   // ── Mobile navigation ────────────────────────────────────────────────
   var toggle = document.querySelector('.nav-toggle');
@@ -85,11 +87,13 @@
   var progress = document.querySelector('.scroll-progress span');
   var parallax = Array.prototype.slice.call(document.querySelectorAll('[data-speed]'));
   var rows = Array.prototype.slice.call(document.querySelectorAll('.mm-row'));
-  var ticking = false;
+  var ticking = false, lastScroll = window.scrollY || 0, velocity = 0;
 
   function frame() {
     ticking = false;
     var y = window.scrollY || window.pageYOffset;
+    velocity += ((y - lastScroll) - velocity) * 0.35; lastScroll = y;
+    var skew = Math.max(-12, Math.min(12, velocity * -0.12));
     var docH = root.scrollHeight - vh;
     if (progress) progress.style.transform = 'scaleX(' + (docH > 0 ? y / docH : 0) + ')';
 
@@ -105,7 +109,7 @@
         if (r.bottom < 0 || r.top > vh) return;
         var dir = parseFloat(row.getAttribute('data-dir')) || 1;
         var shift = (r.top - vh) * 0.45 * dir - (dir > 0 ? vw * 0.6 : vw * 0.2);
-        row.firstElementChild.style.transform = 'translate3d(' + shift.toFixed(1) + 'px,0,0)';
+        row.firstElementChild.style.transform = 'translate3d(' + shift.toFixed(1) + 'px,0,0) skewX(' + skew.toFixed(2) + 'deg)';
       });
       if (hs && hs.classList.contains('pinned')) {
         var hr = hs.getBoundingClientRect();
@@ -122,6 +126,7 @@
     });
   }
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  var settle; window.addEventListener('scroll', function () { clearTimeout(settle); settle = setTimeout(function () { velocity = 0; lastScroll = window.scrollY; onScroll(); }, 120); }, { passive: true });
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () { vh = window.innerHeight; vw = window.innerWidth; setupShowcase(); onScroll(); });
   window.addEventListener('load', function () { setupShowcase(); onScroll(); });
