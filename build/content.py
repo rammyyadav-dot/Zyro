@@ -329,7 +329,7 @@ SERVICES = [
             ("Do you manage Google Ads in Patna?", "Yes. We plan, build and optimise Google Search, Display, YouTube and Performance Max campaigns, with conversion tracking set up so you can see exactly which campaigns generate enquiries."),
             ("Can you generate leads for businesses outside Patna?", "Yes. While we are based in Patna, we run lead-generation campaigns for businesses targeting customers anywhere in Bihar and across India."),
         ],
-        "related": ["social-media-marketing-patna", "seo-services-patna", "industries"],
+        "related": ["best-digital-marketing-company-patna", "digital-marketing-packages-cost-patna", "lead-generation-agency-patna", "full-service-digital-marketing-firm-patna", "social-media-marketing-patna", "seo-services-patna"],
     },
     {
         "slug": "social-media-marketing-patna",
