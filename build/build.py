@@ -10,6 +10,7 @@ into the repository root. All copy lives in build/content.py.
 import html
 import json
 import os
+import re
 from datetime import date
 
 from photos import ALT, INDUSTRY_PHOTOS, PAGE_PHOTOS
@@ -294,6 +295,38 @@ def nav(ctx):
 """
 
 
+def wa_widget():
+    chips = [("🔎", "SEO &amp; Google Maps", "Hi Zyrostyle! I'd like help with SEO and ranking on Google Maps."),
+             ("📱", "Social Media &amp; Reels", "Hi Zyrostyle! I'd like help with social media marketing and Reels."),
+             ("🎯", "Ads &amp; Leads", "Hi Zyrostyle! I'd like to generate more leads with Google and Meta ads."),
+             ("✨", "Free Consultation", "Hi Zyrostyle! I'd like a free marketing consultation for my business.")]
+    chip_html = "".join(f'<button type="button" class="wa-chip" data-msg="{esc(m)}"><span aria-hidden="true">{e}</span> {t}</button>'
+                        for e, t, m in chips)
+    default = esc("Hi Zyrostyle! I'd like to know more about your digital marketing services.")
+    return f"""<div class="wa" data-wa="{SITE['whatsapp']}">
+  <div class="wa-panel" id="wa-panel" role="dialog" aria-modal="false" aria-labelledby="wa-title" hidden>
+    <div class="wa-head">
+      <span class="wa-avatar" aria-hidden="true">ZS</span>
+      <div><p class="wa-name" id="wa-title">Zyrostyle</p><p class="wa-status"><span class="wa-dot"></span>Replies within minutes</p></div>
+      <button type="button" class="wa-close" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="wa-body">
+      <div class="wa-bubble"><p><span aria-hidden="true">👋</span> Hi! Looking to grow your business in <strong>Patna or Bihar</strong>? Our strategists are here to help — ask us anything.</p><span class="wa-time">Just now ✓✓</span></div>
+      <div class="wa-chips">{chip_html}</div>
+    </div>
+    <a class="wa-cta" href="https://wa.me/{SITE['whatsapp']}?text={default}" data-msg="{default}" rel="noopener" target="_blank">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5.1 5.3-1.4A9.9 9.9 0 1 0 12.04 2zm0 18.1c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7.1 3.9zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4.1c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+      Chat on WhatsApp</a>
+  </div>
+  <button type="button" class="wa-fab" aria-expanded="false" aria-controls="wa-panel" aria-label="Chat with Zyrostyle on WhatsApp">
+    <svg class="wa-ico" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5.1 5.3-1.4A9.9 9.9 0 1 0 12.04 2zm0 18.1c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7.1 3.9zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4.1c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+    <span class="wa-x" aria-hidden="true">&times;</span>
+    <span class="wa-badge" aria-hidden="true">1</span>
+  </button>
+</div>
+"""
+
+
 def footer(ctx):
     svc = "".join(f'<li><a href="{ctx.href(s["slug"])}">{s["nav"]}</a></li>' for s in SERVICES)
     svc += f'<li><a href="{ctx.href(AI_SEARCH["slug"])}">GEO &amp; AEO</a></li>'
@@ -305,11 +338,7 @@ def footer(ctx):
     social = "".join(f'<li><a href="{u}" rel="noopener" target="_blank">{u.split("//")[-1].split("/")[0].replace("www.", "").split(".")[0].title()}</a></li>' for u in SITE["social"])
     popular = " · ".join(f'<a href="{ctx.href(l["slug"])}">{esc(l["primary"].title())}</a>' for l in LANDINGS)
     popular += f' · <a href="{ctx.href("digital-marketing-patna-guide")}">All Patna Guides</a>'
-    wa = ""
-    if SITE["whatsapp"]:
-        wa = (f'<a class="float-wa" href="https://wa.me/{SITE["whatsapp"]}?text='
-              f'{esc("Hi Zyrostyle, I would like a free marketing consultation.")}" '
-              f'rel="noopener" target="_blank">WhatsApp Us</a>')
+    wa = wa_widget() if SITE["whatsapp"] else ""
     return f"""<footer class="site-footer">
   <div class="wrap">
     <div class="footer-top">
@@ -635,7 +664,25 @@ def cta_section(ctx, title="Ready to turn your business into a brand <em>people 
 """
 
 
+_CTA_RE = re.compile(r'<a class="((?:[^"]*\b)?(?:btn|pill-btn)(?:\b[^"]*)?)" href="((?:\.\./)*contact/)">')
+
+
+def route_ctas(slug, body):
+    """Every CTA button that pointed at /contact/ now opens WhatsApp chat
+    with the business mobile number, pre-filled with the page's topic."""
+    if not SITE["whatsapp"]:
+        return body
+    topic = NAMES.get(slug) or "digital marketing"
+    if slug == "":
+        topic = "digital marketing for my business"
+    msg = f"Hi Zyrostyle! I'd like a free consultation about {strip_tags(topic).replace('&amp;', '&')}."
+    from urllib.parse import quote
+    url = f"https://wa.me/{SITE['whatsapp']}?text={quote(msg)}"
+    return _CTA_RE.sub(lambda m: f'<a class="{m.group(1)}" href="{url}" target="_blank" rel="noopener" data-cta="whatsapp">', body)
+
+
 def write(slug, body, priority="0.8"):
+    body = route_ctas(slug, body)
     path = os.path.join(ROOT, slug, "index.html") if slug else os.path.join(ROOT, "index.html")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -675,8 +722,7 @@ def build_home():
         <p>We solve big growth problems with strategy, search and creative that make a measurable impact.</p>
         <p>We partner with brands across Patna and Bihar that have the biggest ambitions.</p>
         <p>We hire big talent and give it big opportunities to build boundless careers.</p>
-        <p class="bh-ask">Ready to do big things?</p>
-        <a class="pill-btn" href="{ctx.href('contact')}">Contact us</a>
+        <div class="bh-cta"><p class="bh-ask">Ready to do big things?</p><a class="pill-btn" href="{ctx.href('contact')}">Contact us</a></div>
       </div>
     </div>
   </div>
@@ -703,7 +749,7 @@ def build_home():
     # 3 ── GIANT MARQUEE
     body += """<section class="bm" aria-hidden="true">
   <div class="mm-row" data-dir="1"><div class="mm-track">""" + ("<span>Do big things</span><span class='bm-dot'></span>" * 6) + """</div></div>
-  <div class="mm-row outline" data-dir="-1"><div class="mm-track">""" + ("<span>Get found · Get chosen</span><span class='bm-dot'></span>" * 6) + """</div></div>
+  <div class="mm-row outline" data-dir="-1"><div class="mm-track">""" + ("<span>Do big things</span><span class='bm-dot'></span>" * 6) + """</div></div>
 </section>
 """
     # 4 ── SEO / GEO / AEO positioning (keyword-rich, clean)
@@ -1124,7 +1170,7 @@ def build_404():
                  ctas=[("Back to Home", "", "btn-light"), ("Explore Services", "services", "btn-line")], sub=False, photo="creative-idea-bulb")
     body += "</main>\n" + footer(ctx)
     with open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8") as f:
-        f.write(body)
+        f.write(route_ctas("404", body))
 
 
 def build_meta_files():
