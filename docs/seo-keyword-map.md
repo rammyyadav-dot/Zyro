@@ -44,9 +44,92 @@ Each page gets one main keyword cluster, so pages don't compete with each other 
 - `PACKAGES[*].price` in `build/landing_content.py`. Real starting prices make the cost and cheap pages much stronger.
 - `COURSE` details (duration, fee, next batch). Publish the course and institute pages only if Zyrostyle actually runs training.
 
+## Round 3: SEO, Social, Content and niche clusters (keywords 19–100)
+
+Each new page has one primary search intent. Keywords that mean the same thing share a page, and keywords an existing page already covers stay on that page. Every page sits under a parent "pillar" page, which links to it from an **Explore** grid. Each page also appears in the header's grouped Services menu.
+
+**SEO** (pillar: `/seo-services-patna/`)
+| Keywords | Page |
+|---|---|
+| 19 best seo company, 20 seo services, 21 seo agency, 36 best seo agency near me | `/seo-services-patna/` (existing; "near me" FAQ added) |
+| 22 local seo services | `/local-seo-services-patna/` |
+| 23 gmb optimization, 24 google map ranking expert, 33 google business profile setup | `/google-business-profile-optimization-patna/` |
+| 25 seo consultant | `/seo-consultant-patna/` |
+| 26 affordable seo services | `/affordable-seo-services-patna/` |
+| 27 technical seo company | `/technical-seo-services-patna/` |
+| 28 seo freelancer | `/freelance-digital-marketer-patna/` (existing) |
+| 29 ecommerce seo agency (+86 ecommerce content strategy) | `/ecommerce-seo-agency-patna/` |
+| 30 website ranking agency, 31 organic traffic growth | `/website-ranking-organic-traffic-patna/` |
+| 32 link building services | `/link-building-services-patna/` |
+| 34 seo training | `/seo-training-patna/` |
+| 35 on page off page seo | `/on-page-off-page-seo-patna/` |
+
+**Social media** (pillar: `/social-media-marketing-patna/`)
+| Keywords | Page |
+|---|---|
+| 37 social media marketing agency | `/social-media-marketing-patna/` (existing) |
+| 38 social media management, 43 social media handle manager | `/social-media-management-patna/` |
+| 39 instagram marketing agency | `/instagram-marketing-agency-patna/` |
+| 40 meta ads agency, 41 facebook ads expert, 51 facebook marketing company, 52 social media advertising | `/meta-ads-agency-patna/` |
+| 42 instagram reels creation, 66 reels video shoot | `/instagram-reels-production-patna/` |
+| 44 influencer marketing agency | `/influencer-marketing-agency-patna/` |
+| 45 smm packages cost | `/social-media-marketing-packages-patna/` |
+| 46 youtube channel promotion | `/youtube-channel-promotion-patna/` |
+| 47 social media content creator, 61 professional content creators | `/social-media-content-creators-patna/` |
+| 48 b2b social media marketing | `/linkedin-b2b-social-media-patna/` |
+| 49 brand page optimization | `/social-media-profile-optimization-patna/` |
+| 50 social media management for real estate | `/real-estate-digital-marketing-patna/` |
+
+**Content creation** (pillar: `/content-creation-services-patna/`)
+| Keywords | Page |
+|---|---|
+| 53 content creation services | `/content-creation-services-patna/` (existing) |
+| 54 video content creation, 56 commercial video, 59 corporate video, 65 video editor hire | `/video-production-patna/` |
+| 55 graphic design and content creation, 67 flyer and catalog design | `/graphic-design-services-patna/` |
+| 57 podcast recording studio | `/podcast-production-patna/` |
+| 58 content writing agency, 62 blog writing, 63 website content creation | `/content-writing-services-patna/` |
+| 64 ad copywriter, 68 copywriter | `/copywriting-services-patna/` |
+| 60 product photography and video | `/product-photography-patna/` |
+| 69 2d animation video creator | `/2d-animation-explainer-videos-patna/` |
+| 70 content creation packages | `/content-creation-packages-patna/` |
+
+**Content marketing and strategy** (pillar: `/content-marketing-services-patna/`)
+| Keywords | Page |
+|---|---|
+| 71 content marketing services, 72 agency, 78 company near me | `/content-marketing-services-patna/` (existing; "near me" FAQ added) |
+| 73 content strategy consultant, 83 digital content strategy services | `/content-strategy-patna/` (existing) |
+| 74 content plan for small businesses | `/content-plan-small-business-patna/` |
+| 75 b2b content marketing agency | `/b2b-content-marketing-patna/` |
+| 76 seo content marketing | `/seo-content-marketing-patna/` |
+| 77 content distribution agency | `/content-distribution-agency-patna/` |
+| 79 brand storytelling | `/brand-storytelling-patna/` |
+| 80 content calendar creation | `/content-calendar-creation-patna/` |
+| 81 lead conversion content marketing | `/conversion-content-marketing-patna/` |
+| 82 inbound marketing agency | `/inbound-marketing-agency-patna/` |
+| 84 content marketing pricing | `/content-marketing-pricing-patna/` |
+| 85 content strategy for coaching institutes | `/coaching-institute-marketing-patna/` |
+
+**Niche, industry and locality**
+| Keywords | Page |
+|---|---|
+| 87 digital marketing for doctors, 96 hospital digital marketing | `/healthcare-digital-marketing-patna/` |
+| 88 real estate digital marketing agency | `/real-estate-digital-marketing-patna/` |
+| 89 coaching institute marketing | `/coaching-institute-marketing-patna/` |
+| 90 school promotion agency | `/school-promotion-agency-patna/` |
+| 91 digital marketing services in boring canal road | `/digital-marketing-company-boring-road-patna/` (existing) |
+| 92 website designer and seo expert | `/website-design-seo-patna/` |
+| 93 google ads agency | `/google-ads-agency-patna/` |
+| 94 saguna more | `/digital-marketing-company-saguna-more-patna/` |
+| 95 patliputra colony | `/digital-marketing-company-patliputra-colony-patna/` |
+| 97 restaurant social media marketing | `/restaurant-social-media-marketing-patna/` |
+| 98 election banner and digital campaign agency | `/election-campaign-digital-marketing-patna/` (non-partisan, follows Election Commission rules) |
+| 99 best agency for lead generation in bihar | `/lead-generation-agency-patna/` (existing) |
+| 100 digital marketing strategy consultation | `/digital-marketing-expert-patna/` (existing) |
+
+**Check before publishing:** the podcast page (studio setup), the SEO training page (only if you run training) and the election page (whether you want political clients). Also replace the "Custom quote" placeholders with real prices.
+
 ## Keywords left out on purpose
 
-- **Election campaigns** (`election banner and digital campaign agency patna`): this is a high-volume search in Bihar but a brand-risk decision. Add a dedicated page only if leadership wants political clients.
 
 ## Technical SEO, GEO and AEO already built in
 
