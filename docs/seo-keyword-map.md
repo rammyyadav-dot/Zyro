@@ -16,10 +16,36 @@ Each page gets one main keyword cluster, so pages don't compete with each other 
 | `/areas-we-serve/` | digital marketing agency patna & bihar | digital marketing company in boring road / kankarbagh / patliputra colony / saguna more patna, digital marketing services in boring canal road, Gaya / Muzaffarpur / Bhagalpur |
 | `/about/`, `/contact/` | brand and conversion pages | digital marketing strategy consultation patna, free seo consultation patna |
 
+## High-intent agency and training pages (round 2)
+
+| # | Keyword | Page | Angle that keeps it distinct |
+|---|---|---|---|
+| 1 | digital marketing agency in patna | `/digital-marketing-agency-patna/` (existing) | Main service page, now linking to the new pages |
+| 2 | best digital marketing company in patna | `/best-digital-marketing-company-patna/` | 8 criteria for choosing an agency, comparison table |
+| 3 | digital marketing services patna | `/services/` (existing, strengthened) | New H1 and FAQ block (FAQPage schema) |
+| 4 | digital marketing institute in patna | `/digital-marketing-institute-patna/` | Academy run by a working agency, training formats |
+| 5 | top 10 digital marketing agency in patna | `/top-digital-marketing-agencies-patna/` | 10-point test plus red flags (Article schema) |
+| 6 | digital marketing course in patna | `/digital-marketing-course-patna/` | 12-module curriculum (Course schema) |
+| 7 | digital marketing expert in patna | `/digital-marketing-expert-patna/` | Audits, consultation, part-time marketing lead |
+| 8 | online marketing agency patna | `/online-marketing-agency-patna/` | Getting an offline business online, 7-step checklist |
+| 9 | digital marketing agency near me patna | `/digital-marketing-agency-near-me-patna/` | In-person meetings, neighbourhoods, how "near me" search works |
+| 10 | cheap digital marketing services in patna | `/cheap-digital-marketing-services-patna/` | Cheap vs affordable, starter packages |
+| 11 | digital marketing package cost in patna | `/digital-marketing-packages-cost-patna/` | Packages, what affects cost, budget guide |
+| 12 | digital marketing company in boring road patna | `/digital-marketing-company-boring-road-patna/` | Playbooks for the street's business types |
+| 13 | digital marketing services for small business patna | `/digital-marketing-small-business-patna/` | 90-day plan |
+| 14 | b2b digital marketing agency patna | `/b2b-digital-marketing-agency-patna/` | B2B funnel table, LinkedIn |
+| 15 | digital marketing company in kankarbagh patna | `/digital-marketing-company-kankarbagh-patna/` | Residential-area playbooks |
+| 16 | lead generation agency in patna | `/lead-generation-agency-patna/` | Channel × intent table, lead system |
+| 17 | freelance digital marketer in patna | `/freelance-digital-marketer-patna/` | Freelancer vs agency, project-based options |
+| 18 | full service digital marketing firm patna | `/full-service-digital-marketing-firm-patna/` | Capability map |
+| — | (hub) | `/digital-marketing-patna-guide/` | Hub page linking every page above, ItemList schema |
+
+**Fill in before publishing:**
+- `PACKAGES[*].price` in `build/landing_content.py`. Real starting prices make the cost and cheap pages much stronger.
+- `COURSE` details (duration, fee, next batch). Publish the course and institute pages only if Zytrostyle actually runs training.
+
 ## Keywords left out on purpose
 
-- **Training intent** (`digital marketing course / institute in patna`, `seo training in patna`): these searchers want to learn, not to hire an agency. Add an `/academy/` page only if Zytrostyle actually runs courses.
-- **Freelancer intent** (`freelance digital marketer`, `seo freelancer in patna`): the agency copy covers these lightly. Targeting them more directly would weaken the agency positioning.
 - **Election campaigns** (`election banner and digital campaign agency patna`): this is a high-volume search in Bihar but a brand-risk decision. Add a dedicated page only if leadership wants political clients.
 
 ## Technical SEO, GEO and AEO already built in

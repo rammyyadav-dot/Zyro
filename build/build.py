@@ -12,6 +12,7 @@ import json
 import os
 from datetime import date
 
+from landing_content import COURSE, COURSE_MODULES, LANDINGS, PACKAGES
 from content import (AI_SEARCH, AREAS, BIHAR_CITIES, HOME_FAQS, INDUSTRIES, PATNA_AREAS,
                      PILLARS, PROCESS, SERVICES, SITE, TICKER, WHY)
 
@@ -23,7 +24,9 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@
 SVC = {s["slug"]: s for s in SERVICES}
 NAMES = {**{s["slug"]: s["nav"] for s in SERVICES}, AI_SEARCH["slug"]: AI_SEARCH["nav"],
          "industries": "Industries", "services": "Services", "areas-we-serve": "Areas We Serve",
-         "about": "About", "contact": "Contact", "": "Home", "privacy-policy": "Privacy Policy"}
+         "about": "About", "contact": "Contact", "": "Home", "privacy-policy": "Privacy Policy",
+         "digital-marketing-patna-guide": "Patna Marketing Hub"}
+NAMES.update({l["slug"]: l["primary"].title().replace(" In ", " in ") for l in LANDINGS})
 ORG_ID = BASE + "/#organization"
 PAGES = []  # (slug, priority) for the sitemap
 
@@ -214,7 +217,7 @@ def nav(ctx):
       <ul class="nav-links">
         <li class="has-sub"><a href="{ctx.href('services')}"{cur('services')}>Services</a><ul class="subnav">{sub}</ul></li>
         <li><a href="{ctx.href('industries')}"{cur('industries')}>Industries</a></li>
-        <li><a href="{ctx.href('areas-we-serve')}"{cur('areas-we-serve')}>Patna &amp; Bihar</a></li>
+        <li><a href="{ctx.href('digital-marketing-patna-guide')}"{cur('digital-marketing-patna-guide')}>Patna Hub</a></li>
         <li><a href="{ctx.href('about')}"{cur('about')}>About</a></li>
         <li><a class="btn btn-dark btn-sm nav-cta" href="{ctx.href('contact')}">Free Consultation</a></li>
       </ul>
@@ -233,6 +236,8 @@ def footer(ctx):
     addr = ", ".join(x for x in [SITE["street"], SITE["locality"], SITE["region"], SITE["postal_code"]] if x)
     contact += f"<li><a href=\"{ctx.href('contact')}\">{esc(addr)}, India</a></li>"
     social = "".join(f'<li><a href="{u}" rel="noopener" target="_blank">{u.split("//")[-1].split("/")[0].replace("www.", "").split(".")[0].title()}</a></li>' for u in SITE["social"])
+    popular = " · ".join(f'<a href="{ctx.href(l["slug"])}">{esc(l["primary"].title())}</a>' for l in LANDINGS)
+    popular += f' · <a href="{ctx.href("digital-marketing-patna-guide")}">All Patna Guides</a>'
     wa = ""
     if SITE["whatsapp"]:
         wa = (f'<a class="float-wa" href="https://wa.me/{SITE["whatsapp"]}?text='
@@ -266,6 +271,7 @@ def footer(ctx):
         <ul class="footer-links">{contact}{social}</ul>
       </div>
     </div>
+    <p class="footer-services footer-popular">Popular in Patna: {popular}</p>
     <p class="footer-services">SEO · Local SEO · GEO · AEO · Content Creation · Content Strategy · Content Marketing · Digital Marketing · Social Media Marketing · Lead Generation · Google Ads · Meta Ads<br>Service location: Patna, Bihar, India — serving {", ".join(PATNA_AREAS[:6])} &amp; all of Bihar</p>
     <div class="footer-bottom">
       <span>© <span id="year">2026</span> Zytrostyle. All rights reserved.</span>
@@ -629,14 +635,21 @@ def build_services_hub():
     extra = [{"@type": "ItemList", "name": "Zytrostyle services", "itemListElement": [
         {"@type": "ListItem", "position": i + 1, "url": canonical(s["slug"]), "name": s["card_title"]}
         for i, s in enumerate(SERVICES)]}]
-    body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, extra, page_type="CollectionPage")) + nav(ctx)
+    faqs = [
+        ("What digital marketing services do you offer in Patna?", "Zytrostyle offers SEO and local SEO, GEO and AEO (AI search optimisation), content creation, content strategy, content marketing, social media marketing, Google Ads, Meta Ads, lead generation, landing pages and analytics for businesses in Patna and across Bihar."),
+        ("Can I choose only one digital marketing service?", "Yes. You can start with a single service such as SEO or social media and add more as results grow, or choose a full-service plan with everything connected."),
+        ("Which digital marketing service should my business start with?", "Most local businesses get the fastest return from Google Business Profile optimisation and local SEO, followed by social media and targeted ads. We recommend priorities after a free audit."),
+        ("Do you serve businesses outside Patna?", "Yes. We serve clients across Bihar — including Gaya, Muzaffarpur, Bhagalpur and Darbhanga — and across India."),
+    ]
+    body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, extra, faqs, page_type="CollectionPage")) + nav(ctx)
     body += '<main id="main">\n'
-    body += hero(ctx, "Our Services", "Everything your brand needs <em>to grow.</em>",
+    body += hero(ctx, "Digital Marketing Services in Patna", "Digital marketing services in Patna — <em>everything your brand needs to grow.</em>",
                  "One growth partner. Six connected marketing capabilities. We connect content, search, creativity and paid media to build a complete digital growth engine for businesses in Patna, Bihar and across India.",
                  crumbs, ctas=[("Get Your Free Consultation", "contact", "btn-light"), ("Explore Industries", "industries", "btn-line")])
     body += f'<section class="section"><div class="wrap">{service_cards(ctx)}</div></section>\n'
     body += triad_section(ctx)
     body += why_section("warm")
+    body += faq_section(faqs, title="Digital marketing services in Patna — <em>FAQs.</em>", cls="")
     body += cta_section(ctx)
     body += "</main>\n" + footer(ctx)
     write("services", body, "0.9")
@@ -900,11 +913,182 @@ def build_meta_files():
              "- Industries: healthcare, real estate, education & coaching, hospitality, retail & e-commerce, travel, startups & B2B", "",
              "## Services", ""]
     lines += [f"- [{s['card_title']}]({canonical(s['slug'])}): {s['card_text']}" for s in SERVICES]
-    lines += [f"- [{AI_SEARCH['nav']}]({canonical(AI_SEARCH['slug'])}): {AI_SEARCH['description']}", "", "## Company", "",
+    lines += [f"- [{AI_SEARCH['nav']}]({canonical(AI_SEARCH['slug'])}): {AI_SEARCH['description']}", "", "## Patna guides", ""]
+    lines += [f"- [{l['primary'].title()}]({canonical(l['slug'])}): {l['hub']}" for l in LANDINGS]
+    lines += ["", "## Company", "",
               f"- [About]({canonical('about')})", f"- [Industries]({canonical('industries')})",
               f"- [Areas we serve]({canonical('areas-we-serve')})", f"- [Contact]({canonical('contact')})", ""]
     with open(os.path.join(ROOT, "llms.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
+
+
+# ── HIGH-INTENT LANDING PAGES ────────────────────────────────────────────────
+def packages_html(ctx):
+    cards = []
+    for p in PACKAGES:
+        price = f'<p class="pkg-price">{esc(p["price"])}</p>' if p["price"] else '<p class="pkg-price muted">Custom quote</p>'
+        pts = "".join(f"<li>{x}</li>" for x in p["points"])
+        cards.append(f"""<article class="card pkg reveal"><span class="num">{p['sub']}</span><h3>{p['name']}</h3>{price}
+<p>{p['for']}</p><ul>{pts}</ul><a class="btn btn-dark btn-sm" href="{ctx.href('contact')}">Get {p['name']} Quote</a></article>""")
+    return f'<div class="grid-3">{"".join(cards)}</div>'
+
+
+def section_html(ctx, sec, idx):
+    t = sec["type"]
+    cls = ["", "warm", "", "stone"][idx % 4]
+    label = sec.get("label", "")
+    h2 = sec.get("h2", "")
+    lead = f'<p class="lead">{sec["lead"]}</p>' if sec.get("lead") else "<div></div>"
+    headblock = f'<div class="section-head reveal"><div><span class="label">{label}</span><h2 class="h-lg">{h2}</h2></div>{lead}</div>'
+    if t == "process":
+        return process_section()
+    if t == "prose":
+        paras = "".join(f"<p>{p}</p>" for p in sec["paras"])
+        return f"""<section class="section {cls}"><div class="wrap grid-2">
+<div class="reveal"><span class="label">{label}</span><h2 class="h-lg">{h2}</h2></div><div class="prose reveal">{paras}</div></div></section>
+"""
+    if t == "checklist":
+        items = "".join(f"<li>{i}</li>" for i in sec["items"])
+        return f'<section class="section {cls}"><div class="wrap">{headblock}<ul class="check-list reveal">{items}</ul></div></section>\n'
+    if t == "numlist":
+        items = "".join(f'<li><span class="n">{i+1:02d}</span><div><h3>{a}</h3><p>{b}</p></div></li>' for i, (a, b) in enumerate(sec["items"]))
+        return f"""<section class="section {cls}"><div class="wrap grid-2">
+<div class="reveal"><span class="label">{label}</span><h2 class="h-lg">{h2}</h2>{('<p class="lead" style="margin-top:24px">' + sec['lead'] + '</p>') if sec.get('lead') else ''}
+<div class="btn-row"><a class="btn btn-dark" href="{ctx.href('contact')}">Get Your Free Consultation</a></div></div>
+<ul class="num-list reveal">{items}</ul></div></section>
+"""
+    if t == "cards":
+        cards = []
+        for c in sec["cards"]:
+            pts = "".join(f"<li>{x}</li>" for x in (c[2] if len(c) > 2 else []))
+            cards.append(f'<article class="card reveal"><h3>{c[0]}</h3><p>{c[1]}</p>{"<ul>" + pts + "</ul>" if pts else ""}</article>')
+        grid = "grid-4" if len(cards) == 4 else "grid-3"
+        return f'<section class="section {cls}"><div class="wrap">{headblock}<div class="{grid}">{"".join(cards)}</div></div></section>\n'
+    if t == "table":
+        th = "".join(f'<th scope="col">{h}</th>' for h in sec["head"])
+        rows = "".join("<tr>" + "".join((f'<th scope="row">{c}</th>' if j == 0 else f"<td>{c}</td>") for j, c in enumerate(r)) + "</tr>" for r in sec["rows"])
+        return f"""<section class="section {cls}"><div class="wrap">{headblock}
+<div class="table-wrap reveal"><table class="data-table"><thead><tr>{th}</tr></thead><tbody>{rows}</tbody></table></div></div></section>
+"""
+    if t == "packages":
+        note = '<p class="form-note reveal" style="margin-top:20px">Ad spend is paid directly to Google/Meta and is not included in management fees. All packages are customised after a free consultation.</p>'
+        return f'<section class="section {cls}"><div class="wrap">{headblock}{packages_html(ctx)}{note}</div></section>\n'
+    if t == "curriculum":
+        mods = "".join(f'<li><span class="n">Module {i+1:02d}</span><h3>{a}</h3><p>{b}</p></li>' for i, (a, b) in enumerate(COURSE_MODULES))
+        return f'<section class="section {cls}"><div class="wrap">{headblock}<ol class="curriculum reveal">{mods}</ol></div></section>\n'
+    if t == "coursefacts":
+        facts = [("Duration", COURSE["duration"] or "Contact us for batch options"),
+                 ("Format", COURSE["mode"]),
+                 ("Fee", COURSE["fee"] or "Contact us for current fees"),
+                 ("Next batch", COURSE["next_batch"] or "Enquire for the next start date")]
+        f = "".join(f"<div><span>{a}</span><strong>{b}</strong></div>" for a, b in facts)
+        return f'<section class="section tight"><div class="wrap"><div class="strip facts reveal">{f}</div></div></section>\n'
+    if t == "areas":
+        blocks = "".join(f'<div class="area-block reveal"><h3>{a}</h3><p>{b}</p></div>' for a, b in sec["items"])
+        return f"""<section class="section {cls}"><div class="wrap grid-2">
+<div class="reveal"><span class="label">{label}</span><h2 class="h-lg">{h2}</h2></div><div>{blocks}</div></div></section>
+"""
+    raise ValueError(t)
+
+
+def landing_schema_extra(l):
+    url = canonical(l["slug"])
+    kind = l.get("schema")
+    if kind == "service":
+        sv = service_schema(l["primary"].title(), l["slug"], l["service_type"], l["description"])
+        if l.get("area"):
+            sv["areaServed"] = [{"@type": "Place", "name": l["area"]}, {"@type": "City", "name": "Patna"}]
+        return [sv]
+    if kind == "course":
+        c = {"@type": "Course", "@id": url + "#course", "name": "Digital Marketing Course in Patna",
+             "description": l["description"], "url": url, "inLanguage": ["en-IN", "hi-IN"],
+             "provider": {"@id": ORG_ID},
+             "syllabusSections": [{"@type": "Syllabus", "name": a, "description": b} for a, b in COURSE_MODULES],
+             "hasCourseInstance": [{"@type": "CourseInstance", "courseMode": m, "location": "Patna, Bihar"}
+                                   for m in ("Onsite", "Online")]}
+        if COURSE["fee"]:
+            c["offers"] = {"@type": "Offer", "category": "Paid", "priceCurrency": "INR", "description": COURSE["fee"]}
+        return [c]
+    if kind == "article":
+        return [{"@type": "Article", "@id": url + "#article", "headline": strip_tags(l["h1"]), "description": l["description"],
+                 "author": {"@id": ORG_ID}, "publisher": {"@id": ORG_ID}, "dateModified": TODAY, "mainEntityOfPage": url}]
+    if kind == "org":
+        return [{"@type": "EducationalOrganization", "@id": url + "#academy", "name": "Zytrostyle Academy",
+                 "url": url, "parentOrganization": {"@id": ORG_ID},
+                 "address": {"@type": "PostalAddress", "addressLocality": "Patna", "addressRegion": "Bihar", "addressCountry": "IN"}}]
+    return []
+
+
+def proper(kw):
+    out = kw[0].upper() + kw[1:]
+    for a, b in [("patna", "Patna"), ("b2b", "B2B"), ("boring road", "Boring Road"), ("kankarbagh", "Kankarbagh"), ("bihar", "Bihar")]:
+        out = out.replace(a, b)
+    return out
+
+
+def build_landing(l):
+    ctx = Ctx(l["slug"])
+    crumbs = [("Home", ""), ("Patna Hub", "digital-marketing-patna-guide"), (l["primary"].title(), l["slug"])]
+    schema = page_schema(ctx, l["title"], l["description"], crumbs, landing_schema_extra(l), l["faqs"])
+    body = head(ctx, l["title"], l["description"], l["keywords"], schema) + nav(ctx)
+    body += '<main id="main">\n'
+    body += hero(ctx, l["eyebrow"], l["h1"], l["lead"], crumbs, strap=l.get("strap"),
+                 ctas=l.get("ctas") or [("Get Your Free Consultation", "contact", "btn-light"), ("Read FAQs", "#faq", "btn-line")],
+                 meta=["Patna, Bihar", "Award-Winning Agency", "Transparent Reporting"])
+    for i, sec in enumerate(l["sections"]):
+        body += section_html(ctx, sec, i)
+    body += faq_section(l["faqs"], title=f"{esc(proper(l['primary']))} — <em>FAQs.</em>")
+    rel = "".join(f'<li><a href="{ctx.href(r)}">{esc(NAMES[r])}</a></li>' for r in l["related"])
+    rel += f'<li><a href="{ctx.href("digital-marketing-patna-guide")}">All Patna Guides</a></li>'
+    body += f'<section class="section tight"><div class="wrap"><span class="label reveal">Related</span><ul class="related reveal">{rel}</ul></div></section>\n'
+    body += cta_section(ctx)
+    body += "</main>\n" + footer(ctx)
+    write(l["slug"], body, "0.8")
+
+
+HUB_GROUPS = [
+    ("Choosing an Agency", ["digital-marketing-agency-patna", "best-digital-marketing-company-patna", "top-digital-marketing-agencies-patna",
+                            "full-service-digital-marketing-firm-patna", "online-marketing-agency-patna", "digital-marketing-expert-patna"]),
+    ("Pricing &amp; Small Business", ["digital-marketing-packages-cost-patna", "cheap-digital-marketing-services-patna",
+                                     "digital-marketing-small-business-patna", "freelance-digital-marketer-patna"]),
+    ("Leads &amp; B2B", ["lead-generation-agency-patna", "b2b-digital-marketing-agency-patna", "services"]),
+    ("Near You in Patna", ["digital-marketing-agency-near-me-patna", "digital-marketing-company-boring-road-patna",
+                           "digital-marketing-company-kankarbagh-patna", "areas-we-serve"]),
+    ("Learn Digital Marketing", ["digital-marketing-course-patna", "digital-marketing-institute-patna"]),
+]
+
+
+def build_hub():
+    ctx = Ctx("digital-marketing-patna-guide")
+    title = "Patna Digital Marketing Hub | Agencies, Costs, Courses & Local Guides"
+    desc = "Everything Patna businesses search for in digital marketing — choosing an agency, package costs, lead generation, local services and courses, in one place."
+    kw = ", ".join(l["primary"] for l in LANDINGS)
+    crumbs = [("Home", ""), ("Patna Hub", "digital-marketing-patna-guide")]
+    by = {l["slug"]: l for l in LANDINGS}
+    order = [sl for _, g in HUB_GROUPS for sl in g]
+    extra = [{"@type": "ItemList", "name": "Digital marketing in Patna — guides and services", "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "url": canonical(sl), "name": NAMES[sl]} for i, sl in enumerate(order)]}]
+    body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, extra, page_type="CollectionPage")) + nav(ctx)
+    body += '<main id="main">\n'
+    body += hero(ctx, "Patna Digital Marketing Hub", "Everything Patna searches for <em>in digital marketing.</em>",
+                 "Agencies, costs, local services, lead generation and courses — answered honestly by Zytrostyle, an award-winning content marketing and SEO agency in Patna, Bihar.",
+                 crumbs, strap="Get Found. Get Noticed. Get Chosen.")
+    for i, (gname, slugs) in enumerate(HUB_GROUPS):
+        cards = []
+        for sl in slugs:
+            if sl in by:
+                blurb = by[sl]["hub"]
+            elif sl in SVC:
+                blurb = SVC[sl]["card_text"]
+            else:
+                blurb = {"services": "All Zytrostyle digital marketing services in Patna — SEO, content, social, ads, GEO & AEO.",
+                         "areas-we-serve": "Every Patna neighbourhood and Bihar city we serve."}.get(sl, "")
+            cards.append(f'<article class="card service-card reveal"><h3><a href="{ctx.href(sl)}" style="text-decoration:none">{esc(NAMES[sl])}</a></h3><p>{blurb}</p><a class="link-arrow" href="{ctx.href(sl)}">Read more</a></article>')
+        cls = "warm" if i % 2 else ""
+        body += f'<section class="section {cls}"><div class="wrap"><div class="section-head single reveal"><div><span class="label">{i+1:02d}</span><h2 class="h-lg">{gname}</h2></div></div><div class="grid-3">{"".join(cards)}</div></div></section>\n'
+    body += cta_section(ctx)
+    body += "</main>\n" + footer(ctx)
+    write("digital-marketing-patna-guide", body, "0.8")
 
 
 if __name__ == "__main__":
@@ -913,6 +1097,9 @@ if __name__ == "__main__":
     for svc in SERVICES:
         build_service(svc)
     build_ai_search()
+    for land in LANDINGS:
+        build_landing(land)
+    build_hub()
     build_industries()
     build_areas()
     build_about()
