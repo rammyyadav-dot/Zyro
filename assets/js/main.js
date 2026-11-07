@@ -21,6 +21,14 @@
     });
   }
 
+  // Mobile sub-menus (accordion)
+  document.querySelectorAll('.sub-toggle').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var li = b.parentNode, open = li.classList.toggle('open');
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
   // ── Split headings into words (keeps <em> and other inline markup) ───
   function splitWords(el) {
     var i = 0;

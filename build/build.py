@@ -13,6 +13,8 @@ import os
 from datetime import date
 
 from photos import ALT, INDUSTRY_PHOTOS, PAGE_PHOTOS
+from clusters_a import SEO_PAGES, SMM_PAGES
+from clusters_b import CREATION_PAGES, NICHE_PAGES, STRATEGY_PAGES
 from landing_content import COURSE, COURSE_MODULES, LANDINGS, PACKAGES
 from content import (AI_SEARCH, AREAS, BIHAR_CITIES, HOME_FAQS, INDUSTRIES, PATNA_AREAS,
                      PILLARS, PROCESS, SERVICES, SITE, TICKER, WHY)
@@ -35,7 +37,32 @@ NAMES = {**{s["slug"]: s["nav"] for s in SERVICES}, AI_SEARCH["slug"]: AI_SEARCH
          "about": "About", "contact": "Contact", "": "Home", "privacy-policy": "Privacy Policy",
          "digital-marketing-patna-guide": "Patna Marketing Hub"}
 NAMES.update({l["slug"]: l["primary"].title().replace(" In ", " in ") for l in LANDINGS})
+
 ORG_ID = BASE + "/#organization"
+
+# ── Service clusters: group key -> (menu title, parent pillar slug, pages) ──
+_by = {p["slug"]: p for p in NICHE_PAGES}
+CLUSTERS = [
+    ("seo", "SEO", "seo-services-patna", SEO_PAGES),
+    ("social", "Social Media", "social-media-marketing-patna", SMM_PAGES),
+    ("creation", "Content Creation", "content-creation-services-patna", CREATION_PAGES),
+    ("content", "Content Marketing", "content-marketing-services-patna", STRATEGY_PAGES),
+    ("ads", "Ads &amp; Web", "digital-marketing-agency-patna", [_by["google-ads-agency-patna"], _by["website-design-seo-patna"]]),
+    ("industry", "Industries", "industries", [_by[k] for k in ("healthcare-digital-marketing-patna", "real-estate-digital-marketing-patna",
+        "coaching-institute-marketing-patna", "school-promotion-agency-patna", "restaurant-social-media-marketing-patna",
+        "election-campaign-digital-marketing-patna")]),
+    ("local", "Patna Areas", "areas-we-serve", [_by["digital-marketing-company-saguna-more-patna"], _by["digital-marketing-company-patliputra-colony-patna"]]),
+]
+CLUSTER_PAGES = []
+for _key, _title, _parent, _pages in CLUSTERS:
+    for _p in _pages:
+        _p.setdefault("schema", "service")
+        _p["parent"] = _parent
+        _p["cluster"] = _key
+        PAGE_PHOTOS[_p["slug"]] = _p["photo"]
+        CLUSTER_PAGES.append(_p)
+CHILDREN = {_parent: _pages for _key, _title, _parent, _pages in CLUSTERS}
+NAMES.update({p["slug"]: p["nav"] for p in CLUSTER_PAGES})
 PAGES = []  # (slug, priority) for the sitemap
 
 
@@ -212,11 +239,42 @@ def head(ctx, title, desc, keywords, schema, robots="index, follow, max-image-pr
 """
 
 
+MENU_EXTRA = {
+    "seo": [("ai-search-optimisation-geo-aeo", "AI Search (GEO & AEO)")],
+    "content": [("content-strategy-patna", "Content Strategy")],
+    "ads": [("lead-generation-agency-patna", "Lead Generation"), ("full-service-digital-marketing-firm-patna", "Full-Service Marketing"),
+            ("digital-marketing-packages-cost-patna", "Packages & Pricing")],
+}
+PATNA_MENU = [("digital-marketing-patna-guide", "Patna Hub"), ("areas-we-serve", "All Areas We Serve"),
+              ("digital-marketing-company-boring-road-patna", "Boring Road"), ("digital-marketing-company-kankarbagh-patna", "Kankarbagh"),
+              ("digital-marketing-company-saguna-more-patna", "Saguna More"), ("digital-marketing-company-patliputra-colony-patna", "Patliputra Colony"),
+              ("digital-marketing-agency-near-me-patna", "Agency Near Me"), ("best-digital-marketing-company-patna", "Best Agency Guide"),
+              ("digital-marketing-course-patna", "Digital Marketing Course"), ("digital-marketing-institute-patna", "Zyrostyle Academy")]
+
+
 def nav(ctx):
-    def cur(s):
-        return ' aria-current="page"' if ctx.slug == s else ""
-    sub = "".join(f'<li><a href="{ctx.href(s["slug"])}"{cur(s["slug"])}>{s["nav"]}</a></li>' for s in SERVICES)
-    sub += f'<li><a href="{ctx.href(AI_SEARCH["slug"])}"{cur(AI_SEARCH["slug"])}>{AI_SEARCH["nav"]}</a></li>'
+    def cur(sl):
+        return ' aria-current="page"' if ctx.slug == sl else ""
+
+    def link(sl, label):
+        return f'<li><a href="{ctx.href(sl)}"{cur(sl)}>{label}</a></li>'
+
+    cols = []
+    for key, title, parent, pages in CLUSTERS:
+        if key in ("industry", "local"):
+            continue
+        items = "".join(link(p["slug"], p["nav"]) for p in pages)
+        items += "".join(link(sl, lb) for sl, lb in MENU_EXTRA.get(key, []))
+        cols.append(f'<div class="mega-col"><a class="mega-h" href="{ctx.href(parent)}"{cur(parent)}>{title}</a><ul>{items}</ul></div>')
+    services_mega = (f'<div class="mega" id="mega-services"><div class="mega-inner">{"".join(cols)}'
+                     f'<div class="mega-foot"><a href="{ctx.href("services")}">All services →</a>'
+                     f'<a href="{ctx.href("contact")}">Free consultation →</a></div></div></div>')
+    ind = "".join(link(p["slug"], p["nav"]) for p in CHILDREN["industries"]) + link("industries", "All Industries")
+    pat = "".join(link(sl, lb) for sl, lb in PATNA_MENU)
+
+    def toggle(label, target):
+        return f'<button class="sub-toggle" aria-expanded="false" aria-controls="{target}" aria-label="Show {label} menu"><span></span></button>'
+
     return f"""<div class="scroll-progress" aria-hidden="true"><span></span></div>
 <header class="site-header">
   <nav class="nav" aria-label="Main">
@@ -224,9 +282,9 @@ def nav(ctx):
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
     <div class="nav-menu" id="nav-menu">
       <ul class="nav-links">
-        <li class="has-sub"><a href="{ctx.href('services')}"{cur('services')}>Services</a><ul class="subnav">{sub}</ul></li>
-        <li><a href="{ctx.href('industries')}"{cur('industries')}>Industries</a></li>
-        <li><a href="{ctx.href('digital-marketing-patna-guide')}"{cur('digital-marketing-patna-guide')}>Patna Hub</a></li>
+        <li class="has-mega"><a href="{ctx.href('services')}"{cur('services')}>Services</a>{toggle('Services', 'mega-services')}{services_mega}</li>
+        <li class="has-sub"><a href="{ctx.href('industries')}"{cur('industries')}>Industries</a>{toggle('Industries', 'sub-industries')}<ul class="subnav" id="sub-industries">{ind}</ul></li>
+        <li class="has-sub"><a href="{ctx.href('digital-marketing-patna-guide')}"{cur('digital-marketing-patna-guide')}>Patna</a>{toggle('Patna', 'sub-patna')}<ul class="subnav" id="sub-patna">{pat}</ul></li>
         <li><a href="{ctx.href('about')}"{cur('about')}>About</a></li>
         <li><a class="btn btn-dark btn-sm nav-cta" href="{ctx.href('contact')}">Free Consultation</a></li>
       </ul>
@@ -705,6 +763,24 @@ def build_home():
     write("", body, "1.0")
 
 
+def cluster_grid(ctx, parent, title=None):
+    kids = CHILDREN.get(parent)
+    if not kids:
+        return ""
+    cards = "".join(f"""<a class="cg-card reveal" href="{ctx.href(p['slug'])}">
+  <span class="cg-img">{pic(ctx, p['photo'][0], sizes="(max-width: 640px) 100vw, 25vw")}</span>
+  <span class="cg-name">{p['nav']}</span><span class="cg-desc">{esc(strip_tags(p['strap']))}</span>
+</a>""" for p in kids)
+    title = title or f"Specialist {NAMES[parent].replace('Services', '').strip()} services <em>in Patna.</em>"
+    return f"""<section class="section cg">
+  <div class="wrap">
+    <div class="section-head single reveal"><div><span class="label">Explore</span><h2 class="h-lg">{title}</h2></div></div>
+    <div class="cg-grid">{cards}</div>
+  </div>
+</section>
+"""
+
+
 def build_service(s):
     ctx = Ctx(s["slug"])
     crumbs = [("Home", ""), ("Services", "services"), (s["nav"], s["slug"])]
@@ -751,6 +827,7 @@ def build_service(s):
   </div>
 </section>
 """
+    body += cluster_grid(ctx, s["slug"])
     body += process_section()
     body += faq_section(s["faqs"], title=f"{s['nav']} in Patna — <em>your questions answered.</em>")
     body += f"""<section class="section tight">
@@ -787,6 +864,15 @@ def build_services_hub():
                  "One growth partner. Six connected marketing capabilities. We connect content, search, creativity and paid media to build a complete digital growth engine for businesses in Patna, Bihar and across India.",
                  crumbs, ctas=[("Get Your Free Consultation", "contact", "btn-light"), ("Explore Industries", "industries", "btn-line")])
     body += f'<section class="section"><div class="wrap">{service_cards(ctx)}</div></section>\n'
+    groups = []
+    for key, title, parent, pages in CLUSTERS:
+        items = "".join(f'<li><a href="{ctx.href(p["slug"])}">{p["nav"]}</a></li>' for p in pages)
+        items += "".join(f'<li><a href="{ctx.href(sl)}">{lb}</a></li>' for sl, lb in MENU_EXTRA.get(key, []))
+        groups.append(f'<div class="reveal"><h3><a href="{ctx.href(parent)}">{title}</a></h3><ul>{items}</ul></div>')
+    body += f"""<section class="section warm"><div class="wrap">
+<div class="section-head single reveal"><div><span class="label">Service Directory</span><h2 class="h-lg">Every service, <em>one place.</em></h2></div></div>
+<div class="dir">{"".join(groups)}</div></div></section>
+"""
     body += mega_marquee()
     body += triad_section(ctx)
     body += why_section("warm")
@@ -858,6 +944,7 @@ def build_industries():
   </div>
 </section>
 """
+    body += cluster_grid(ctx, "industries", title="Industry marketing <em>in Patna.</em>")
     body += cta_section(ctx, title="Don't see your industry? <em>Let's talk.</em>",
                         text="We work with manufacturers, NGOs, professional firms, automobile dealers, jewellers, interior designers and many more. Tell us about your market and we'll build a strategy around it.")
     body += "</main>\n" + footer(ctx)
@@ -914,6 +1001,7 @@ def build_areas():
         ("Can you help my business rank in a specific Patna locality?", "Yes. Through Google Business Profile optimisation, locality-relevant content, local citations and review strategy, we help businesses improve visibility for searches in specific areas such as Boring Road, Kankarbagh or Patliputra Colony."),
         ("Do you create Hindi and Hinglish content for Bihar audiences?", "Yes. We create English, Hindi and Hinglish content depending on how your audience searches and engages."),
     ]
+    body += cluster_grid(ctx, "areas-we-serve", title="Neighbourhood <em>guides.</em>")
     body += faq_section(faqs, cls="")
     body += cta_section(ctx)
     body += "</main>\n" + footer(ctx)
@@ -1060,6 +1148,9 @@ def build_meta_files():
     lines += [f"- [{s['card_title']}]({canonical(s['slug'])}): {s['card_text']}" for s in SERVICES]
     lines += [f"- [{AI_SEARCH['nav']}]({canonical(AI_SEARCH['slug'])}): {AI_SEARCH['description']}", "", "## Patna guides", ""]
     lines += [f"- [{l['primary'].title()}]({canonical(l['slug'])}): {l['hub']}" for l in LANDINGS]
+    for key, title, parent, pages in CLUSTERS:
+        lines += ["", f"## {strip_tags(title).replace('&amp;', '&')}", ""]
+        lines += [f"- [{p['nav']}]({canonical(p['slug'])}): {p['description']}" for p in pages]
     lines += ["", "## Company", "",
               f"- [About]({canonical('about')})", f"- [Industries]({canonical('industries')})",
               f"- [Areas we serve]({canonical('areas-we-serve')})", f"- [Contact]({canonical('contact')})", ""]
@@ -1118,6 +1209,14 @@ def section_html(ctx, sec, idx):
     if t == "packages":
         note = '<p class="form-note reveal" style="margin-top:20px">Ad spend is paid directly to Google/Meta and is not included in management fees. All packages are customised after a free consultation.</p>'
         return f'<section class="section {cls}"><div class="wrap">{headblock}{packages_html(ctx)}{note}</div></section>\n'
+    if t == "tiers":
+        cards = []
+        for p in sec["tiers"]:
+            pts = "".join(f"<li>{x}</li>" for x in p["points"])
+            cards.append(f"""<article class="card pkg reveal"><span class="num">{p['sub']}</span><h3>{p['name']}</h3><p class="pkg-price muted">Custom quote</p>
+<p>{p['for']}</p><ul>{pts}</ul><a class="btn btn-dark btn-sm" href="{ctx.href('contact')}">Get {p['name']} Quote</a></article>""")
+        note = '<p class="form-note reveal" style="margin-top:20px">Every plan is customised after a free consultation. Ad budgets are paid directly to the platform and kept separate from fees.</p>'
+        return f'<section class="section {cls}"><div class="wrap">{headblock}<div class="grid-3">{"".join(cards)}</div>{note}</div></section>\n'
     if t == "curriculum":
         mods = "".join(f'<li><span class="n">Module {i+1:02d}</span><h3>{a}</h3><p>{b}</p></li>' for i, (a, b) in enumerate(COURSE_MODULES))
         return f'<section class="section {cls}"><div class="wrap">{headblock}<ol class="curriculum reveal">{mods}</ol></div></section>\n'
@@ -1145,7 +1244,7 @@ def landing_schema_extra(l):
             sv["areaServed"] = [{"@type": "Place", "name": l["area"]}, {"@type": "City", "name": "Patna"}]
         return [sv]
     if kind == "course":
-        c = {"@type": "Course", "@id": url + "#course", "name": "Digital Marketing Course in Patna",
+        c = {"@type": "Course", "@id": url + "#course", "name": proper(l["primary"]) if l.get("cluster") else "Digital Marketing Course in Patna",
              "description": l["description"], "url": url, "inLanguage": ["en-IN", "hi-IN"],
              "provider": {"@id": ORG_ID},
              "syllabusSections": [{"@type": "Syllabus", "name": a, "description": b} for a, b in COURSE_MODULES],
@@ -1173,7 +1272,17 @@ def proper(kw):
 
 def build_landing(l):
     ctx = Ctx(l["slug"])
-    crumbs = [("Home", ""), ("Patna Hub", "digital-marketing-patna-guide"), (l["primary"].title(), l["slug"])]
+    if l.get("parent"):
+        par = l["parent"]
+        crumbs = [("Home", ""), ("Services", "services"), (NAMES[par], par), (l["nav"], l["slug"])]
+        if par in ("industries", "areas-we-serve"):
+            crumbs = [("Home", ""), (NAMES[par], par), (l["nav"], l["slug"])]
+        if not l.get("related"):
+            sib = [p["slug"] for p in CHILDREN[par] if p["slug"] != l["slug"]]
+            i0 = [p["slug"] for p in CHILDREN[par]].index(l["slug"])
+            l["related"] = [par] + (sib[i0:] + sib[:i0])[:4]
+    else:
+        crumbs = [("Home", ""), ("Patna Hub", "digital-marketing-patna-guide"), (l["primary"].title(), l["slug"])]
     schema = page_schema(ctx, l["title"], l["description"], crumbs, landing_schema_extra(l), l["faqs"])
     body = head(ctx, l["title"], l["description"], l["keywords"], schema) + nav(ctx)
     body += '<main id="main">\n'
@@ -1186,7 +1295,8 @@ def build_landing(l):
             body += img_band(ctx, l.get("strap") or "Get Found. Get Noticed. Get Chosen.", label=proper(l["primary"]))
     body += faq_section(l["faqs"], title=f"{esc(proper(l['primary']))} — <em>FAQs.</em>")
     rel = "".join(f'<li><a href="{ctx.href(r)}">{esc(NAMES[r])}</a></li>' for r in l["related"])
-    rel += f'<li><a href="{ctx.href("digital-marketing-patna-guide")}">All Patna Guides</a></li>'
+    if not l.get("parent"):
+        rel += f'<li><a href="{ctx.href("digital-marketing-patna-guide")}">All Patna Guides</a></li>'
     body += f'<section class="section tight"><div class="wrap"><span class="label reveal">Related</span><ul class="related reveal">{rel}</ul></div></section>\n'
     body += cta_section(ctx)
     body += "</main>\n" + footer(ctx)
@@ -1247,6 +1357,8 @@ if __name__ == "__main__":
     build_ai_search()
     for land in LANDINGS:
         build_landing(land)
+    for cp in CLUSTER_PAGES:
+        build_landing(cp)
     build_hub()
     build_industries()
     build_areas()
