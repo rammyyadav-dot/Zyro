@@ -1,1789 +1,539 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZYRO — The New Standard</title>
+<title>Zytrostyle | Award-Winning Digital Marketing &amp; SEO Agency in Patna</title>
+<meta name="description" content="Award-winning content marketing &amp; SEO agency in Patna, Bihar. SEO, GEO, content, social media &amp; Google Ads that drive traffic, leads and revenue.">
+<meta name="keywords" content="digital marketing agency in patna, best digital marketing company in patna, seo company in patna, content marketing agency in patna, social media marketing agency in patna, digital marketing services patna, seo services in patna, top digital marketing agency in patna, lead generation agency in patna, bihar">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Zytrostyle">
+<link rel="canonical" href="https://www.zytrostyle.com/">
+<link rel="alternate" hreflang="en-IN" href="https://www.zytrostyle.com/">
+<link rel="alternate" hreflang="x-default" href="https://www.zytrostyle.com/">
+<!-- GEO tags: Patna, Bihar, India -->
+<meta name="geo.region" content="IN-BR">
+<meta name="geo.placename" content="Patna, Bihar, India">
+<meta name="geo.position" content="25.5941;85.1376">
+<meta name="ICBM" content="25.5941, 85.1376">
+<meta name="language" content="English">
+<meta name="distribution" content="global">
+<!-- Open Graph / social -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_IN">
+<meta property="og:site_name" content="Zytrostyle">
+<meta property="og:title" content="Zytrostyle | Award-Winning Digital Marketing &amp; SEO Agency in Patna">
+<meta property="og:description" content="Award-winning content marketing &amp; SEO agency in Patna, Bihar. SEO, GEO, content, social media &amp; Google Ads that drive traffic, leads and revenue.">
+<meta property="og:url" content="https://www.zytrostyle.com/">
+<meta property="og:image" content="https://www.zytrostyle.com/assets/img/og-image.png">
+<meta property="business:contact_data:locality" content="Patna">
+<meta property="business:contact_data:region" content="Bihar">
+<meta property="business:contact_data:country_name" content="India">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zytrostyle | Award-Winning Digital Marketing &amp; SEO Agency in Patna">
+<meta name="twitter:description" content="Award-winning content marketing &amp; SEO agency in Patna, Bihar. SEO, GEO, content, social media &amp; Google Ads that drive traffic, leads and revenue.">
+<meta name="twitter:image" content="https://www.zytrostyle.com/assets/img/og-image.png">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<style>
-/* ═══════════════════════════════════════════════
-   ZYRO DESIGN SYSTEM
-   Palette: #000 / #fff / #f5f0eb (warm white) / #c8a882 (warm gold)
-   Type: Cormorant Garamond (editorial) + Barlow Condensed (labels)
-═══════════════════════════════════════════════ */
-
-:root {
-  --black:   #000000;
-  --white:   #ffffff;
-  --warm:    #f5f0eb;
-  --stone:   #e8e1d6;
-  --gold:    #c8a882;
-  --mid:     #888888;
-  --letter-tight: -0.05em;
-  --letter-hero:  -0.06em;
-  --letter-label:  0.18em;
-}
-
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Barlow', sans-serif;
-  font-weight: 300;
-  background: var(--white);
-  color: var(--black);
-  overflow-x: hidden;
-  cursor: none;
-}
-
-/* ── CUSTOM CURSOR ── */
-.cursor {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--black);
-  position: fixed; top:0; left:0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: transform .1s, width .3s, height .3s, background .3s;
-}
-.cursor-ring {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  border: 1px solid var(--black);
-  position: fixed; top:0; left:0;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: transform .18s ease-out, width .3s, height .3s, opacity .3s;
-}
-body:has(a:hover) .cursor { width: 4px; height: 4px; }
-body:has(a:hover) .cursor-ring { width: 56px; height: 56px; opacity: .5; }
-
-/* ── PAGES ── */
-.page { display: none; min-height: 100vh; }
-.page.active { display: block; }
-
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 28px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  mix-blend-mode: difference;
-}
-nav.light { mix-blend-mode: normal; }
-
-.nav-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: 0.38em;
-  color: var(--white);
-  text-decoration: none;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-nav.light .nav-logo { color: var(--black); }
-
-.nav-links {
-  display: flex;
-  gap: 42px;
-  list-style: none;
-}
-.nav-links a {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: var(--letter-label);
-  text-transform: uppercase;
-  color: var(--white);
-  text-decoration: none;
-  cursor: pointer;
-  position: relative;
-  padding-bottom: 2px;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 0; height: 1px;
-  background: var(--white);
-  transition: width .4s ease;
-}
-.nav-links a:hover::after { width: 100%; }
-nav.light .nav-links a { color: var(--black); }
-nav.light .nav-links a::after { background: var(--black); }
-
-.nav-right {
-  display: flex;
-  gap: 28px;
-  align-items: center;
-}
-.nav-icon {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  letter-spacing: var(--letter-label);
-  text-transform: uppercase;
-  color: var(--white);
-  cursor: pointer;
-  text-decoration: none;
-}
-nav.light .nav-icon { color: var(--black); }
-
-/* ── HERO ── */
-.hero {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--black);
-}
-.hero-video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: .72;
-}
-.hero-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: .78;
-}
-.hero-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.05) 50%, rgba(0,0,0,.42) 100%);
-}
-.hero-content {
-  position: absolute;
-  bottom: 80px;
-  left: 48px;
-  right: 48px;
-  color: var(--white);
-}
-.hero-eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.65);
-  margin-bottom: 20px;
-}
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(72px, 9vw, 138px);
-  font-weight: 300;
-  line-height: .9;
-  letter-spacing: var(--letter-hero);
-  margin-bottom: 32px;
-  overflow: hidden;
-}
-.hero-title .line {
-  display: block;
-  animation: slideUp 1.2s cubic-bezier(.16,1,.3,1) both;
-}
-.hero-title .line:nth-child(2) { animation-delay: .1s; }
-.hero-title em {
-  font-style: italic;
-  font-weight: 300;
-  color: rgba(255,255,255,.8);
-}
-.hero-sub {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.55);
-}
-.hero-cta-row {
-  margin-top: 48px;
-  display: flex;
-  gap: 24px;
-  align-items: center;
-}
-.btn-primary {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--black);
-  background: var(--white);
-  padding: 14px 36px;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  transition: opacity .3s;
-  display: inline-block;
-}
-.btn-primary:hover { opacity: .82; }
-.btn-ghost {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--white);
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.45);
-  padding: 14px 36px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: border-color .3s, color .3s;
-  display: inline-block;
-}
-.btn-ghost:hover { border-color: var(--white); }
-
-/* ── SECTION LABELS ── */
-.section-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: .32em;
-  text-transform: uppercase;
-  color: var(--mid);
-}
-
-/* ── EDITORIAL GRID ── */
-.editorial {
-  padding: 120px 48px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-.editorial.reverse { direction: rtl; }
-.editorial.reverse > * { direction: ltr; }
-
-.editorial-img {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 3/4;
-}
-.editorial-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
-  display: block;
-}
-.editorial-img:hover img { transform: scale(1.04); }
-
-.editorial-copy {
-  padding: 40px 0;
-}
-.editorial-copy .label {
-  margin-bottom: 24px;
-}
-.editorial-copy h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(42px, 5vw, 76px);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: var(--letter-tight);
-  margin-bottom: 28px;
-}
-.editorial-copy h2 em { font-style: italic; }
-.editorial-copy p {
-  font-size: 15px;
-  line-height: 1.75;
-  color: #444;
-  max-width: 420px;
-  margin-bottom: 40px;
-}
-.link-arrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--black);
-  text-decoration: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid var(--black);
-  padding-bottom: 4px;
-  transition: gap .3s;
-}
-.link-arrow:hover { gap: 20px; }
-.link-arrow::after { content: '→'; }
-
-/* ── COLLECTION GRID ── */
-.collection-section {
-  padding: 80px 48px;
-  background: var(--warm);
-}
-.collection-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 56px;
-}
-.collection-header h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 4vw, 60px);
-  font-weight: 300;
-  letter-spacing: var(--letter-tight);
-  line-height: 1;
-}
-.collection-header h2 em { font-style: italic; }
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-}
-.product-card {
-  position: relative;
-  overflow: hidden;
-  background: var(--black);
-  cursor: pointer;
-}
-.product-card img {
-  width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  display: block;
-  filter: brightness(.95);
-  transition: transform 1s cubic-bezier(.16,1,.3,1), filter .6s;
-}
-.product-card:hover img {
-  transform: scale(1.06);
-  filter: brightness(.85);
-}
-.product-info {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 20px 20px 24px;
-  background: linear-gradient(to top, rgba(0,0,0,.72) 0%, transparent 100%);
-  color: var(--white);
-  transform: translateY(8px);
-  transition: transform .4s ease;
-}
-.product-card:hover .product-info { transform: translateY(0); }
-.product-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  font-weight: 300;
-  letter-spacing: var(--letter-tight);
-  margin-bottom: 4px;
-}
-.product-cat {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.6);
-  margin-bottom: 8px;
-}
-.product-price {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: .06em;
-  color: rgba(255,255,255,.9);
-}
-
-/* ── FULL-BLEED EDITORIAL ── */
-.full-bleed {
-  position: relative;
-  height: 80vh;
-  overflow: hidden;
-}
-.full-bleed img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
-.full-bleed-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  background: rgba(0,0,0,.28);
-  color: var(--white);
-  gap: 24px;
-}
-.full-bleed-content h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(56px, 7vw, 110px);
-  font-weight: 300;
-  letter-spacing: var(--letter-hero);
-  line-height: .92;
-}
-.full-bleed-content h2 em { font-style: italic; }
-
-/* ── TICKER ── */
-.ticker-wrap {
-  background: var(--black);
-  padding: 14px 0;
-  overflow: hidden;
-}
-.ticker {
-  display: flex;
-  white-space: nowrap;
-  animation: ticker 28s linear infinite;
-}
-.ticker-item {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px;
-  font-weight: 300;
-  font-style: italic;
-  letter-spacing: .04em;
-  color: rgba(255,255,255,.55);
-  padding: 0 40px;
-  flex-shrink: 0;
-}
-.ticker-dot { color: var(--gold); }
-
-/* ── MANIFESTO SECTION ── */
-.manifesto {
-  padding: 140px 48px;
-  background: var(--black);
-  color: var(--white);
-  text-align: center;
-}
-.manifesto h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(40px, 6vw, 96px);
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.08;
-  letter-spacing: var(--letter-tight);
-  max-width: 900px;
-  margin: 0 auto 48px;
-  color: rgba(255,255,255,.88);
-}
-.manifesto-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  letter-spacing: .32em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 48px;
-}
-
-/* ── LOOKBOOK MASONRY ── */
-.lookbook {
-  padding: 80px 48px;
-}
-.lookbook-header {
-  margin-bottom: 56px;
-}
-.masonry {
-  columns: 3;
-  column-gap: 2px;
-}
-.masonry-item {
-  break-inside: avoid;
-  margin-bottom: 2px;
-  overflow: hidden;
-  position: relative;
-}
-.masonry-item img {
-  width: 100%;
-  display: block;
-  transition: transform 1s cubic-bezier(.16,1,.3,1);
-}
-.masonry-item:hover img { transform: scale(1.04); }
-
-/* ── VIDEO SECTION ── */
-.video-section {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--black);
-}
-.video-section video {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: .6;
-}
-.video-overlay {
-  position: absolute; inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: 80px 48px;
-}
-.video-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(48px, 7vw, 112px);
-  font-weight: 300;
-  letter-spacing: var(--letter-hero);
-  color: var(--white);
-  line-height: .92;
-}
-.video-title em { font-style: italic; }
-
-/* ── ABOUT PAGE ── */
-.about-hero {
-  height: 70vh;
-  background: var(--black);
-  display: flex;
-  align-items: flex-end;
-  padding: 80px 48px;
-  position: relative;
-  overflow: hidden;
-}
-.about-hero img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: .5;
-  filter: grayscale(20%);
-}
-.about-hero-content { position: relative; z-index: 1; }
-.about-hero h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(60px, 8vw, 120px);
-  font-weight: 300;
-  letter-spacing: var(--letter-hero);
-  color: var(--white);
-  line-height: .9;
-}
-.about-hero h1 em { font-style: italic; }
-
-.values-section {
-  padding: 120px 48px;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 80px;
-}
-.values-left h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 42px;
-  font-weight: 300;
-  letter-spacing: var(--letter-tight);
-  line-height: 1.1;
-  margin-bottom: 24px;
-}
-.values-left h3 em { font-style: italic; }
-.values-left p {
-  font-size: 14px;
-  line-height: 1.75;
-  color: #555;
-}
-.values-list { display: flex; flex-direction: column; gap: 0; }
-.value-item {
-  padding: 32px 0;
-  border-bottom: 0.5px solid rgba(0,0,0,.12);
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  gap: 32px;
-  align-items: start;
-}
-.value-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--mid);
-  padding-top: 4px;
-}
-.value-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
-  font-weight: 400;
-  letter-spacing: var(--letter-tight);
-  margin-bottom: 10px;
-}
-.value-desc {
-  font-size: 13px;
-  line-height: 1.65;
-  color: #555;
-}
-
-/* ── COLLECTION PAGE ── */
-.collection-page-hero {
-  height: 55vh;
-  background: var(--warm);
-  display: flex;
-  align-items: flex-end;
-  padding: 60px 48px;
-}
-.collection-page-hero h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(60px, 8vw, 110px);
-  font-weight: 300;
-  letter-spacing: var(--letter-hero);
-  line-height: .9;
-}
-.collection-page-hero h1 em { font-style: italic; }
-
-.filter-bar {
-  padding: 24px 48px;
-  border-bottom: 0.5px solid rgba(0,0,0,.1);
-  display: flex;
-  gap: 32px;
-  align-items: center;
-}
-.filter-item {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--mid);
-  cursor: pointer;
-  transition: color .2s;
-}
-.filter-item:hover, .filter-item.active { color: var(--black); }
-
-.shop-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  padding: 2px 0;
-}
-
-/* ── PRODUCT DETAIL PAGE ── */
-.product-detail {
-  display: grid;
-  grid-template-columns: 55% 1fr;
-  min-height: 100vh;
-}
-.product-gallery {
-  position: relative;
-  background: var(--warm);
-  overflow: hidden;
-}
-.product-gallery img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
-.product-detail-info {
-  padding: 120px 60px 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.product-detail-info .label { margin-bottom: 20px; }
-.product-detail-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 3vw, 54px);
-  font-weight: 300;
-  letter-spacing: var(--letter-tight);
-  line-height: 1.05;
-  margin-bottom: 16px;
-}
-.product-detail-price {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: .04em;
-  margin-bottom: 36px;
-  color: var(--black);
-}
-.product-detail-desc {
-  font-size: 14px;
-  line-height: 1.75;
-  color: #555;
-  margin-bottom: 40px;
-  max-width: 380px;
-}
-.size-row {
-  margin-bottom: 36px;
-}
-.size-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--mid);
-  margin-bottom: 14px;
-}
-.sizes {
-  display: flex;
-  gap: 10px;
-}
-.size-btn {
-  width: 44px; height: 44px;
-  border: 0.5px solid rgba(0,0,0,.25);
-  background: transparent;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  letter-spacing: .06em;
-  cursor: pointer;
-  transition: background .2s, color .2s, border-color .2s;
-}
-.size-btn:hover, .size-btn.active {
-  background: var(--black);
-  color: var(--white);
-  border-color: var(--black);
-}
-.add-to-bag {
-  width: 100%;
-  padding: 18px;
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: opacity .3s;
-  margin-bottom: 14px;
-}
-.add-to-bag:hover { opacity: .8; }
-.wishlist-btn {
-  width: 100%;
-  padding: 18px;
-  background: transparent;
-  color: var(--black);
-  border: 0.5px solid rgba(0,0,0,.3);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: border-color .3s;
-}
-.wishlist-btn:hover { border-color: var(--black); }
-
-/* ── FOOTER ── */
-footer {
-  background: var(--black);
-  padding: 80px 48px 40px;
-  color: var(--white);
-}
-.footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 60px;
-  margin-bottom: 64px;
-  padding-bottom: 64px;
-  border-bottom: 0.5px solid rgba(255,255,255,.1);
-}
-.footer-brand {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 34px;
-  font-weight: 300;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.footer-tagline {
-  font-size: 13px;
-  line-height: 1.7;
-  color: rgba(255,255,255,.45);
-  max-width: 240px;
-}
-.footer-col-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.35);
-  margin-bottom: 22px;
-}
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.footer-links a {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  letter-spacing: .08em;
-  color: rgba(255,255,255,.65);
-  text-decoration: none;
-  cursor: pointer;
-  transition: color .2s;
-}
-.footer-links a:hover { color: var(--white); }
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.footer-copy {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  letter-spacing: .14em;
-  color: rgba(255,255,255,.25);
-  text-transform: uppercase;
-}
-
-/* ── ANIMATIONS ── */
-@keyframes slideUp {
-  from { transform: translateY(110%); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity .8s ease, transform .8s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── SCROLL INDICATOR ── */
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  right: 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255,255,255,.5);
-}
-.scroll-line {
-  width: 1px;
-  height: 60px;
-  background: rgba(255,255,255,.3);
-  position: relative;
-  overflow: hidden;
-}
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  top: -100%;
-  left: 0;
-  width: 1px;
-  height: 100%;
-  background: rgba(255,255,255,.9);
-  animation: scrollLine 2s ease-in-out infinite;
-}
-@keyframes scrollLine {
-  0%   { top: -100%; }
-  100% { top: 200%; }
-}
-.scroll-text {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 9px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-}
-
-/* ── BRAND VOICE / TAGLINES SECTION ── */
-.tagline-grid {
-  padding: 100px 48px;
-  background: var(--warm);
-}
-.tagline-grid h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 4vw, 60px);
-  font-weight: 300;
-  letter-spacing: var(--letter-tight);
-  margin-bottom: 64px;
-}
-.taglines {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-}
-.tagline-item {
-  padding: 40px;
-  border: 0.5px solid rgba(0,0,0,.1);
-}
-.tagline-item:nth-child(3n+2) { background: var(--stone); }
-.tagline-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 11px;
-  color: var(--mid);
-  margin-bottom: 20px;
-}
-.tagline-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 28px;
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.15;
-  letter-spacing: var(--letter-tight);
-  margin-bottom: 12px;
-}
-.tagline-sub {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--mid);
-}
-
-/* ── PAGE TRANSITION ── */
-.page-transition {
-  position: fixed;
-  inset: 0;
-  background: var(--black);
-  z-index: 9000;
-  transform: translateY(100%);
-  pointer-events: none;
-}
-.page-transition.entering {
-  animation: transIn .5s cubic-bezier(.76,0,.24,1) forwards;
-}
-.page-transition.leaving {
-  animation: transOut .5s cubic-bezier(.76,0,.24,1) forwards;
-  animation-delay: .3s;
-}
-@keyframes transIn {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
-}
-@keyframes transOut {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-100%); }
-}
-
-/* ── NEWSLETTER ── */
-.newsletter {
-  padding: 100px 48px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-.newsletter h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 4vw, 60px);
-  font-weight: 300;
-  letter-spacing: var(--letter-tight);
-  line-height: 1.05;
-}
-.newsletter h2 em { font-style: italic; }
-.newsletter-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.newsletter p {
-  font-size: 14px;
-  line-height: 1.7;
-  color: #555;
-  margin-bottom: 8px;
-}
-.email-row {
-  display: flex;
-  border-bottom: 1px solid var(--black);
-}
-.email-input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  letter-spacing: .06em;
-  padding: 12px 0;
-  outline: none;
-}
-.email-input::placeholder { color: var(--mid); }
-.email-submit {
-  background: transparent;
-  border: none;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 12px 0 12px 20px;
-  transition: color .2s;
-}
-.email-submit:hover { color: var(--mid); }
-.newsletter-note {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  letter-spacing: .1em;
-  color: var(--mid);
-}
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": [
+    "ProfessionalService",
+    "Organization"
+   ],
+   "@id": "https://www.zytrostyle.com/#organization",
+   "name": "Zytrostyle",
+   "legalName": "Zytrostyle",
+   "url": "https://www.zytrostyle.com/",
+   "logo": "https://www.zytrostyle.com/assets/img/logo.svg",
+   "image": "https://www.zytrostyle.com/assets/img/og-image.png",
+   "slogan": "Get Found. Get Noticed. Get Chosen.",
+   "description": "Zytrostyle is an award-winning content marketing and SEO agency in Patna, Bihar, helping brands build organic growth engines that drive traffic, leads and revenue.",
+   "email": "hello@zytrostyle.com",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Patna",
+    "addressRegion": "Bihar",
+    "addressCountry": "IN"
+   },
+   "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "25.5941",
+    "longitude": "85.1376"
+   },
+   "openingHours": "Mo-Sa 10:00-19:00",
+   "priceRange": "₹₹",
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Patna"
+    },
+    {
+     "@type": "State",
+     "name": "Bihar"
+    },
+    {
+     "@type": "Country",
+     "name": "India"
+    },
+    {
+     "@type": "City",
+     "name": "Gaya"
+    },
+    {
+     "@type": "City",
+     "name": "Muzaffarpur"
+    },
+    {
+     "@type": "City",
+     "name": "Darbhanga"
+    },
+    {
+     "@type": "City",
+     "name": "Bhagalpur"
+    },
+    {
+     "@type": "City",
+     "name": "Hajipur"
+    },
+    {
+     "@type": "City",
+     "name": "Begusarai"
+    },
+    {
+     "@type": "City",
+     "name": "Purnia"
+    },
+    {
+     "@type": "City",
+     "name": "Arrah"
+    },
+    {
+     "@type": "City",
+     "name": "Bihar Sharif"
+    },
+    {
+     "@type": "City",
+     "name": "Chapra"
+    },
+    {
+     "@type": "City",
+     "name": "Samastipur"
+    },
+    {
+     "@type": "City",
+     "name": "Motihari"
+    }
+   ],
+   "knowsAbout": [
+    "Search Engine Optimization",
+    "Local SEO",
+    "Generative Engine Optimization",
+    "Answer Engine Optimization",
+    "Content Marketing",
+    "Content Strategy",
+    "Content Creation",
+    "Digital Marketing",
+    "Social Media Marketing",
+    "Google Ads",
+    "Meta Ads",
+    "Lead Generation"
+   ],
+   "knowsLanguage": [
+    "en-IN",
+    "hi-IN"
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Digital marketing services in Patna",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Search Engine Optimisation (SEO)",
+       "url": "https://www.zytrostyle.com/seo-services-patna/"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Content Creation Services",
+       "url": "https://www.zytrostyle.com/content-creation-services-patna/"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Content Strategy",
+       "url": "https://www.zytrostyle.com/content-strategy-patna/"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Content Marketing",
+       "url": "https://www.zytrostyle.com/content-marketing-services-patna/"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Digital Marketing & Performance Advertising",
+       "url": "https://www.zytrostyle.com/digital-marketing-agency-patna/"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Social Media Marketing",
+       "url": "https://www.zytrostyle.com/social-media-marketing-patna/"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://www.zytrostyle.com/#website",
+   "url": "https://www.zytrostyle.com/",
+   "name": "Zytrostyle",
+   "inLanguage": "en-IN",
+   "publisher": {
+    "@id": "https://www.zytrostyle.com/#organization"
+   }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://www.zytrostyle.com/#webpage",
+   "url": "https://www.zytrostyle.com/",
+   "name": "Zytrostyle | Award-Winning Digital Marketing & SEO Agency in Patna",
+   "description": "Award-winning content marketing & SEO agency in Patna, Bihar. SEO, GEO, content, social media & Google Ads that drive traffic, leads and revenue.",
+   "inLanguage": "en-IN",
+   "isPartOf": {
+    "@id": "https://www.zytrostyle.com/#website"
+   },
+   "about": {
+    "@id": "https://www.zytrostyle.com/#organization"
+   },
+   "dateModified": "2026-11-07"
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://www.zytrostyle.com/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What does Zytrostyle do?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Zytrostyle is an award-winning content marketing, SEO and digital marketing agency in Patna, Bihar. We help brands build organic growth engines through SEO, GEO, AEO, content creation, content strategy, content marketing, social media marketing and performance advertising."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Where is Zytrostyle located?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Zytrostyle is based in Patna, Bihar, and serves businesses across Patna — including Boring Road, Kankarbagh, Patliputra Colony, Bailey Road and Saguna More — as well as clients throughout Bihar and India."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which is the best SEO and digital marketing company in Patna?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Look for an agency that combines strategy, content, SEO and paid media, understands your industry and reports transparently on leads and revenue. Zytrostyle is a content-led, award-winning agency in Patna that builds marketing around business outcomes rather than vanity metrics."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How much does digital marketing cost in Patna?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Costs depend on the services, channels and scale you need. Small businesses can start with a focused local SEO and social media package, while growing brands typically combine SEO, content marketing and paid advertising. We provide a free consultation and a custom proposal."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do you work with small businesses and startups?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. We work with startups, local businesses and established companies. Every plan is scaled to your goals and budget."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do you create content in Hindi?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. We create content in English, Hindi and Hinglish to match how your customers search and engage."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
-
-<!-- Cursor -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<!-- Page transition overlay -->
-<div class="page-transition" id="pageTransition"></div>
-
-<!-- ── NAV ── -->
-<nav id="mainNav">
-  <span class="nav-logo" onclick="showPage('home')">ZYRO</span>
-  <ul class="nav-links">
-    <li><a onclick="showPage('collection')">New Collection</a></li>
-    <li><a onclick="showPage('collection')">Women</a></li>
-    <li><a onclick="showPage('collection')">Men</a></li>
-    <li><a onclick="showPage('lookbook')">Lookbook</a></li>
-    <li><a onclick="showPage('about')">Story</a></li>
-  </ul>
-  <div class="nav-right">
-    <span class="nav-icon">Search</span>
-    <span class="nav-icon">Bag (0)</span>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a class="nav-logo" href="./" aria-label="Zytrostyle home">Zytrostyle</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <div class="nav-menu" id="nav-menu">
+      <ul class="nav-links">
+        <li class="has-sub"><a href="services/">Services</a><ul class="subnav"><li><a href="seo-services-patna/">SEO Services</a></li><li><a href="content-creation-services-patna/">Content Creation</a></li><li><a href="content-strategy-patna/">Content Strategy</a></li><li><a href="content-marketing-services-patna/">Content Marketing</a></li><li><a href="digital-marketing-agency-patna/">Digital Marketing</a></li><li><a href="social-media-marketing-patna/">Social Media Marketing</a></li><li><a href="ai-search-optimisation-geo-aeo/">AI Search (GEO & AEO)</a></li></ul></li>
+        <li><a href="industries/">Industries</a></li>
+        <li><a href="areas-we-serve/">Patna &amp; Bihar</a></li>
+        <li><a href="about/">About</a></li>
+        <li><a class="btn btn-dark btn-sm nav-cta" href="contact/">Free Consultation</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<main id="main">
+<section class="hero dark">
+  <div class="wrap hero-inner">
+    
+    <span class="eyebrow">Award-Winning Marketing Agency in Patna · Digital Marketing • SEO • Content Marketing • Creative Growth</span>
+    <h1 class="h-xl">Digital Marketing &amp; SEO Agency in Patna That Turns Visibility <em>Into Growth.</em></h1>
+    <p class="hero-strap">Get Found. Get Noticed. Get Chosen.</p>
+    <p class="lead">We are an award-winning content marketing and SEO agency, helping brands build organic growth engines that drive traffic, leads and revenue. Zytrostyle helps businesses in Patna and across Bihar get discovered, earn trust and turn marketing into a powerful engine for sustainable growth.</p>
+    <div class="btn-row"><a class="btn btn-light" href="contact/">Get Your Free Marketing Consultation</a><a class="btn btn-line" href="services/">Explore Our Services</a></div>
+    <div class="hero-meta"><span>Patna, Bihar</span><span>SEO · GEO · AEO</span><span>Content-Led Growth</span><span>English · Hindi · Hinglish</span></div>
   </div>
-</nav>
-
-<!-- ═══════════════════════════════════
-     PAGE: HOME
-═══════════════════════════════════ -->
-<div class="page active" id="page-home">
-
-  <!-- Hero -->
-  <section class="hero">
-    <img class="hero-img"
-      src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1800&q=85&fit=crop"
-      alt="ZYRO Hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="hero-eyebrow">SS 2025 — The New Standard</p>
-      <h1 class="hero-title">
-        <span class="line">Nothing</span>
-        <span class="line"><em>extra.</em></span>
-      </h1>
-      <p class="hero-sub">Elevated essentials for the considered wardrobe</p>
-      <div class="hero-cta-row">
-        <span class="btn-primary" onclick="showPage('collection')">Explore Collection</span>
-        <span class="btn-ghost" onclick="showPage('lookbook')">View Lookbook</span>
-      </div>
+</section>
+<div class="ticker-wrap" aria-hidden="true"><div class="ticker"><span class="ticker-item">Get Found. Get Noticed. Get Chosen.</span><span class="ticker-item">SEO · GEO · AEO</span><span class="ticker-item">Content That Converts</span><span class="ticker-item">Patna Ki Soch. Brand Ki Badi Udaan.</span><span class="ticker-item">We Don&#x27;t Just Market Brands. We Make Them Matter.</span><span class="ticker-item">Built for Patna. Ready for India.</span><span class="ticker-item">Less Guesswork. More Growth Intelligence.</span><span class="ticker-item">Get Found. Get Noticed. Get Chosen.</span><span class="ticker-item">SEO · GEO · AEO</span><span class="ticker-item">Content That Converts</span><span class="ticker-item">Patna Ki Soch. Brand Ki Badi Udaan.</span><span class="ticker-item">We Don&#x27;t Just Market Brands. We Make Them Matter.</span><span class="ticker-item">Built for Patna. Ready for India.</span><span class="ticker-item">Less Guesswork. More Growth Intelligence.</span></div></div>
+<section class="section">
+  <div class="wrap grid-2">
+    <div class="reveal">
+      <span class="label">We Don't Just Market Brands. We Make Them Matter.</span>
+      <h2 class="h-lg">A content-led growth partner <em>for ambitious brands.</em></h2>
     </div>
-    <div class="scroll-indicator">
-      <div class="scroll-line"></div>
-      <span class="scroll-text">Scroll</span>
-    </div>
-  </section>
-
-  <!-- Ticker -->
-  <div class="ticker-wrap">
-    <div class="ticker">
-      <span class="ticker-item">Lightweight Linen <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">The New Standard <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">Quiet Luxury <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">Form Follows Function <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">Worn. Lived. Returned. <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">SS 2025 — Zyro <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">Lightweight Linen <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">The New Standard <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">Quiet Luxury <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">Form Follows Function <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">Worn. Lived. Returned. <span class="ticker-dot">◆</span></span>
-      <span class="ticker-item">SS 2025 — Zyro <span class="ticker-dot">◆</span></span>
+    <div class="prose reveal">
+      <p>Zytrostyle is a content-led <strong>digital marketing and SEO agency in Patna, Bihar</strong>, helping businesses increase their online visibility, attract qualified customers and turn marketing into a powerful engine for sustainable growth.</p>
+      <p>We bring together <strong>Search Engine Optimisation (SEO)</strong>, <strong>Generative Engine Optimisation (GEO)</strong>, <strong>Answer Engine Optimisation (AEO)</strong>, content marketing, creative storytelling, social media and performance advertising to help ambitious brands compete, connect and convert.</p>
+      <p>Whether you are a startup building your first digital presence, a local business looking for more customers, or an established company ready to scale across Bihar and India, we create marketing strategies aligned with your business goals.</p>
+      <p class="tagline">Your customers are searching. Make sure they find you.</p>
     </div>
   </div>
-
-  <!-- Editorial 1 -->
-  <section class="editorial reveal">
-    <div class="editorial-img">
-      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=85&fit=crop"
-           alt="Zyro Editorial">
+</section>
+<section class="section warm">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="label">Your Brand Deserves More Than Just Visibility</span><h2 class="h-lg">It deserves <em>market leadership.</em></h2></div>
+      <div class="prose"><p>Every day, potential customers search Google, explore social media, compare brands, read reviews and increasingly turn to AI-powered search tools before making purchasing decisions. The real challenge is not simply appearing online — it's being discovered by the right audience, trusted at the right moment and chosen over your competitors.</p></div>
     </div>
-    <div class="editorial-copy">
-      <p class="section-label label">The Collection</p>
-      <h2>Structured.<br><em>Uncompromised.</em></h2>
-      <p>Each piece in the Zyro wardrobe is considered before it exists. We ask the same question every time: what does this remove? The result is clothing that disappears into your life — not competing for attention, but quietly elevating it.</p>
-      <span class="link-arrow" onclick="showPage('collection')">Explore the range</span>
+    <div class="pillars reveal"><div class="pillar"><h3>Get Discovered</h3><p>Improve your search visibility across Google and relevant AI-powered discovery platforms.</p></div><div class="pillar"><h3>Build Authority</h3><p>Establish credibility through valuable content, brand storytelling and a consistent digital presence.</p></div><div class="pillar"><h3>Generate Demand</h3><p>Reach high-intent audiences through organic search, social campaigns and targeted advertising.</p></div><div class="pillar"><h3>Convert Customers</h3><p>Turn website visitors, enquiries and campaign interactions into qualified business opportunities.</p></div><div class="pillar"><h3>Grow Sustainably</h3><p>Build scalable marketing processes driven by insights, measurement and continuous improvement.</p></div></div>
+    <p class="tagline reveal">Because great marketing doesn't just attract attention. It creates commercial momentum.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="label">Our Services — Everything Your Brand Needs to Grow</span><h2 class="h-lg">One growth partner. <em>Six connected capabilities.</em></h2></div>
+      <p class="lead">We connect content, search, creativity and paid media to build a complete digital growth engine for businesses in Patna, Bihar and across India.</p>
     </div>
-  </section>
-
-  <!-- Full-bleed -->
-  <div class="full-bleed reveal">
-    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1800&q=85&fit=crop"
-         alt="ZYRO editorial">
-    <div class="full-bleed-content">
-      <span class="section-label" style="color:rgba(255,255,255,.55);">Summer 2025</span>
-      <h2>The linen<br><em>edit.</em></h2>
-      <span class="btn-primary" style="margin-top:8px;" onclick="showPage('collection')">Shop Now</span>
+    <div class="grid-3 "><article class="card service-card reveal">
+  <span class="num">01</span>
+  <h3><a href="seo-services-patna/" style="text-decoration:none">Search Engine Optimisation (SEO)</a></h3>
+  <p class="sub">Rank for What Matters. Grow Organically.</p>
+  <p>Technical SEO, local SEO, Google Business Profile optimisation and search-intent content that put your business in front of customers who are ready to buy.</p>
+  <ul><li>Technical & on-page SEO audits</li><li>Local SEO & Google Maps ranking</li><li>Keyword & competitor research</li><li>E-commerce & B2B SEO</li></ul>
+  <a class="link-arrow" href="seo-services-patna/">Explore SEO Services</a>
+</article><article class="card service-card reveal">
+  <span class="num">02</span>
+  <h3><a href="content-creation-services-patna/" style="text-decoration:none">Content Creation Services</a></h3>
+  <p class="sub">Content That Captures Attention. Creativity That Converts.</p>
+  <p>Website copy, SEO blogs, social creatives, Instagram Reels, ad copy, brochures and brand storytelling — every piece made with a purpose.</p>
+  <ul><li>Website & landing page copywriting</li><li>SEO blogs & thought leadership</li><li>Reels & short-form video</li><li>Brochures, catalogues & profiles</li></ul>
+  <a class="link-arrow" href="content-creation-services-patna/">Explore Content Creation</a>
+</article><article class="card service-card reveal">
+  <span class="num">03</span>
+  <h3><a href="content-strategy-patna/" style="text-decoration:none">Content Strategy</a></h3>
+  <p class="sub">Every Great Brand Starts With a Better Strategy.</p>
+  <p>Positioning, audience personas, search-intent research, topic clusters and content calendars that connect every message to a business goal.</p>
+  <ul><li>Brand positioning & messaging</li><li>Audience personas & journeys</li><li>Content-gap & intent analysis</li><li>Monthly content calendars</li></ul>
+  <a class="link-arrow" href="content-strategy-patna/">Explore Content Strategy</a>
+</article><article class="card service-card reveal">
+  <span class="num">04</span>
+  <h3><a href="content-marketing-services-patna/" style="text-decoration:none">Content Marketing</a></h3>
+  <p class="sub">Turn Great Content Into Your Most Valuable Growth Asset.</p>
+  <p>SEO-led content programmes, lead-generation content, email marketing and distribution that attract, nurture and convert customers.</p>
+  <ul><li>SEO-led content campaigns</li><li>Lead-generation landing pages</li><li>Email marketing & newsletters</li><li>B2B thought leadership</li></ul>
+  <a class="link-arrow" href="content-marketing-services-patna/">Explore Content Marketing</a>
+</article><article class="card service-card reveal">
+  <span class="num">05</span>
+  <h3><a href="digital-marketing-agency-patna/" style="text-decoration:none">Digital Marketing & Performance Advertising</a></h3>
+  <p class="sub">Reach the Right People. Make Every Marketing Rupee Work Harder.</p>
+  <p>Google Ads, Meta Ads, lead-generation campaigns, landing pages, remarketing and conversion tracking focused on measurable outcomes.</p>
+  <ul><li>Google Ads & search advertising</li><li>Facebook & Instagram ads</li><li>Lead-generation campaigns</li><li>Conversion tracking & analytics</li></ul>
+  <a class="link-arrow" href="digital-marketing-agency-patna/">Explore Digital Marketing</a>
+</article><article class="card service-card reveal">
+  <span class="num">06</span>
+  <h3><a href="social-media-marketing-patna/" style="text-decoration:none">Social Media Marketing</a></h3>
+  <p class="sub">Stop Scrolling. Start Connecting.</p>
+  <p>Instagram, Facebook, LinkedIn and YouTube management, Reels, influencer collaborations and Meta Ads that make your brand impossible to ignore.</p>
+  <ul><li>Social media account management</li><li>Instagram Reels & creatives</li><li>Meta Ads campaigns</li><li>LinkedIn & B2B social</li></ul>
+  <a class="link-arrow" href="social-media-marketing-patna/">Explore Social Media Marketing</a>
+</article></div>
+  </div>
+</section>
+<section class="section dark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="label">SEO + GEO + AEO</span><h2 class="h-lg">Built for the next generation <em>of search.</em></h2></div>
+      <p class="lead">Your customers search everywhere — Google Search, Google Maps, YouTube, social networks and conversational AI tools. Your brand should be discoverable in all of them.</p>
+    </div>
+    <div class="triad reveal">
+      <div><span class="abbr">SEO</span><h3>Search Engine Optimisation</h3><p>Improve how search engines discover, understand and rank your website for relevant queries.</p></div>
+      <div><span class="abbr">GEO</span><h3>Generative Engine Optimisation</h3><p>Structure useful, credible and clearly attributed information so AI-powered search and discovery systems can better understand your brand and services.</p></div>
+      <div><span class="abbr">AEO</span><h3>Answer Engine Optimisation</h3><p>Develop clear, direct answers to real customer questions through well-structured service pages, FAQs, explainers and knowledge content.</p></div>
+    </div>
+    <p class="tagline reveal">Be Found. Be Understood. Be Remembered.</p>
+    <div class="btn-row"><a class="btn btn-line" href="ai-search-optimisation-geo-aeo/">Discover AI Search Optimisation</a></div>
+  </div>
+</section>
+<section class="section ">
+  <div class="wrap grid-2">
+    <div class="reveal">
+      <span class="label">Why Choose Zytrostyle</span>
+      <h2 class="h-lg">Creative thinking. Search intelligence. <em>Commercial focus.</em></h2>
+      <p class="tagline">We don't chase vanity metrics. We build marketing around business outcomes.</p>
+    </div>
+    <ul class="num-list reveal"><li><span class="n">01</span><div><h3>Strategy Before Execution</h3><p>Every campaign begins by understanding your business, competition, audience and growth objectives.</p></div></li><li><span class="n">02</span><div><h3>Content at the Core</h3><p>We combine valuable content with search and advertising to create consistent brand communication.</p></div></li><li><span class="n">03</span><div><h3>Built for Patna. Ready for India.</h3><p>We understand local relevance, regional-language communication and scalable strategies for businesses targeting Bihar and beyond.</p></div></li><li><span class="n">04</span><div><h3>Brand and Performance Together</h3><p>We connect brand positioning, creative campaigns and measurable digital marketing outcomes.</p></div></li><li><span class="n">05</span><div><h3>Transparent, Insight-Led Marketing</h3><p>We focus on meaningful indicators: qualified enquiries, organic visibility, conversions and customer-acquisition performance.</p></div></li><li><span class="n">06</span><div><h3>One Connected Growth Partner</h3><p>From positioning and strategy to production, distribution and optimisation, your brand experience stays consistent.</p></div></li></ul>
+  </div>
+</section>
+<section class="section warm">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="label">Digital Marketing Solutions for Patna's Growing Businesses</span><h2 class="h-lg">Every industry has a different audience. <em>Every brand deserves a smarter strategy.</em></h2></div>
+      <p class="lead">From Boring Road to Kankarbagh, from Patna to markets across Bihar — we help businesses communicate, compete and grow.</p>
+    </div>
+    <div class="grid-3"><article class="card reveal"><span class="num">01</span><h3>Healthcare, Hospitals & Doctors</h3><p>Patient-focused content, local SEO, hospital website optimisation and responsible healthcare advertising.</p>
+<a class="link-arrow" href="industries/#healthcare">Learn more</a></article><article class="card reveal"><span class="num">02</span><h3>Real Estate & Property Developers</h3><p>Property campaign creatives, lead-generation landing pages, Google Ads and location-based marketing.</p>
+<a class="link-arrow" href="industries/#real-estate">Learn more</a></article><article class="card reveal"><span class="num">03</span><h3>Education, Schools & Coaching Institutes</h3><p>Admission-focused digital campaigns, local search visibility, social media storytelling and enquiry generation.</p>
+<a class="link-arrow" href="industries/#education">Learn more</a></article><article class="card reveal"><span class="num">04</span><h3>Restaurants, Cafés & Hospitality</h3><p>Google Maps visibility, local discovery, brand content, menu promotions and social media advertising.</p>
+<a class="link-arrow" href="industries/#hospitality">Learn more</a></article><article class="card reveal"><span class="num">05</span><h3>Retail, Fashion & E-commerce</h3><p>Product campaigns, online store SEO, creative advertising and customer acquisition strategies.</p>
+<a class="link-arrow" href="industries/#retail">Learn more</a></article><article class="card reveal"><span class="num">06</span><h3>Travel, Tourism & Hotels</h3><p>Destination content, B2B travel marketing, hotel promotions, search visibility and digital lead generation.</p>
+<a class="link-arrow" href="industries/#travel">Learn more</a></article></div>
+    <div class="btn-row reveal"><a class="btn btn-dark" href="industries/">Discuss Your Industry</a></div>
+  </div>
+</section>
+<section class="section dark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="label">Our Approach</span><h2 class="h-lg">From strategy to <em>measurable growth.</em></h2></div>
+      <p class="lead">A better process creates better marketing. Every engagement follows six connected steps.</p>
+    </div>
+    <div class="process reveal"><div class="process-step"><span class="n">Step 01</span><h3>Discover</h3><p>We understand your business, target audience, current digital presence and growth opportunities.</p></div><div class="process-step"><span class="n">Step 02</span><h3>Audit</h3><p>We review your website, search, content, competitor and marketing performance information.</p></div><div class="process-step"><span class="n">Step 03</span><h3>Strategise</h3><p>We build a marketing roadmap around your audience, channels, objectives, budget and priorities.</p></div><div class="process-step"><span class="n">Step 04</span><h3>Create</h3><p>Our creative and content process translates strategy into campaigns, pages, messaging and assets.</p></div><div class="process-step"><span class="n">Step 05</span><h3>Launch</h3><p>We implement prioritised activities across search, content, social media and paid advertising.</p></div><div class="process-step"><span class="n">Step 06</span><h3>Measure & Improve</h3><p>We track meaningful performance indicators, identify opportunities and optimise based on results.</p></div></div>
+    <p class="tagline reveal">Your growth isn't a one-time campaign. It's a system we help you build.</p>
+  </div>
+</section>
+<section class="section stone">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="label">Digital Marketing Agency Serving Patna &amp; Bihar</span><h2 class="h-lg">Local understanding. <em>Bigger ambitions.</em></h2></div>
+      <p class="lead">Zytrostyle provides digital marketing, content creation, SEO and social media marketing for businesses targeting Patna and wider Bihar — in English, Hindi or Hinglish.</p>
+    </div>
+    <div class="loc-cols reveal">
+      <div><h3 class="h-sm">Patna</h3><ul class="loc-tags"><li>Boring Road</li><li>Boring Canal Road</li><li>Kankarbagh</li><li>Patliputra Colony</li><li>Bailey Road</li><li>Saguna More</li><li>Danapur</li><li>Rajendra Nagar</li><li>Fraser Road</li><li>Exhibition Road</li><li>Gandhi Maidan</li><li>Raja Bazar</li><li>Ashiana Nagar</li><li>Anisabad</li><li>Patna City</li></ul></div>
+      <div><h3 class="h-sm">Bihar</h3><ul class="loc-tags"><li>Gaya</li><li>Muzaffarpur</li><li>Darbhanga</li><li>Bhagalpur</li><li>Hajipur</li><li>Begusarai</li><li>Purnia</li><li>Arrah</li><li>Bihar Sharif</li><li>Chapra</li><li>Samastipur</li><li>Motihari</li></ul></div>
+    </div>
+    <p class="tagline reveal">Patna Ki Soch. Brand Ki Badi Udaan.</p>
+    <div class="btn-row reveal"><a class="btn btn-dark" href="areas-we-serve/">See Areas We Serve</a><a class="btn btn-line" href="contact/">Talk to a Marketing Strategist</a></div>
+  </div>
+</section>
+<section class="section " id="faq">
+  <div class="wrap">
+    <div class="section-head single reveal"><div><span class="label">FAQ</span><h2 class="h-lg">Frequently asked <em>questions.</em></h2></div></div>
+    <div class="faq reveal"><details><summary>What does Zytrostyle do?</summary><div class="answer"><p>Zytrostyle is an award-winning content marketing, SEO and digital marketing agency in Patna, Bihar. We help brands build organic growth engines through SEO, GEO, AEO, content creation, content strategy, content marketing, social media marketing and performance advertising.</p></div></details><details><summary>Where is Zytrostyle located?</summary><div class="answer"><p>Zytrostyle is based in Patna, Bihar, and serves businesses across Patna — including Boring Road, Kankarbagh, Patliputra Colony, Bailey Road and Saguna More — as well as clients throughout Bihar and India.</p></div></details><details><summary>Which is the best SEO and digital marketing company in Patna?</summary><div class="answer"><p>Look for an agency that combines strategy, content, SEO and paid media, understands your industry and reports transparently on leads and revenue. Zytrostyle is a content-led, award-winning agency in Patna that builds marketing around business outcomes rather than vanity metrics.</p></div></details><details><summary>How much does digital marketing cost in Patna?</summary><div class="answer"><p>Costs depend on the services, channels and scale you need. Small businesses can start with a focused local SEO and social media package, while growing brands typically combine SEO, content marketing and paid advertising. We provide a free consultation and a custom proposal.</p></div></details><details><summary>Do you work with small businesses and startups?</summary><div class="answer"><p>Yes. We work with startups, local businesses and established companies. Every plan is scaled to your goals and budget.</p></div></details><details><summary>Do you create content in Hindi?</summary><div class="answer"><p>Yes. We create content in English, Hindi and Hinglish to match how your customers search and engage.</p></div></details></div>
+  </div>
+</section>
+<section class="section dark cta-band">
+  <div class="wrap grid-2">
+    <div class="reveal"><span class="label">Let's Build Your Next Growth Story</span><h2 class="h-lg">Ready to turn your business into a brand <em>people choose?</em></h2></div>
+    <div class="reveal">
+      <p class="lead">Your next customer could already be searching for a business like yours. Make every search, every impression and every interaction count with a connected marketing strategy.</p>
+      <p class="tagline">Zytrostyle — Make Your Brand Impossible to Ignore.</p>
+      <div class="btn-row"><a class="btn btn-light" href="contact/">Request Your Free Marketing Consultation</a><a class="btn btn-line" href="contact/">Get a Custom Proposal</a></div>
     </div>
   </div>
-
-  <!-- Product Grid -->
-  <section class="collection-section">
-    <div class="collection-header reveal">
-      <div>
-        <p class="section-label" style="margin-bottom:12px;">New Arrivals</p>
-        <h2>This season's<br><em>essentials.</em></h2>
-      </div>
-      <span class="link-arrow" onclick="showPage('collection')">View all</span>
+</section>
+<section class="section warm" id="consultation">
+  <div class="wrap grid-2">
+    <div class="reveal">
+      <span class="label">Request Your Free Marketing Consultation</span>
+      <h2 class="h-lg">Let's grow <em>your business.</em></h2>
+      <p class="lead" style="margin-top:24px">Share a few details and a Zytrostyle strategist will get back to you with ideas tailored to your business, audience and goals.</p>
     </div>
-    <div class="product-grid">
-      <div class="product-card reveal" onclick="showPage('product')">
-        <img src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600&q=85&fit=crop" alt="">
-        <div class="product-info">
-          <p class="product-cat">Women</p>
-          <p class="product-name">Fluid Linen Shirt</p>
-          <p class="product-price">AED 289</p>
-        </div>
-      </div>
-      <div class="product-card reveal" style="animation-delay:.1s" onclick="showPage('product')">
-        <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600&q=85&fit=crop" alt="">
-        <div class="product-info">
-          <p class="product-cat">Women</p>
-          <p class="product-name">Tailored Trouser</p>
-          <p class="product-price">AED 349</p>
-        </div>
-      </div>
-      <div class="product-card reveal" style="animation-delay:.2s" onclick="showPage('product')">
-        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=85&fit=crop" alt="">
-        <div class="product-info">
-          <p class="product-cat">Men</p>
-          <p class="product-name">Relaxed Wool Blazer</p>
-          <p class="product-price">AED 679</p>
-        </div>
-      </div>
-      <div class="product-card reveal" style="animation-delay:.3s" onclick="showPage('product')">
-        <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=600&q=85&fit=crop" alt="">
-        <div class="product-info">
-          <p class="product-cat">Women</p>
-          <p class="product-name">Minimal Slip Dress</p>
-          <p class="product-price">AED 419</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Editorial 2 (reverse) -->
-  <section class="editorial reverse reveal">
-    <div class="editorial-img">
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=85&fit=crop"
-           alt="Menswear">
-    </div>
-    <div class="editorial-copy">
-      <p class="section-label label">Menswear</p>
-      <h2>Precision.<br><em>Meets ease.</em></h2>
-      <p>Built for the man who stopped trying. The Zyro men's range strips away noise — impeccable construction, materials chosen for how they age, silhouettes that work whether you're closing a deal or disappearing for the weekend.</p>
-      <span class="link-arrow" onclick="showPage('collection')">Shop menswear</span>
-    </div>
-  </section>
-
-  <!-- Manifesto -->
-  <section class="manifesto reveal">
-    <p class="manifesto-label">The Zyro Philosophy</p>
-    <h2>"Style is not what you add.<br>It is what you have the confidence<br><em>to remove."</em></h2>
-    <span class="link-arrow" style="color:var(--white);border-color:rgba(255,255,255,.4);" onclick="showPage('about')">Read our story</span>
-  </section>
-
-  <!-- Taglines Grid -->
-  <section class="tagline-grid reveal">
-    <p class="section-label" style="margin-bottom:12px;">Brand Language</p>
-    <h2>Ten ways to say<br><em>less.</em></h2>
-    <div class="taglines">
-      <div class="tagline-item">
-        <p class="tagline-num">01</p>
-        <p class="tagline-text">Nothing extra.</p>
-        <p class="tagline-sub">Hero — Homepage</p>
-      </div>
-      <div class="tagline-item">
-        <p class="tagline-num">02</p>
-        <p class="tagline-text">Lightweight linen.</p>
-        <p class="tagline-sub">Product — Textile focus</p>
-      </div>
-      <div class="tagline-item">
-        <p class="tagline-num">03</p>
-        <p class="tagline-text">The new standard.</p>
-        <p class="tagline-sub">Collection — SS 2025</p>
-      </div>
-      <div class="tagline-item">
-        <p class="tagline-num">04</p>
-        <p class="tagline-text">Worn. Lived. Returned.</p>
-        <p class="tagline-sub">Sustainability</p>
-      </div>
-      <div class="tagline-item">
-        <p class="tagline-num">05</p>
-        <p class="tagline-text">Less, always.</p>
-        <p class="tagline-sub">Brand philosophy</p>
-      </div>
-      <div class="tagline-item">
-        <p class="tagline-num">06</p>
-        <p class="tagline-text">Fabric-first.</p>
-        <p class="tagline-sub">Product — Material story</p>
-      </div>
-      <div class="tagline-item">
-        <p class="tagline-num">07</p>
-        <p class="tagline-text">This exists. Come look.</p>
-        <p class="tagline-sub">Campaign — Minimal CTA</p>
-      </div>
-      <div class="tagline-item">
-        <p class="tagline-num">08</p>
-        <p class="tagline-text">Precision, not perfection.</p>
-        <p class="tagline-sub">Craftsmanship</p>
-      </div>
-      <div class="tagline-item">
-        <p class="tagline-num">09</p>
-        <p class="tagline-text">The quiet wardrobe.</p>
-        <p class="tagline-sub">Brand — Quiet luxury</p>
-      </div>
-      <div class="tagline-item">
-        <p class="tagline-num">10</p>
-        <p class="tagline-text">Form is the feature.</p>
-        <p class="tagline-sub">Design principle</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter -->
-  <section class="newsletter reveal">
-    <div>
-      <p class="section-label" style="margin-bottom:16px;">Stay in the edit</p>
-      <h2>Before it<br>goes<br><em>public.</em></h2>
-    </div>
-    <div class="newsletter-form">
-      <p>Early access to new drops. No noise. Unsubscribe any time.</p>
-      <div class="email-row">
-        <input class="email-input" type="email" placeholder="Your email address">
-        <button class="email-submit">Subscribe</button>
-      </div>
-      <p class="newsletter-note">By subscribing you agree to our privacy policy.</p>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
+    <div class="reveal">
+<form class="form" id="enquiry-form" action="#" method="POST" data-endpoint="" data-email="hello@zytrostyle.com" data-whatsapp="">
+  <div class="field"><label for="f-name">Full Name *</label><input id="f-name" name="name" autocomplete="name" required></div>
+  <div class="field"><label for="f-company">Company / Brand Name *</label><input id="f-company" name="company" autocomplete="organization" required></div>
+  <div class="field"><label for="f-website">Business Website (Optional)</label><input id="f-website" name="website" type="url" placeholder="https://"></div>
+  <div class="field"><label for="f-phone">Mobile / WhatsApp *</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+ ()-]{8,16}" required></div>
+  <div class="field"><label for="f-email">Email Address *</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+  <div class="field"><label for="f-service">Services Required *</label><select id="f-service" name="service" required><option value="">Select a service</option><option>Search Engine Optimisation (SEO)</option><option>Content Creation Services</option><option>Content Strategy</option><option>Content Marketing</option><option>Digital Marketing & Performance Advertising</option><option>Social Media Marketing</option><option>AI Search Optimisation (GEO &amp; AEO)</option><option>Not sure yet — need advice</option></select></div>
+  <div class="field full"><label for="f-budget">Monthly Marketing Budget (Optional)</label><select id="f-budget" name="budget"><option value="">Prefer not to say</option><option>Under ₹25,000</option><option>₹25,000 – ₹50,000</option><option>₹50,000 – ₹1,00,000</option><option>₹1,00,000 – ₹3,00,000</option><option>Above ₹3,00,000</option></select></div>
+  <div class="field full"><label for="f-goals">Tell Us About Your Business Goals *</label><textarea id="f-goals" name="goals" required></textarea></div>
+  <div class="full"><button class="btn btn-dark" type="submit">Let's Grow My Business</button></div>
+  <p class="full form-status" id="form-status" role="status" aria-live="polite"></p>
+  <p class="full form-note">We respect your privacy. Your details are used only to respond to your enquiry. See our <a href="privacy-policy/">Privacy Policy</a>.</p>
+</form></div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
     <div class="footer-top">
       <div>
-        <p class="footer-brand">ZYRO</p>
-        <p class="footer-tagline">Nothing extra. A clothing brand built on restraint, considered craft, and the quiet confidence of wearing less.</p>
+        <p class="footer-brand">Zytrostyle</p>
+        <p class="footer-strap">Built for Visibility. Designed for Growth.</p>
+        <p class="footer-about">Zytrostyle is an award-winning digital marketing, SEO, content strategy, content creation and social media marketing agency serving businesses in Patna, Bihar and across India.</p>
       </div>
       <div>
-        <p class="footer-col-title">Shop</p>
+        <p class="footer-title">Services</p>
+        <ul class="footer-links"><li><a href="seo-services-patna/">SEO Services</a></li><li><a href="content-creation-services-patna/">Content Creation</a></li><li><a href="content-strategy-patna/">Content Strategy</a></li><li><a href="content-marketing-services-patna/">Content Marketing</a></li><li><a href="digital-marketing-agency-patna/">Digital Marketing</a></li><li><a href="social-media-marketing-patna/">Social Media Marketing</a></li><li><a href="ai-search-optimisation-geo-aeo/">GEO &amp; AEO</a></li></ul>
+      </div>
+      <div>
+        <p class="footer-title">Quick Links</p>
         <ul class="footer-links">
-          <li><a onclick="showPage('collection')">New Collection</a></li>
-          <li><a onclick="showPage('collection')">Women</a></li>
-          <li><a onclick="showPage('collection')">Men</a></li>
-          <li><a>Accessories</a></li>
-          <li><a onclick="showPage('lookbook')">Lookbook</a></li>
+          <li><a href="./">Home</a></li>
+          <li><a href="about/">About Zytrostyle</a></li>
+          <li><a href="services/">Services</a></li>
+          <li><a href="industries/">Industries</a></li>
+          <li><a href="areas-we-serve/">Areas We Serve</a></li>
+          <li><a href="contact/">Contact</a></li>
         </ul>
       </div>
       <div>
-        <p class="footer-col-title">Brand</p>
-        <ul class="footer-links">
-          <li><a onclick="showPage('about')">Our Story</a></li>
-          <li><a>Sustainability</a></li>
-          <li><a>Craftsmanship</a></li>
-          <li><a>Press</a></li>
-          <li><a>Careers</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-col-title">Help</p>
-        <ul class="footer-links">
-          <li><a>Sizing Guide</a></li>
-          <li><a>Shipping & Returns</a></li>
-          <li><a>Care Instructions</a></li>
-          <li><a>Contact</a></li>
-          <li><a>FAQ</a></li>
-        </ul>
+        <p class="footer-title">Contact</p>
+        <ul class="footer-links"><li><a href="mailto:hello@zytrostyle.com">hello@zytrostyle.com</a></li><li><a href="contact/">Patna, Bihar, India</a></li></ul>
       </div>
     </div>
+    <p class="footer-services">SEO · Local SEO · GEO · AEO · Content Creation · Content Strategy · Content Marketing · Digital Marketing · Social Media Marketing · Lead Generation · Google Ads · Meta Ads<br>Service location: Patna, Bihar, India — serving Boring Road, Boring Canal Road, Kankarbagh, Patliputra Colony, Bailey Road, Saguna More &amp; all of Bihar</p>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Zyro. All rights reserved.</p>
-      <p class="footer-copy">Privacy Policy · Terms · Cookies</p>
-    </div>
-  </footer>
-</div>
-
-<!-- ═══════════════════════════════════
-     PAGE: COLLECTION
-═══════════════════════════════════ -->
-<div class="page" id="page-collection">
-  <div class="collection-page-hero">
-    <div>
-      <p class="section-label" style="margin-bottom:18px;">Spring / Summer 2025</p>
-      <h1>The<br><em>Collection.</em></h1>
+      <span>© <span id="year">2026</span> Zytrostyle. All rights reserved.</span>
+      <span><a href="privacy-policy/">Privacy Policy</a> · <a href="sitemap.xml">Sitemap</a></span>
     </div>
   </div>
+</footer>
 
-  <div class="filter-bar">
-    <span class="filter-item active">All</span>
-    <span class="filter-item">Women</span>
-    <span class="filter-item">Men</span>
-    <span class="filter-item">Knitwear</span>
-    <span class="filter-item">Tailoring</span>
-    <span class="filter-item">Dresses</span>
-    <span class="filter-item">Accessories</span>
-  </div>
-
-  <div class="shop-grid">
-    <div class="product-card" onclick="showPage('product')">
-      <img src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600&q=85&fit=crop" alt="">
-      <div class="product-info">
-        <p class="product-cat">Women</p>
-        <p class="product-name">Fluid Linen Shirt</p>
-        <p class="product-price">AED 289</p>
-      </div>
-    </div>
-    <div class="product-card" onclick="showPage('product')">
-      <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600&q=85&fit=crop" alt="">
-      <div class="product-info">
-        <p class="product-cat">Women</p>
-        <p class="product-name">Tailored Trouser</p>
-        <p class="product-price">AED 349</p>
-      </div>
-    </div>
-    <div class="product-card" onclick="showPage('product')">
-      <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=85&fit=crop" alt="">
-      <div class="product-info">
-        <p class="product-cat">Men</p>
-        <p class="product-name">Relaxed Wool Blazer</p>
-        <p class="product-price">AED 679</p>
-      </div>
-    </div>
-    <div class="product-card" onclick="showPage('product')">
-      <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=600&q=85&fit=crop" alt="">
-      <div class="product-info">
-        <p class="product-cat">Women</p>
-        <p class="product-name">Minimal Slip Dress</p>
-        <p class="product-price">AED 419</p>
-      </div>
-    </div>
-    <div class="product-card" onclick="showPage('product')">
-      <img src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=600&q=85&fit=crop" alt="">
-      <div class="product-info">
-        <p class="product-cat">Women</p>
-        <p class="product-name">Oversized Cashmere Knit</p>
-        <p class="product-price">AED 549</p>
-      </div>
-    </div>
-    <div class="product-card" onclick="showPage('product')">
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=85&fit=crop" alt="">
-      <div class="product-info">
-        <p class="product-cat">Men</p>
-        <p class="product-name">Slim Oxford Shirt</p>
-        <p class="product-price">AED 259</p>
-      </div>
-    </div>
-    <div class="product-card" onclick="showPage('product')">
-      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&q=85&fit=crop" alt="">
-      <div class="product-info">
-        <p class="product-cat">Women</p>
-        <p class="product-name">Structured Column Coat</p>
-        <p class="product-price">AED 1,149</p>
-      </div>
-    </div>
-    <div class="product-card" onclick="showPage('product')">
-      <img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=600&q=85&fit=crop" alt="">
-      <div class="product-info">
-        <p class="product-cat">Men</p>
-        <p class="product-name">Wide-Leg Chino</p>
-        <p class="product-price">AED 329</p>
-      </div>
-    </div>
-    <div class="product-card" onclick="showPage('product')">
-      <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=600&q=85&fit=crop" alt="">
-      <div class="product-info">
-        <p class="product-cat">Women</p>
-        <p class="product-name">Bias-Cut Silk Skirt</p>
-        <p class="product-price">AED 489</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer (reused) -->
-  <footer>
-    <div class="footer-top">
-      <div>
-        <p class="footer-brand">ZYRO</p>
-        <p class="footer-tagline">Nothing extra. A clothing brand built on restraint, considered craft, and the quiet confidence of wearing less.</p>
-      </div>
-      <div>
-        <p class="footer-col-title">Shop</p>
-        <ul class="footer-links">
-          <li><a onclick="showPage('collection')">New Collection</a></li>
-          <li><a onclick="showPage('collection')">Women</a></li>
-          <li><a onclick="showPage('collection')">Men</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-col-title">Brand</p>
-        <ul class="footer-links">
-          <li><a onclick="showPage('about')">Our Story</a></li>
-          <li><a>Sustainability</a></li>
-          <li><a onclick="showPage('lookbook')">Lookbook</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-col-title">Help</p>
-        <ul class="footer-links">
-          <li><a>Sizing Guide</a></li>
-          <li><a>Shipping & Returns</a></li>
-          <li><a>Contact</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Zyro. All rights reserved.</p>
-      <p class="footer-copy">Privacy Policy · Terms</p>
-    </div>
-  </footer>
-</div>
-
-<!-- ═══════════════════════════════════
-     PAGE: PRODUCT DETAIL
-═══════════════════════════════════ -->
-<div class="page" id="page-product">
-  <div class="product-detail">
-    <div class="product-gallery">
-      <img src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=1000&q=90&fit=crop" alt="Fluid Linen Shirt">
-    </div>
-    <div class="product-detail-info">
-      <p class="section-label label">Women · Shirts</p>
-      <h1 class="product-detail-title">Fluid Linen<br>Shirt</h1>
-      <p class="product-detail-price">AED 289</p>
-      <p class="product-detail-desc">Woven from 100% European linen, this shirt moves with you. An intentionally relaxed silhouette — designed to improve as it ages, softening with each wash without losing its shape. The collar sits low, the cuffs roll naturally.</p>
-      <div class="size-row">
-        <p class="size-label">Select size</p>
-        <div class="sizes">
-          <button class="size-btn">XS</button>
-          <button class="size-btn active">S</button>
-          <button class="size-btn">M</button>
-          <button class="size-btn">L</button>
-          <button class="size-btn">XL</button>
-        </div>
-      </div>
-      <button class="add-to-bag">Add to Bag</button>
-      <button class="wishlist-btn">Save to Wishlist</button>
-
-      <div style="margin-top:40px; padding-top:32px; border-top:0.5px solid rgba(0,0,0,.1);">
-        <p class="section-label" style="margin-bottom:14px;">Material</p>
-        <p style="font-size:13px; line-height:1.7; color:#555;">100% European Linen. Garment-dyed. Pre-washed. Machine washable at 30°C. Tumble dry low.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════
-     PAGE: LOOKBOOK
-═══════════════════════════════════ -->
-<div class="page" id="page-lookbook">
-
-  <!-- Video hero simulation with high-quality image -->
-  <section class="video-section">
-    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1800&q=90&fit=crop"
-         style="width:100%;height:100%;object-fit:cover;opacity:.55;position:absolute;inset:0;" alt="">
-    <div class="video-overlay">
-      <div>
-        <p class="section-label" style="color:rgba(255,255,255,.5); margin-bottom:20px;">SS 2025 — Film</p>
-        <h2 class="video-title">The linen<br><em>edit.</em></h2>
-      </div>
-    </div>
-  </section>
-
-  <!-- Masonry lookbook -->
-  <section class="lookbook">
-    <div class="lookbook-header">
-      <p class="section-label" style="margin-bottom:14px;">Spring / Summer 2025</p>
-      <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(36px,4vw,62px); font-weight:300; letter-spacing:-0.05em;">The lookbook.<br><em>Shot in natural light.</em></h2>
-    </div>
-
-    <div class="masonry">
-      <div class="masonry-item">
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=700&q=85&fit=crop" alt="">
-      </div>
-      <div class="masonry-item">
-        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=700&q=85&fit=crop" alt="">
-      </div>
-      <div class="masonry-item">
-        <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=700&q=85&fit=crop" alt="">
-      </div>
-      <div class="masonry-item">
-        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=85&fit=crop" alt="">
-      </div>
-      <div class="masonry-item">
-        <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=700&q=85&fit=crop" alt="">
-      </div>
-      <div class="masonry-item">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=85&fit=crop" alt="">
-      </div>
-      <div class="masonry-item">
-        <img src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=700&q=85&fit=crop" alt="">
-      </div>
-      <div class="masonry-item">
-        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=700&q=85&fit=crop" alt="">
-      </div>
-      <div class="masonry-item">
-        <img src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=700&q=85&fit=crop" alt="">
-      </div>
-    </div>
-  </section>
-
-  <div class="full-bleed">
-    <img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=1800&q=85&fit=crop" alt="">
-    <div class="full-bleed-content">
-      <h2>Shop the<br><em>look.</em></h2>
-      <span class="btn-primary" onclick="showPage('collection')">Explore Collection</span>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-top">
-      <div>
-        <p class="footer-brand">ZYRO</p>
-        <p class="footer-tagline">Nothing extra.</p>
-      </div>
-      <div>
-        <p class="footer-col-title">Shop</p>
-        <ul class="footer-links">
-          <li><a onclick="showPage('collection')">New Collection</a></li>
-          <li><a onclick="showPage('collection')">Women</a></li>
-          <li><a onclick="showPage('collection')">Men</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-col-title">Brand</p>
-        <ul class="footer-links">
-          <li><a onclick="showPage('about')">Our Story</a></li>
-          <li><a>Sustainability</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-col-title">Help</p>
-        <ul class="footer-links">
-          <li><a>Sizing Guide</a></li>
-          <li><a>Contact</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Zyro.</p>
-      <p class="footer-copy">Privacy Policy · Terms</p>
-    </div>
-  </footer>
-</div>
-
-<!-- ═══════════════════════════════════
-     PAGE: ABOUT / STORY
-═══════════════════════════════════ -->
-<div class="page" id="page-about">
-
-  <div class="about-hero">
-    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1800&q=85&fit=crop" alt="">
-    <div class="about-hero-content">
-      <p class="section-label" style="color:rgba(255,255,255,.5); margin-bottom:16px;">The Zyro Story</p>
-      <h1>We started<br>by removing<br><em>everything.</em></h1>
-    </div>
-  </div>
-
-  <!-- Values section -->
-  <section class="values-section">
-    <div class="values-left">
-      <h3>A brand<br>built on<br><em>restraint.</em></h3>
-      <p>Zyro was founded on a single conviction: that good clothing doesn't announce itself. It simply exists — beautifully, durably, and without apology.</p>
-      <br>
-      <p>We design for people who have already decided. They know what they like. They don't need to be told. They want a wardrobe that gets out of the way and lets them move through the world.</p>
-    </div>
-    <div class="values-list">
-      <div class="value-item">
-        <p class="value-num">01</p>
-        <div>
-          <p class="value-name">Restraint</p>
-          <p class="value-desc">We design by subtraction. Every element that doesn't serve a purpose is removed. What remains is intentional.</p>
-        </div>
-      </div>
-      <div class="value-item">
-        <p class="value-num">02</p>
-        <div>
-          <p class="value-name">Material honesty</p>
-          <p class="value-desc">We source fabrics that perform honestly — linen that breathes, wool that insulates, silk that moves. No synthetic imitations of the real thing.</p>
-        </div>
-      </div>
-      <div class="value-item">
-        <p class="value-num">03</p>
-        <div>
-          <p class="value-name">Considered production</p>
-          <p class="value-desc">Short runs. Less waste. We produce what we believe will sell — and we replenish rather than overstock. Speed to market without sacrifice of craft.</p>
-        </div>
-      </div>
-      <div class="value-item">
-        <p class="value-num">04</p>
-        <div>
-          <p class="value-name">Durability over trend</p>
-          <p class="value-desc">Our pieces are designed to last beyond the season they launch in. Classic construction, unfussy silhouettes, colours that work year after year.</p>
-        </div>
-      </div>
-      <div class="value-item">
-        <p class="value-num">05</p>
-        <div>
-          <p class="value-name">Quiet confidence</p>
-          <p class="value-desc">The Zyro customer doesn't need to be noticed. They are noticed. That is the difference. Our brand voice mirrors our customer's certainty.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Brand voice DO / DON'T -->
-  <section style="padding:80px 48px; background:var(--black); color:var(--white);">
-    <p class="section-label" style="color:var(--gold); margin-bottom:40px;">Brand Voice Guide</p>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2px;">
-      <div style="background:#0a0a0a; padding:48px;">
-        <p style="font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:28px;">We write like this ✓</p>
-        <div style="display:flex; flex-direction:column; gap:20px;">
-          <div style="padding-bottom:20px; border-bottom:0.5px solid rgba(255,255,255,.08);">
-            <p style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; font-style:italic; margin-bottom:6px;">This is a shirt. A very good shirt.</p>
-            <p style="font-size:12px; color:rgba(255,255,255,.4);">Short. Confident. Product-led.</p>
-          </div>
-          <div style="padding-bottom:20px; border-bottom:0.5px solid rgba(255,255,255,.08);">
-            <p style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; font-style:italic; margin-bottom:6px;">Worn. Washed. Better.</p>
-            <p style="font-size:12px; color:rgba(255,255,255,.4);">Material truth. No decoration.</p>
-          </div>
-          <div style="padding-bottom:20px; border-bottom:0.5px solid rgba(255,255,255,.08);">
-            <p style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; font-style:italic; margin-bottom:6px;">100% linen. It shows.</p>
-            <p style="font-size:12px; color:rgba(255,255,255,.4);">Specificity. Not vague luxury.</p>
-          </div>
-        </div>
-      </div>
-      <div style="background:#111; padding:48px;">
-        <p style="font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#c0392b; margin-bottom:28px;">Not like this ✗</p>
-        <div style="display:flex; flex-direction:column; gap:20px;">
-          <div style="padding-bottom:20px; border-bottom:0.5px solid rgba(255,255,255,.08);">
-            <p style="font-family:'Barlow',sans-serif; font-size:15px; color:rgba(255,255,255,.4); text-decoration:line-through; margin-bottom:6px;">"Elevate your style journey with this amazing..."</p>
-            <p style="font-size:12px; color:rgba(255,255,255,.25);">Never. Marketing fluff.</p>
-          </div>
-          <div style="padding-bottom:20px; border-bottom:0.5px solid rgba(255,255,255,.08);">
-            <p style="font-family:'Barlow',sans-serif; font-size:15px; color:rgba(255,255,255,.4); text-decoration:line-through; margin-bottom:6px;">"Limited time! BUY NOW before it's gone!"</p>
-            <p style="font-size:12px; color:rgba(255,255,255,.25);">Never. Urgency manipulation.</p>
-          </div>
-          <div style="padding-bottom:20px; border-bottom:0.5px solid rgba(255,255,255,.08);">
-            <p style="font-family:'Barlow',sans-serif; font-size:15px; color:rgba(255,255,255,.4); text-decoration:line-through; margin-bottom:6px;">"Perfect for any occasion — day to night!"</p>
-            <p style="font-size:12px; color:rgba(255,255,255,.25);">Never. Generic lifestyle copy.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Full bleed brand statement -->
-  <div class="full-bleed">
-    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1800&q=85&fit=crop" alt="">
-    <div class="full-bleed-content">
-      <h2>Join the<br><em>edit.</em></h2>
-      <span class="btn-primary" onclick="showPage('collection')">Shop Collection</span>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-top">
-      <div>
-        <p class="footer-brand">ZYRO</p>
-        <p class="footer-tagline">Nothing extra. A clothing brand built on restraint, considered craft, and the quiet confidence of wearing less.</p>
-      </div>
-      <div>
-        <p class="footer-col-title">Shop</p>
-        <ul class="footer-links">
-          <li><a onclick="showPage('collection')">New Collection</a></li>
-          <li><a onclick="showPage('collection')">Women</a></li>
-          <li><a onclick="showPage('collection')">Men</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-col-title">Brand</p>
-        <ul class="footer-links">
-          <li><a onclick="showPage('about')">Our Story</a></li>
-          <li><a>Sustainability</a></li>
-          <li><a onclick="showPage('lookbook')">Lookbook</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-col-title">Help</p>
-        <ul class="footer-links">
-          <li><a>Sizing Guide</a></li>
-          <li><a>Shipping & Returns</a></li>
-          <li><a>Contact</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Zyro. All rights reserved.</p>
-      <p class="footer-copy">Privacy Policy · Terms</p>
-    </div>
-  </footer>
-</div>
-
-<script>
-// ── CURSOR ──────────────────────────────────────────────────────────────
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-(function animateCursor() {
-  cursor.style.left = mx + 'px';
-  cursor.style.top  = my + 'px';
-  rx += (mx - rx) * .12;
-  ry += (my - ry) * .12;
-  ring.style.left = rx + 'px';
-  ring.style.top  = ry + 'px';
-  requestAnimationFrame(animateCursor);
-})();
-
-// ── PAGE NAVIGATION ─────────────────────────────────────────────────────
-const transition = document.getElementById('pageTransition');
-const nav = document.getElementById('mainNav');
-
-function showPage(name) {
-  const current = document.querySelector('.page.active');
-  const target  = document.getElementById('page-' + name);
-  if (!target || current === target) return;
-
-  transition.style.animation = 'none';
-  transition.offsetHeight;
-  transition.style.animation = 'transIn .45s cubic-bezier(.76,0,.24,1) forwards';
-
-  setTimeout(() => {
-    current.classList.remove('active');
-    target.classList.add('active');
-    window.scrollTo(0, 0);
-
-    // Adapt nav style per page
-    if (name === 'home') {
-      nav.className = '';
-    } else {
-      nav.className = 'light';
-    }
-
-    transition.style.animation = 'none';
-    transition.offsetHeight;
-    transition.style.animation = 'transOut .45s cubic-bezier(.76,0,.24,1) forwards';
-
-    // Trigger reveals
-    setTimeout(initReveals, 100);
-  }, 380);
-}
-
-// ── SCROLL REVEAL ────────────────────────────────────────────────────────
-function initReveals() {
-  const reveals = document.querySelectorAll('.page.active .reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  reveals.forEach(r => { r.classList.remove('visible'); obs.observe(r); });
-}
-initReveals();
-
-// ── SIZE SELECTOR ────────────────────────────────────────────────────────
-document.querySelectorAll('.size-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    btn.closest('.sizes').querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
-
-// ── FILTER TABS ──────────────────────────────────────────────────────────
-document.querySelectorAll('.filter-item').forEach(f => {
-  f.addEventListener('click', () => {
-    f.closest('.filter-bar').querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
-    f.classList.add('active');
-  });
-});
-
-// ── NAV SCROLL ───────────────────────────────────────────────────────────
-window.addEventListener('scroll', () => {
-  const page = document.querySelector('.page.active');
-  if (!page) return;
-  const pageId = page.id;
-  if (pageId === 'page-home' && window.scrollY > 60) {
-    nav.style.mixBlendMode = 'normal';
-  }
-});
-</script>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>

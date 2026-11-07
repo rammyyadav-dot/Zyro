@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /build/
+Disallow: /docs/
+
+Sitemap: https://www.zytrostyle.com/sitemap.xml
