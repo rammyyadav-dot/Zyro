@@ -172,7 +172,7 @@
       if (wa) window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(body), '_blank', 'noopener');
       else if (mail) window.location.href = 'mailto:' + mail + '?subject=' + encodeURIComponent('Marketing consultation request — ' + (d.get('company') || d.get('name') || '')) + '&body=' + encodeURIComponent(body);
       var status = document.getElementById('form-status');
-      if (status) status.textContent = 'Thank you — your enquiry is ready to send. Our strategists respond within one working day.';
+      if (status) status.textContent = 'Your enquiry has not been sent yet. Review the message and press Send in WhatsApp or your email app. If no app opened, use the contact links on this page.';
     });
   }
 

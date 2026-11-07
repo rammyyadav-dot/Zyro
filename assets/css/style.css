@@ -864,3 +864,11 @@ body.home .nav-links .mega-foot a { color: var(--gold); }
 @media (max-width: 640px) { .wa { right: 14px; bottom: 14px; } .wa-fab { width: 58px; height: 58px; } .wa-panel { bottom: 74px; } }
 @media (prefers-reduced-motion: reduce) { .wa-fab::before, .wa-panel, .wa-bubble { animation: none; } }
 .bw, .bm { background: #161616; }
+
+/* Search-focused homepage heading and accessible service comparison. */
+.home-heading { grid-column: 1 / -1; font-family: var(--sans); font-size: clamp(30px, 5vw, 72px); line-height: 1.12; font-weight: 500; }
+.comparison-scroll { overflow-x: auto; margin: 24px 0; }
+.service-comparison { width: 100%; border-collapse: collapse; min-width: 640px; text-align: left; }
+.service-comparison caption { text-align: left; padding: 12px 0; }
+.service-comparison th, .service-comparison td { padding: 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.service-comparison th { font-weight: 500; }

@@ -24,8 +24,8 @@ SITE = {
     "region_code": "IN-BR",
     "postal_code": "",                             # e.g. "800001"
     "country": "IN",
-    "lat": "25.5941",                              # Patna city centre — replace with office pin
-    "lng": "85.1376",
+    "lat": "",                              # Patna city centre — replace with office pin
+    "lng": "",
     "hours": "Mo-Sa 10:00-19:00",
     "founded": "",
     "form_endpoint": "",                           # e.g. Formspree URL; empty = WhatsApp / email hand-off
@@ -37,7 +37,7 @@ SITE = {
     ],
     "tagline": "Built for Visibility. Designed for Growth.",
     "slogan": "Get Found. Get Noticed. Get Chosen.",
-    "short": "Award-winning content marketing, SEO and digital marketing agency in Patna, Bihar.",
+    "short": "content marketing, SEO and digital marketing agency in Patna, Bihar.",
 }
 
 PATNA_AREAS = [
@@ -74,7 +74,7 @@ SERVICES = [
         "card_points": ["Technical & on-page SEO audits", "Local SEO & Google Maps ranking", "Keyword & competitor research", "E-commerce & B2B SEO"],
         "service_type": "Search Engine Optimization",
         "title": "Best SEO Company in Patna | SEO Services & Local SEO — Zyrostyle",
-        "description": "Zyrostyle is an award-winning SEO agency in Patna. Technical SEO, local SEO, Google Business Profile & Google Maps ranking that drive leads across Bihar.",
+        "description": "Zyrostyle is a SEO agency in Patna. Technical SEO, local SEO, Google Business Profile & Google Maps ranking that drive leads across Bihar.",
         "keywords": "best seo company in patna, seo services in patna, seo agency in patna, local seo services patna, gmb optimization services patna, google map ranking expert patna, seo consultant in patna, affordable seo services in patna, technical seo company patna, ecommerce seo agency patna, website ranking agency patna, link building services in patna, google business profile setup patna, best seo agency near me patna, seo agency near me",
         "eyebrow": "SEO Agency in Patna, Bihar",
         "h1": "SEO Services in Patna That Put You <em>on Page One.</em>",
@@ -236,11 +236,11 @@ SERVICES = [
         "card_points": ["SEO-led content campaigns", "Lead-generation landing pages", "Email marketing & newsletters", "B2B thought leadership"],
         "service_type": "Content Marketing",
         "title": "Content Marketing Agency in Patna | SEO Content & Lead Generation",
-        "description": "Award-winning content marketing agency in Patna. SEO content, B2B thought leadership, email marketing and inbound lead generation that builds organic growth.",
+        "description": "content marketing agency in Patna. SEO content, B2B thought leadership, email marketing and inbound lead generation that builds organic growth.",
         "keywords": "content marketing services in patna, content marketing agency in patna, b2b content marketing agency patna, seo content marketing services patna, content distribution agency patna, content marketing company near me patna, lead conversion content marketing patna, inbound marketing agency patna, content marketing pricing in patna, content marketing company near me patna",
         "eyebrow": "Content Marketing Agency in Patna",
         "h1": "Content Marketing That Builds <em>Demand, Not Just Traffic.</em>",
-        "lead": "Zyrostyle is an award-winning content marketing agency in Patna, helping brands build organic growth engines that attract qualified traffic, earn trust and convert readers into leads and revenue.",
+        "lead": "Zyrostyle is a content marketing agency in Patna, helping brands build organic growth engines that attract qualified traffic, earn trust and convert readers into leads and revenue.",
         "strap": "Don't Just Publish Content. Build Demand.",
         "intro_label": "Content as a growth engine",
         "intro_h2": "Customers trust you <em>before</em> <em>they ever call you.</em>",
@@ -325,7 +325,7 @@ SERVICES = [
         ],
         "closing": "Less Guesswork. More Growth Intelligence.",
         "faqs": [
-            ("Which is the best digital marketing agency in Patna?", "The best digital marketing agency for you is one that understands your industry, combines SEO, content and paid media, and reports transparently on leads and revenue. Zyrostyle is an award-winning, content-led digital marketing agency in Patna built around exactly these principles."),
+            ("Which is the best digital marketing agency in Patna?", "The best digital marketing agency for you is one that understands your industry, combines SEO, content and paid media, and reports transparently on leads and revenue. Zyrostyle is an content-led digital marketing agency in Patna built around exactly these principles."),
             ("What does a digital marketing package cost in Patna?", "Digital marketing package costs in Patna vary by channels, content volume and ad spend. Small businesses often start with a focused package (for example local SEO plus social media), while growth brands combine SEO, content and paid advertising. We provide a custom quote after understanding your goals."),
             ("Do you provide digital marketing services for small businesses?", "Yes. We design affordable, focused digital marketing plans for small businesses in Patna — typically starting with Google Business Profile, local SEO, social media and a simple lead-generation campaign."),
             ("Do you manage Google Ads in Patna?", "Yes. We plan, build and optimise Google Search, Display, YouTube and Performance Max campaigns, with conversion tracking set up so you can see exactly which campaigns generate enquiries."),
@@ -468,14 +468,30 @@ PILLARS = [
     ("Grow Sustainably", "Build scalable marketing processes driven by insights, measurement and continuous improvement."),
 ]
 
-HOME_FAQS = [
-    ("What does Zyrostyle do?", "Zyrostyle is an award-winning content marketing, SEO and digital marketing agency in Patna, Bihar. We help brands build organic growth engines through SEO, GEO, AEO, content creation, content strategy, content marketing, social media marketing and performance advertising."),
-    ("Where is Zyrostyle located?", "Zyrostyle is based in Patna, Bihar, and serves businesses across Patna — including Boring Road, Kankarbagh, Patliputra Colony, Bailey Road and Saguna More — as well as clients throughout Bihar and India."),
-    ("Which is the best SEO and digital marketing company in Patna?", "Look for an agency that combines strategy, content, SEO and paid media, understands your industry and reports transparently on leads and revenue. Zyrostyle is a content-led, award-winning agency in Patna that builds marketing around business outcomes rather than vanity metrics."),
-    ("How much does digital marketing cost in Patna?", "Costs depend on the services, channels and scale you need. Small businesses can start with a focused local SEO and social media package, while growing brands typically combine SEO, content marketing and paid advertising. We provide a free consultation and a custom proposal."),
-    ("Do you work with small businesses and startups?", "Yes. We work with startups, local businesses and established companies. Every plan is scaled to your goals and budget."),
-    ("Do you create content in Hindi?", "Yes. We create content in English, Hindi and Hinglish to match how your customers search and engage."),
-]
+HOME_FAQS = [('What digital marketing services does Zyrostyle offer?',
+  'Zyrostyle offers SEO, content strategy, content creation, social media marketing and paid advertising. We '
+  'also help businesses structure website content for search engines and answer-based discovery.'),
+ ('How much does digital marketing cost in Patna?',
+  'Pricing depends on the services, deliverables, campaign scope and advertising budget. Request a proposal '
+  'that separates agency fees, content production and advertising spend so you can compare costs clearly.'),
+ ('Should my business start with SEO or Google Ads?',
+  'SEO builds organic search visibility over time. Google Ads can reach people searching for your services '
+  'once campaigns are approved and running, but requires an advertising budget. The right starting point '
+  'depends on demand, your website’s readiness, budget and how quickly you need enquiries.'),
+ ('How long does SEO take to show results?',
+  'SEO is an ongoing process, and results vary with competition, website condition and the work required. '
+  'Early improvements may appear before meaningful lead growth. A proposal should explain priorities, '
+  'milestones and reporting without guaranteeing rankings or a fixed results date.'),
+ ('Do you work with businesses outside Patna?',
+  'Zyrostyle serves businesses in Patna and across Bihar, with remote collaboration available for clients '
+  'elsewhere in India. Discuss your location, audience and service requirements during the initial '
+  'consultation.'),
+ ('Do you create content in Hindi and English?',
+  'Yes. Zyrostyle creates content in English, Hindi and Hinglish. The language and format should reflect '
+  'your audience, brand voice and the channels where the content will appear.'),
+ ('What happens when I contact Zyrostyle?',
+  'Share your business, website and marketing goals so we can discuss suitable next steps. If you choose '
+  'WhatsApp, review the prefilled message and press Send in WhatsApp to complete your enquiry.')]
 
 # Areas served — unique copy per locality to avoid thin, duplicated content.
 AREAS = [
