@@ -10,6 +10,7 @@ into the repository root. All copy lives in build/content.py.
 import html
 import json
 import os
+import re
 from datetime import date
 
 from photos import ALT, INDUSTRY_PHOTOS, PAGE_PHOTOS
@@ -663,7 +664,25 @@ def cta_section(ctx, title="Ready to turn your business into a brand <em>people 
 """
 
 
+_CTA_RE = re.compile(r'<a class="((?:[^"]*\b)?(?:btn|pill-btn)(?:\b[^"]*)?)" href="((?:\.\./)*contact/)">')
+
+
+def route_ctas(slug, body):
+    """Every CTA button that pointed at /contact/ now opens WhatsApp chat
+    with the business mobile number, pre-filled with the page's topic."""
+    if not SITE["whatsapp"]:
+        return body
+    topic = NAMES.get(slug) or "digital marketing"
+    if slug == "":
+        topic = "digital marketing for my business"
+    msg = f"Hi Zyrostyle! I'd like a free consultation about {strip_tags(topic).replace('&amp;', '&')}."
+    from urllib.parse import quote
+    url = f"https://wa.me/{SITE['whatsapp']}?text={quote(msg)}"
+    return _CTA_RE.sub(lambda m: f'<a class="{m.group(1)}" href="{url}" target="_blank" rel="noopener" data-cta="whatsapp">', body)
+
+
 def write(slug, body, priority="0.8"):
+    body = route_ctas(slug, body)
     path = os.path.join(ROOT, slug, "index.html") if slug else os.path.join(ROOT, "index.html")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -1151,7 +1170,7 @@ def build_404():
                  ctas=[("Back to Home", "", "btn-light"), ("Explore Services", "services", "btn-line")], sub=False, photo="creative-idea-bulb")
     body += "</main>\n" + footer(ctx)
     with open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8") as f:
-        f.write(body)
+        f.write(route_ctas("404", body))
 
 
 def build_meta_files():
