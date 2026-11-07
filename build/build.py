@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Static site generator for zytrostyle.
+Static site generator for zyrostyle.
 
     python3 build/build.py
 
@@ -12,6 +12,7 @@ import json
 import os
 from datetime import date
 
+from photos import ALT, INDUSTRY_PHOTOS, PAGE_PHOTOS
 from landing_content import COURSE, COURSE_MODULES, LANDINGS, PACKAGES
 from content import (AI_SEARCH, AREAS, BIHAR_CITIES, HOME_FAQS, INDUSTRIES, PATNA_AREAS,
                      PILLARS, PROCESS, SERVICES, SITE, TICKER, WHY)
@@ -85,7 +86,7 @@ def org_schema():
         "logo": BASE + "/assets/img/logo.svg",
         "image": BASE + "/assets/img/og-image.png",
         "slogan": SITE["slogan"],
-        "description": ("Zytrostyle is an award-winning content marketing and SEO agency in Patna, Bihar, "
+        "description": ("Zyrostyle is an award-winning content marketing and SEO agency in Patna, Bihar, "
                         "helping brands build organic growth engines that drive traffic, leads and revenue."),
         "email": SITE["email"],
         "address": addr,
@@ -209,9 +210,10 @@ def nav(ctx):
         return ' aria-current="page"' if ctx.slug == s else ""
     sub = "".join(f'<li><a href="{ctx.href(s["slug"])}"{cur(s["slug"])}>{s["nav"]}</a></li>' for s in SERVICES)
     sub += f'<li><a href="{ctx.href(AI_SEARCH["slug"])}"{cur(AI_SEARCH["slug"])}>{AI_SEARCH["nav"]}</a></li>'
-    return f"""<header class="site-header">
+    return f"""<div class="scroll-progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
   <nav class="nav" aria-label="Main">
-    <a class="nav-logo" href="{ctx.href('')}" aria-label="Zytrostyle home">Zytrostyle</a>
+    <a class="nav-logo" href="{ctx.href('')}" aria-label="Zyrostyle home">Zyrostyle</a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
     <div class="nav-menu" id="nav-menu">
       <ul class="nav-links">
@@ -241,15 +243,15 @@ def footer(ctx):
     wa = ""
     if SITE["whatsapp"]:
         wa = (f'<a class="float-wa" href="https://wa.me/{SITE["whatsapp"]}?text='
-              f'{esc("Hi Zytrostyle, I would like a free marketing consultation.")}" '
+              f'{esc("Hi Zyrostyle, I would like a free marketing consultation.")}" '
               f'rel="noopener" target="_blank">WhatsApp Us</a>')
     return f"""<footer class="site-footer">
   <div class="wrap">
     <div class="footer-top">
       <div>
-        <p class="footer-brand">Zytrostyle</p>
+        <p class="footer-brand">Zyrostyle</p>
         <p class="footer-strap">{SITE['tagline']}</p>
-        <p class="footer-about">Zytrostyle is an award-winning digital marketing, SEO, content strategy, content creation and social media marketing agency serving businesses in Patna, Bihar and across India.</p>
+        <p class="footer-about">Zyrostyle is an award-winning digital marketing, SEO, content strategy, content creation and social media marketing agency serving businesses in Patna, Bihar and across India.</p>
       </div>
       <div>
         <p class="footer-title">Services</p>
@@ -259,7 +261,7 @@ def footer(ctx):
         <p class="footer-title">Quick Links</p>
         <ul class="footer-links">
           <li><a href="{ctx.href('')}">Home</a></li>
-          <li><a href="{ctx.href('about')}">About Zytrostyle</a></li>
+          <li><a href="{ctx.href('about')}">About Zyrostyle</a></li>
           <li><a href="{ctx.href('services')}">Services</a></li>
           <li><a href="{ctx.href('industries')}">Industries</a></li>
           <li><a href="{ctx.href('areas-we-serve')}">Areas We Serve</a></li>
@@ -274,7 +276,8 @@ def footer(ctx):
     <p class="footer-services footer-popular">Popular in Patna: {popular}</p>
     <p class="footer-services">SEO · Local SEO · GEO · AEO · Content Creation · Content Strategy · Content Marketing · Digital Marketing · Social Media Marketing · Lead Generation · Google Ads · Meta Ads<br>Service location: Patna, Bihar, India — serving {", ".join(PATNA_AREAS[:6])} &amp; all of Bihar</p>
     <div class="footer-bottom">
-      <span>© <span id="year">2026</span> Zytrostyle. All rights reserved.</span>
+      <span>© <span id="year">2026</span> Zyrostyle. All rights reserved.</span>
+      <span>Photography: Unsplash</span>
       <span><a href="{ctx.href('privacy-policy')}">Privacy Policy</a> · <a href="{ctx.pre}sitemap.xml">Sitemap</a></span>
     </div>
   </div>
@@ -297,18 +300,113 @@ def breadcrumb(ctx, crumbs):
     return f'<ol class="breadcrumb">{"".join(items)}</ol>'
 
 
-def hero(ctx, eyebrow, h1, lead, crumbs=None, strap=None, ctas=None, meta=None, sub=True):
+def pic(ctx, name, cls="", eager=False, sizes="100vw", alt=None):
+    base = ctx.asset(f"img/photos/{name}")
+    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    return (f'<img class="{cls}" src="{base}.webp" srcset="{base}-sm.webp 900w, {base}.webp 1800w" sizes="{sizes}" '
+            f'alt="{esc(alt if alt is not None else ALT[name])}" width="1800" height="1200" {load} decoding="async">')
+
+
+def img_band(ctx, text, photo=None, label=""):
+    photo = photo or (PAGE_PHOTOS.get(ctx.slug) or (None, None))[1]
+    if not photo:
+        return ""
+    lab = f'<span class="label on-dark">{label}</span>' if label else ""
+    return f"""<section class="img-band" aria-label="{esc(strip_tags(text))}">
+  <div class="img-band-media" data-speed="0.18">{pic(ctx, photo, "img-band-img")}</div>
+  <div class="img-band-shade"></div>
+  <div class="wrap img-band-copy">{lab}<p class="img-band-text split">{text}</p></div>
+</section>
+"""
+
+
+def mega_marquee(rows=None):
+    rows = rows or [("Get Found", "Get Noticed", "Get Chosen"), ("SEO", "GEO", "AEO", "Content", "Social", "Performance")]
+    out = []
+    for i, words in enumerate(rows):
+        seq = "".join(f'<span class="mm-word{" outline" if (j + i) % 2 else ""}">{w}</span><span class="mm-dot">◆</span>' for j, w in enumerate(words)) * 3
+        out.append(f'<div class="mm-row" data-dir="{-1 if i % 2 else 1}"><div class="mm-track">{seq}</div></div>')
+    return f'<section class="mega-marquee" aria-hidden="true">{"".join(out)}</section>\n'
+
+
+def showcase(ctx):
+    slides = []
+    for s in SERVICES:
+        slides.append(f"""<a class="hs-slide" href="{ctx.href(s['slug'])}">
+  <div class="hs-media">{pic(ctx, PAGE_PHOTOS[s['slug']][0], sizes="(max-width: 960px) 85vw, 40vw")}</div>
+  <div class="hs-copy"><span class="num">{s['num']}</span><h3>{s['card_title']}</h3><p>{s['card_sub']}</p><span class="link-arrow">Explore {s['nav']}</span></div>
+</a>""")
+    return f"""<section class="hs dark" id="services">
+  <div class="hs-sticky">
+    <div class="wrap hs-head">
+      <div><span class="label">Our Services — Everything Your Brand Needs to Grow</span><h2 class="h-lg">One growth partner. <em>Six connected capabilities.</em></h2></div>
+      <p class="lead">Scroll to explore how we connect content, search, creativity and paid media into one growth engine.</p>
+    </div>
+    <div class="hs-track">{"".join(slides)}<div class="hs-end"><p class="tagline">Everything connected. Nothing wasted.</p><a class="btn btn-light" href="{ctx.href('services')}">All Services</a></div></div>
+  </div>
+</section>
+"""
+
+
+def x3d_home(ctx):
+    """Home hero: sticky WebGL particle scene + scroll-driven story chapters.
+    The H1 and all copy are real HTML (indexable); the canvas is decoration."""
+    chapters = [
+        ("01", "Discover", "Get Found.", "SEO, local SEO and AI-search optimisation put your business in front of customers the moment they search — on Google, Google Maps and AI assistants.", "seo-services-patna", "SEO Services"),
+        ("02", "Connect", "Get Noticed.", "Content, storytelling and social media connect your brand to the right audience in Patna and Bihar — in English, Hindi and Hinglish.", "content-marketing-services-patna", "Content Marketing"),
+        ("03", "Grow", "Get Chosen.", "Performance ads, landing pages and conversion tracking turn attention into enquiries, admissions, bookings and revenue.", "digital-marketing-agency-patna", "Digital Marketing"),
+    ]
+    ch = "".join(f"""<div class="x3d-chapter" data-index="{i+1}">
+      <span class="x3d-num">{n} — {k}</span>
+      <h2 class="x3d-ch-title">{t}</h2>
+      <p>{d}</p>
+      <a class="link-arrow" href="{ctx.href(sl)}">{lbl}</a>
+    </div>""" for i, (n, k, t, d, sl, lbl) in enumerate(chapters))
+    return f"""<section class="x3d" id="top" aria-label="Zyrostyle — digital marketing and SEO agency in Patna">
+  <div class="x3d-sticky">
+    <div class="x3d-fallback">{pic(ctx, "marketing-strategy-team-patna", "hero-img", eager=True)}</div>
+    <canvas class="x3d-canvas" aria-hidden="true"></canvas>
+    <div class="x3d-vignette"></div>
+    <div class="x3d-hud" aria-hidden="true"><span>Patna · 25.59°N 85.13°E</span><span class="x3d-hud-step">00 / 03</span></div>
+    <div class="wrap x3d-intro">
+      <span class="eyebrow">Award-Winning Marketing Agency in Patna · SEO · GEO · Content · Creative Growth</span>
+      <h1 class="h-xl x3d-title"><span class="kt">Digital Marketing &amp; SEO Agency in Patna</span> <span class="kt">That Turns Visibility <em>Into Growth.</em></span></h1>
+      <p class="x3d-rotator" aria-label="Get Found. Get Noticed. Get Chosen.">Get <span class="rot"><span class="rot-w is-on">Found.</span><span class="rot-w">Noticed.</span><span class="rot-w">Chosen.</span></span></p>
+      <p class="lead">We are an award-winning content marketing and SEO agency, helping brands build organic growth engines that drive traffic, leads and revenue across Patna, Bihar and India.</p>
+      <div class="btn-row"><a class="btn btn-light" href="{ctx.href('contact')}">Get Your Free Marketing Consultation</a><a class="btn btn-line" href="#services">Explore Our Services</a></div>
+    </div>
+    <div class="wrap x3d-chapters">{ch}</div>
+    <div class="x3d-scroll" aria-hidden="true"><span class="scroll-line"></span>Scroll to explore the growth engine</div>
+  </div>
+</section>
+"""
+
+
+def kinetic_statement():
+    words = "We don't just market brands. We make them matter.".split()
+    spans = "".join(f'<span class="k3-w" style="--k:{i}">{w}</span> ' for i, w in enumerate(words))
+    return f"""<section class="k3" aria-label="We don't just market brands. We make them matter.">
+  <div class="k3-sticky"><p class="k3-text">{spans}</p></div>
+</section>
+"""
+
+
+def hero(ctx, eyebrow, h1, lead, crumbs=None, strap=None, ctas=None, meta=None, sub=True, photo=None):
     bc = f'<nav aria-label="Breadcrumb">{breadcrumb(ctx, crumbs)}</nav>' if crumbs else ""
     strap_html = f'<p class="hero-strap">{strap}</p>' if strap else ""
     ctas = ctas or [("Get Your Free Marketing Consultation", "contact", "btn-light"),
                     ("Explore Our Services", "services", "btn-line")]
     btns = "".join(f'<a class="btn {c}" href="{ctx.href(s)}">{t}</a>' for t, s, c in ctas)
     meta_html = ("<div class=\"hero-meta\">" + "".join(f"<span>{m}</span>" for m in meta) + "</div>") if meta else ""
-    return f"""<section class="hero dark{' sub' if sub else ''}">
+    photo = photo or (PAGE_PHOTOS.get(ctx.slug) or (None,))[0]
+    media = (f'<div class="hero-media" data-speed="0.3">{pic(ctx, photo, "hero-img", eager=True)}</div><div class="hero-shade"></div>'
+             if photo else "")
+    return f"""<section class="hero dark{' sub' if sub else ''}{' has-img' if photo else ''}">
+  {media}
   <div class="wrap hero-inner">
     {bc}
     <span class="eyebrow">{eyebrow}</span>
-    <h1 class="h-xl">{h1}</h1>
+    <h1 class="h-xl split">{h1}</h1>
     {strap_html}
     <p class="lead">{lead}</p>
     <div class="btn-row">{btns}</div>
@@ -340,6 +438,7 @@ def service_cards(ctx, cls=""):
     for s in SERVICES:
         pts = "".join(f"<li>{p}</li>" for p in s["card_points"])
         cards.append(f"""<article class="card service-card reveal">
+  <a class="card-media" href="{ctx.href(s['slug'])}" tabindex="-1">{pic(ctx, PAGE_PHOTOS[s['slug']][0], sizes="(max-width: 640px) 100vw, 33vw")}</a>
   <span class="num">{s['num']}</span>
   <h3><a href="{ctx.href(s['slug'])}" style="text-decoration:none">{s['card_title']}</a></h3>
   <p class="sub">{s['card_sub']}</p>
@@ -393,7 +492,7 @@ def why_section(cls=""):
     return f"""<section class="section {cls}">
   <div class="wrap grid-2">
     <div class="reveal">
-      <span class="label">Why Choose Zytrostyle</span>
+      <span class="label">Why Choose Zyrostyle</span>
       <h2 class="h-lg">Creative thinking. Search intelligence. <em>Commercial focus.</em></h2>
       <p class="tagline">We don't chase vanity metrics. We build marketing around business outcomes.</p>
     </div>
@@ -406,7 +505,7 @@ def why_section(cls=""):
 def industries_cards(ctx, limit=None):
     cards = []
     for i, (key, name, short, _long, _pts) in enumerate(INDUSTRIES[:limit]):
-        cards.append(f"""<article class="card reveal"><span class="num">{i+1:02d}</span><h3>{name}</h3><p>{short}</p>
+        cards.append(f"""<article class="card reveal"><a class="card-media" href="{ctx.href('industries')}#{key}" tabindex="-1">{pic(ctx, INDUSTRY_PHOTOS[key], sizes="(max-width: 640px) 100vw, 33vw")}</a><span class="num">{i+1:02d}</span><h3>{name}</h3><p>{short}</p>
 <a class="link-arrow" href="{ctx.href('industries')}#{key}">Learn more</a></article>""")
     return f'<div class="grid-3">{"".join(cards)}</div>'
 
@@ -418,7 +517,7 @@ def locations_section(ctx, cls="stone"):
   <div class="wrap">
     <div class="section-head reveal">
       <div><span class="label">Digital Marketing Agency Serving Patna &amp; Bihar</span><h2 class="h-lg">Local understanding. <em>Bigger ambitions.</em></h2></div>
-      <p class="lead">Zytrostyle provides digital marketing, content creation, SEO and social media marketing for businesses targeting Patna and wider Bihar — in English, Hindi or Hinglish.</p>
+      <p class="lead">Zyrostyle provides digital marketing, content creation, SEO and social media marketing for businesses targeting Patna and wider Bihar — in English, Hindi or Hinglish.</p>
     </div>
     <div class="loc-cols reveal">
       <div><h3 class="h-sm">Patna</h3><ul class="loc-tags">{p}</ul></div>
@@ -463,7 +562,7 @@ def cta_section(ctx, title="Ready to turn your business into a brand <em>people 
     <div class="reveal"><span class="label">Let's Build Your Next Growth Story</span><h2 class="h-lg">{title}</h2></div>
     <div class="reveal">
       <p class="lead">{text}</p>
-      <p class="tagline">Zytrostyle — Make Your Brand Impossible to Ignore.</p>
+      <p class="tagline">Zyrostyle — Make Your Brand Impossible to Ignore.</p>
       <div class="btn-row"><a class="btn btn-light" href="{ctx.href('contact')}">Request Your Free Marketing Consultation</a><a class="btn btn-line" href="{ctx.href('contact')}">Get a Custom Proposal</a></div>
     </div>
   </div>
@@ -483,7 +582,7 @@ def write(slug, body, priority="0.8"):
 # ── PAGES ────────────────────────────────────────────────────────────────────
 def build_home():
     ctx = Ctx("")
-    title = "Zytrostyle | Award-Winning Digital Marketing & SEO Agency in Patna"
+    title = "Zyrostyle | Award-Winning Digital Marketing & SEO Agency in Patna"
     desc = ("Award-winning content marketing & SEO agency in Patna, Bihar. SEO, GEO, content, social media & Google Ads "
             "that drive traffic, leads and revenue.")
     kw = ("digital marketing agency in patna, best digital marketing company in patna, seo company in patna, "
@@ -492,12 +591,7 @@ def build_home():
     pillars = "".join(f'<div class="pillar"><h3>{n}</h3><p>{d}</p></div>' for n, d in PILLARS)
     body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, None, faqs=HOME_FAQS)) + nav(ctx)
     body += '<main id="main">\n'
-    body += hero(ctx, "Award-Winning Marketing Agency in Patna · Digital Marketing • SEO • Content Marketing • Creative Growth",
-                 "Digital Marketing &amp; SEO Agency in Patna That Turns Visibility <em>Into Growth.</em>",
-                 "We are an award-winning content marketing and SEO agency, helping brands build organic growth engines that drive traffic, leads and revenue. Zytrostyle helps businesses in Patna and across Bihar get discovered, earn trust and turn marketing into a powerful engine for sustainable growth.",
-                 strap="Get Found. Get Noticed. Get Chosen.",
-                 meta=["Patna, Bihar", "SEO · GEO · AEO", "Content-Led Growth", "English · Hindi · Hinglish"],
-                 sub=False)
+    body += x3d_home(ctx)
     body += ticker()
     body += f"""<section class="section">
   <div class="wrap grid-2">
@@ -506,7 +600,7 @@ def build_home():
       <h2 class="h-lg">A content-led growth partner <em>for ambitious brands.</em></h2>
     </div>
     <div class="prose reveal">
-      <p>Zytrostyle is a content-led <strong>digital marketing and SEO agency in Patna, Bihar</strong>, helping businesses increase their online visibility, attract qualified customers and turn marketing into a powerful engine for sustainable growth.</p>
+      <p>Zyrostyle is a content-led <strong>digital marketing and SEO agency in Patna, Bihar</strong>, helping businesses increase their online visibility, attract qualified customers and turn marketing into a powerful engine for sustainable growth.</p>
       <p>We bring together <strong>Search Engine Optimisation (SEO)</strong>, <strong>Generative Engine Optimisation (GEO)</strong>, <strong>Answer Engine Optimisation (AEO)</strong>, content marketing, creative storytelling, social media and performance advertising to help ambitious brands compete, connect and convert.</p>
       <p>Whether you are a startup building your first digital presence, a local business looking for more customers, or an established company ready to scale across Bihar and India, we create marketing strategies aligned with your business goals.</p>
       <p class="tagline">Your customers are searching. Make sure they find you.</p>
@@ -517,22 +611,17 @@ def build_home():
   <div class="wrap">
     <div class="section-head reveal">
       <div><span class="label">Your Brand Deserves More Than Just Visibility</span><h2 class="h-lg">It deserves <em>market leadership.</em></h2></div>
-      <div class="prose"><p>Every day, potential customers search Google, explore social media, compare brands, read reviews and increasingly turn to AI-powered search tools before making purchasing decisions. The real challenge is not simply appearing online — it's being discovered by the right audience, trusted at the right moment and chosen over your competitors.</p></div>
+      <div class="prose"><p class="scrub">Every day, potential customers search Google, explore social media, compare brands, read reviews and increasingly turn to AI-powered search tools before making purchasing decisions. The real challenge is not simply appearing online — it's being discovered by the right audience, trusted at the right moment and chosen over your competitors.</p></div>
     </div>
     <div class="pillars reveal">{pillars}</div>
     <p class="tagline reveal">Because great marketing doesn't just attract attention. It creates commercial momentum.</p>
   </div>
 </section>
-<section class="section">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div><span class="label">Our Services — Everything Your Brand Needs to Grow</span><h2 class="h-lg">One growth partner. <em>Six connected capabilities.</em></h2></div>
-      <p class="lead">We connect content, search, creativity and paid media to build a complete digital growth engine for businesses in Patna, Bihar and across India.</p>
-    </div>
-    {service_cards(ctx)}
-  </div>
-</section>
 """
+    body += showcase(ctx)
+    body += kinetic_statement()
+    body += mega_marquee()
+    body += img_band(ctx, "We don't chase vanity metrics. <em>We build marketing around business outcomes.</em>", label="The Zyrostyle Way")
     body += triad_section(ctx)
     body += why_section()
     body += f"""<section class="section warm">
@@ -555,13 +644,16 @@ def build_home():
     <div class="reveal">
       <span class="label">Request Your Free Marketing Consultation</span>
       <h2 class="h-lg">Let's grow <em>your business.</em></h2>
-      <p class="lead" style="margin-top:24px">Share a few details and a Zytrostyle strategist will get back to you with ideas tailored to your business, audience and goals.</p>
+      <p class="lead" style="margin-top:24px">Share a few details and a Zyrostyle strategist will get back to you with ideas tailored to your business, audience and goals.</p>
     </div>
     <div class="reveal">{enquiry_form(ctx, heading=False)}</div>
   </div>
 </section>
 """
     body += "</main>\n" + footer(ctx)
+    body = body.replace("<body>", '<body class="home">', 1)
+    body = body.replace("</body>", f'<script src="{ctx.asset("js/vendor/three.min.js")}" defer></script>\n'
+                        f'<script src="{ctx.asset("js/home3d.js")}" defer></script>\n</body>')
     write("", body, "1.0")
 
 
@@ -588,7 +680,7 @@ def build_service(s):
     <div class="prose reveal">{intro}</div>
   </div>
 </section>
-<section class="section warm">
+{img_band(ctx, s['strap'], label=s['nav'] + ' in Patna')}<section class="section warm">
   <div class="wrap">
     <div class="section-head reveal">
       <div><span class="label">What's Included</span><h2 class="h-lg">{s['includes_h2']}</h2></div>
@@ -628,15 +720,15 @@ def build_service(s):
 def build_services_hub():
     ctx = Ctx("services")
     title = "Digital Marketing Services in Patna | SEO, Content & Social"
-    desc = ("Explore Zytrostyle's services in Patna: SEO, content creation, content strategy, content marketing, "
+    desc = ("Explore Zyrostyle's services in Patna: SEO, content creation, content strategy, content marketing, "
             "digital marketing, social media marketing, GEO and AEO.")
     kw = "digital marketing services patna, seo services in patna, content marketing services in patna, social media marketing services patna, content creation services in patna"
     crumbs = [("Home", ""), ("Services", "services")]
-    extra = [{"@type": "ItemList", "name": "Zytrostyle services", "itemListElement": [
+    extra = [{"@type": "ItemList", "name": "Zyrostyle services", "itemListElement": [
         {"@type": "ListItem", "position": i + 1, "url": canonical(s["slug"]), "name": s["card_title"]}
         for i, s in enumerate(SERVICES)]}]
     faqs = [
-        ("What digital marketing services do you offer in Patna?", "Zytrostyle offers SEO and local SEO, GEO and AEO (AI search optimisation), content creation, content strategy, content marketing, social media marketing, Google Ads, Meta Ads, lead generation, landing pages and analytics for businesses in Patna and across Bihar."),
+        ("What digital marketing services do you offer in Patna?", "Zyrostyle offers SEO and local SEO, GEO and AEO (AI search optimisation), content creation, content strategy, content marketing, social media marketing, Google Ads, Meta Ads, lead generation, landing pages and analytics for businesses in Patna and across Bihar."),
         ("Can I choose only one digital marketing service?", "Yes. You can start with a single service such as SEO or social media and add more as results grow, or choose a full-service plan with everything connected."),
         ("Which digital marketing service should my business start with?", "Most local businesses get the fastest return from Google Business Profile optimisation and local SEO, followed by social media and targeted ads. We recommend priorities after a free audit."),
         ("Do you serve businesses outside Patna?", "Yes. We serve clients across Bihar — including Gaya, Muzaffarpur, Bhagalpur and Darbhanga — and across India."),
@@ -647,6 +739,7 @@ def build_services_hub():
                  "One growth partner. Six connected marketing capabilities. We connect content, search, creativity and paid media to build a complete digital growth engine for businesses in Patna, Bihar and across India.",
                  crumbs, ctas=[("Get Your Free Consultation", "contact", "btn-light"), ("Explore Industries", "industries", "btn-line")])
     body += f'<section class="section"><div class="wrap">{service_cards(ctx)}</div></section>\n'
+    body += mega_marquee()
     body += triad_section(ctx)
     body += why_section("warm")
     body += faq_section(faqs, title="Digital marketing services in Patna — <em>FAQs.</em>", cls="")
@@ -665,6 +758,7 @@ def build_ai_search():
     body += '<main id="main">\n'
     body += hero(ctx, a["eyebrow"], a["h1"], a["lead"], crumbs, strap="Be Found. Be Understood. Be Remembered.",
                  ctas=[("Discover AI Search Optimisation", "contact", "btn-light"), ("Read FAQs", "#faq", "btn-line")])
+    body += img_band(ctx, "Search is changing. <em>Your visibility shouldn't.</em>", label="AI Search")
     body += triad_section(ctx, link=False)
     steps = [
         ("Entity clarity", "Consistent name, address, services and descriptions across your website, Google Business Profile, directories and social profiles, so machines know exactly who you are."),
@@ -702,14 +796,15 @@ def build_industries():
     body += '<main id="main">\n'
     body += hero(ctx, "Industries We Serve in Patna &amp; Bihar",
                  "Every industry has a different audience. <em>Every brand deserves a smarter strategy.</em>",
-                 "From hospitals on Bailey Road to coaching institutes on Boring Road and real-estate projects near Saguna More, Zytrostyle builds marketing strategies around how your specific customers search, compare and decide.",
+                 "From hospitals on Bailey Road to coaching institutes on Boring Road and real-estate projects near Saguna More, Zyrostyle builds marketing strategies around how your specific customers search, compare and decide.",
                  crumbs, ctas=[("Discuss Your Industry", "contact", "btn-light"), ("Explore Services", "services", "btn-line")])
     for i, (key, name, short, long, pts) in enumerate(INDUSTRIES):
         cls = "warm" if i % 2 == 0 else ""
         li = "".join(f"<li>{p}</li>" for p in pts)
         body += f"""<section class="section {cls}" id="{key}">
   <div class="wrap grid-2">
-    <div class="reveal"><span class="label">{i+1:02d} — Industry</span><h2 class="h-lg">{name}</h2><p class="tagline">{short}</p></div>
+    <div class="reveal"><span class="label">{i+1:02d} — Industry</span><h2 class="h-lg">{name}</h2><p class="tagline">{short}</p>
+      <figure class="media-frame img-reveal">{pic(ctx, INDUSTRY_PHOTOS[key], sizes="(max-width: 960px) 100vw, 50vw")}</figure></div>
     <div class="reveal"><div class="prose"><p>{long}</p></div><ul class="check-list" style="columns:1;margin-top:20px">{li}</ul>
       <div class="btn-row"><a class="btn btn-dark btn-sm" href="{ctx.href('contact')}">Plan My {name.split(',')[0].split('&')[0].strip()} Marketing</a></div></div>
   </div>
@@ -735,10 +830,11 @@ def build_areas():
     body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, extra)) + nav(ctx)
     body += '<main id="main">\n'
     body += hero(ctx, "Patna &amp; Bihar", "Local understanding. <em>Bigger ambitions.</em>",
-                 "Zytrostyle provides digital marketing, SEO, content creation and social media marketing for businesses targeting Patna and wider Bihar. Whether your customers search in English, Hindi or Hinglish, we build content around their language, interests and intent.",
+                 "Zyrostyle provides digital marketing, SEO, content creation and social media marketing for businesses targeting Patna and wider Bihar. Whether your customers search in English, Hindi or Hinglish, we build content around their language, interests and intent.",
                  crumbs, strap="Patna Ki Soch. Brand Ki Badi Udaan.",
                  ctas=[("Talk to a Marketing Strategist", "contact", "btn-light"), ("Explore Services", "services", "btn-line")])
     blocks = "".join(f'<div class="area-block reveal"><h3>Digital marketing in {n}</h3><p>{d}</p></div>' for n, d in AREAS)
+    band = img_band(ctx, "Patna Ki Soch. <em>Brand Ki Badi Udaan.</em>", label="Patna &amp; Bihar")
     body += f"""<section class="section">
   <div class="wrap grid-2">
     <div class="reveal" style="position:sticky;top:110px"><span class="label">Patna Neighbourhoods</span><h2 class="h-lg">From Boring Road <em>to Danapur.</em></h2>
@@ -747,6 +843,7 @@ def build_areas():
   </div>
 </section>
 """
+    body += band
     cities = [
         ("Gaya &amp; Bodh Gaya", "Tourism, hospitality, pilgrimage and education brands reaching domestic and international visitors."),
         ("Muzaffarpur", "Retail, trade, healthcare and education businesses in North Bihar's commercial hub."),
@@ -765,7 +862,7 @@ def build_areas():
 </section>
 """
     faqs = [
-        ("Do you only work with businesses in Patna?", "No. Zytrostyle is based in Patna and works with businesses across Bihar and India. Many of our strategies help Patna businesses reach customers in other Bihar districts and help Bihar brands scale nationally."),
+        ("Do you only work with businesses in Patna?", "No. Zyrostyle is based in Patna and works with businesses across Bihar and India. Many of our strategies help Patna businesses reach customers in other Bihar districts and help Bihar brands scale nationally."),
         ("Can you help my business rank in a specific Patna locality?", "Yes. Through Google Business Profile optimisation, locality-relevant content, local citations and review strategy, we help businesses improve visibility for searches in specific areas such as Boring Road, Kankarbagh or Patliputra Colony."),
         ("Do you create Hindi and Hinglish content for Bihar audiences?", "Yes. We create English, Hindi and Hinglish content depending on how your audience searches and engages."),
     ]
@@ -777,31 +874,31 @@ def build_areas():
 
 def build_about():
     ctx = Ctx("about")
-    title = "About Zytrostyle | Award-Winning Content Marketing Agency, Patna"
-    desc = ("Zytrostyle is an award-winning content marketing and SEO agency in Patna, Bihar, building organic "
+    title = "About Zyrostyle | Award-Winning Content Marketing Agency, Patna"
+    desc = ("Zyrostyle is an award-winning content marketing and SEO agency in Patna, Bihar, building organic "
             "growth engines for ambitious brands.")
-    kw = "about zytrostyle, content marketing agency patna, award winning marketing agency patna, seo agency bihar, digital marketing expert in patna"
+    kw = "about zyrostyle, content marketing agency patna, award winning marketing agency patna, seo agency bihar, digital marketing expert in patna"
     crumbs = [("Home", ""), ("About", "about")]
     body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, page_type="AboutPage")) + nav(ctx)
     body += '<main id="main">\n'
-    body += hero(ctx, "About Zytrostyle", "We don't just market brands. <em>We make them matter.</em>",
-                 "Zytrostyle is an award-winning content marketing and SEO agency in Patna, helping brands build organic growth engines that drive traffic, leads and revenue.",
+    body += hero(ctx, "About Zyrostyle", "We don't just market brands. <em>We make them matter.</em>",
+                 "Zyrostyle is an award-winning content marketing and SEO agency in Patna, helping brands build organic growth engines that drive traffic, leads and revenue.",
                  crumbs, ctas=[("Work With Us", "contact", "btn-light"), ("Explore Services", "services", "btn-line")])
     body += f"""<section class="section">
   <div class="wrap grid-2">
     <div class="reveal"><span class="label">Our Story</span><h2 class="h-lg">Born in Patna. <em>Built for growth.</em></h2></div>
     <div class="prose reveal">
-      <p>Zytrostyle was founded on a simple belief: businesses in Patna and Bihar deserve marketing that is as strategic, creative and measurable as anything produced in India's biggest metros.</p>
-      <p>Too many local businesses were stuck with disconnected vendors — one for the website, another for social media, someone else for ads — and no one accountable for growth. We built Zytrostyle as <strong>one connected growth partner</strong>: strategy, content, search, social and performance working together.</p>
+      <p>Zyrostyle was founded on a simple belief: businesses in Patna and Bihar deserve marketing that is as strategic, creative and measurable as anything produced in India's biggest metros.</p>
+      <p>Too many local businesses were stuck with disconnected vendors — one for the website, another for social media, someone else for ads — and no one accountable for growth. We built Zyrostyle as <strong>one connected growth partner</strong>: strategy, content, search, social and performance working together.</p>
       <p>Today we help startups, local businesses and established companies across healthcare, education, real estate, hospitality, retail, travel and B2B get found, get noticed and get chosen.</p>
       <p class="tagline">Built for Visibility. Designed for Growth.</p>
     </div>
   </div>
 </section>
-<section class="section dark manifesto">
+{img_band(ctx, "Born in Patna. <em>Built for growth.</em>", label="Our Story")}<section class="section dark manifesto">
   <div class="wrap reveal">
-    <span class="label">The Zytrostyle Philosophy</span>
-    <h2 class="h-lg">"Great marketing doesn't just attract attention. <em>It creates commercial momentum."</em></h2>
+    <span class="label">The Zyrostyle Philosophy</span>
+    <h2 class="h-lg scrub">"Great marketing doesn't just attract attention. It creates commercial momentum."</h2>
     <a class="link-arrow" href="{ctx.href('services')}" style="color:var(--white)">See how we do it</a>
   </div>
 </section>
@@ -815,15 +912,15 @@ def build_about():
 
 def build_contact():
     ctx = Ctx("contact")
-    title = "Contact Zytrostyle | Free Marketing Consultation in Patna, Bihar"
-    desc = ("Request a free digital marketing, SEO or social media consultation with Zytrostyle in Patna, Bihar. "
+    title = "Contact Zyrostyle | Free Marketing Consultation in Patna, Bihar"
+    desc = ("Request a free digital marketing, SEO or social media consultation with Zyrostyle in Patna, Bihar. "
             "Get a custom marketing proposal for your business.")
     kw = "contact digital marketing agency patna, free seo consultation patna, digital marketing strategy consultation patna, marketing agency near me patna"
     crumbs = [("Home", ""), ("Contact", "contact")]
     body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, page_type="ContactPage")) + nav(ctx)
     body += '<main id="main">\n'
     body += hero(ctx, "Free Marketing Consultation", "Let's build your next <em>growth story.</em>",
-                 "Your next customer could already be searching for a business like yours. Tell us about your goals and a Zytrostyle strategist will respond within one working day.",
+                 "Your next customer could already be searching for a business like yours. Tell us about your goals and a Zyrostyle strategist will respond within one working day.",
                  crumbs, ctas=[("Start Below", "#consultation", "btn-light")])
     rows = f'<dt>Email</dt><dd><a href="mailto:{SITE["email"]}">{SITE["email"]}</a></dd>'
     if SITE["phone"]:
@@ -847,7 +944,7 @@ def build_contact():
 </section>
 """
     faqs = [
-        ("What happens after I submit the form?", "A Zytrostyle strategist reviews your details, may run a quick audit of your website and online presence, and contacts you within one working day to schedule a free consultation call."),
+        ("What happens after I submit the form?", "A Zyrostyle strategist reviews your details, may run a quick audit of your website and online presence, and contacts you within one working day to schedule a free consultation call."),
         ("Is the consultation really free?", "Yes. The initial consultation is free and comes with no obligation. If there is a fit, we follow up with a custom marketing proposal."),
         ("Can we meet in person in Patna?", "Yes. We are happy to meet clients in Patna, and we also work remotely with businesses across Bihar and India."),
     ]
@@ -858,15 +955,15 @@ def build_contact():
 
 def build_privacy():
     ctx = Ctx("privacy-policy")
-    title = "Privacy Policy | Zytrostyle"
-    desc = "How Zytrostyle collects, uses and protects the personal information you share through our website."
+    title = "Privacy Policy | Zyrostyle"
+    desc = "How Zyrostyle collects, uses and protects the personal information you share through our website."
     crumbs = [("Home", ""), ("Privacy Policy", "privacy-policy")]
-    body = head(ctx, title, desc, "zytrostyle privacy policy", page_schema(ctx, title, desc, crumbs)) + nav(ctx)
+    body = head(ctx, title, desc, "zyrostyle privacy policy", page_schema(ctx, title, desc, crumbs)) + nav(ctx)
     body += '<main id="main">\n'
     body += hero(ctx, "Legal", "Privacy <em>Policy.</em>", "Last updated: " + date.today().strftime("%d %B %Y"), crumbs,
                  ctas=[("Contact Us", "contact", "btn-light")])
     body += f"""<section class="section"><div class="wrap prose">
-<p><strong>Who we are.</strong> Zytrostyle is a digital marketing agency based in Patna, Bihar, India. This policy explains how we handle personal information submitted through this website.</p>
+<p><strong>Who we are.</strong> Zyrostyle is a digital marketing agency based in Patna, Bihar, India. This policy explains how we handle personal information submitted through this website.</p>
 <p><strong>Information we collect.</strong> When you submit an enquiry, we collect the details you provide — such as your name, company, website, phone/WhatsApp number, email address, services of interest, budget range and business goals.</p>
 <p><strong>How we use it.</strong> We use this information only to respond to your enquiry, prepare proposals and provide services you request. We do not sell your personal information.</p>
 <p><strong>Analytics and cookies.</strong> We may use privacy-respecting analytics (such as Google Analytics) to understand how visitors use our website. You can control cookies through your browser settings.</p>
@@ -882,13 +979,13 @@ def build_privacy():
 def build_404():
     ctx = Ctx("")
     ctx.pre = "/"  # served from any depth by the host, so use root-relative links
-    title = "Page Not Found | Zytrostyle"
+    title = "Page Not Found | Zyrostyle"
     desc = "The page you were looking for could not be found."
     body = head(ctx, title, desc, "", page_schema(ctx, title, desc, None), robots="noindex, follow") + nav(ctx)
     body += '<main id="main">\n'
     body += hero(ctx, "404", "This page got lost. <em>Your customers shouldn't.</em>",
                  "The page you were looking for doesn't exist or has moved. Let's get you back on track.",
-                 ctas=[("Back to Home", "", "btn-light"), ("Explore Services", "services", "btn-line")], sub=False)
+                 ctas=[("Back to Home", "", "btn-light"), ("Explore Services", "services", "btn-line")], sub=False, photo="creative-idea-bulb")
     body += "</main>\n" + footer(ctx)
     with open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8") as f:
         f.write(body)
@@ -1013,7 +1110,7 @@ def landing_schema_extra(l):
         return [{"@type": "Article", "@id": url + "#article", "headline": strip_tags(l["h1"]), "description": l["description"],
                  "author": {"@id": ORG_ID}, "publisher": {"@id": ORG_ID}, "dateModified": TODAY, "mainEntityOfPage": url}]
     if kind == "org":
-        return [{"@type": "EducationalOrganization", "@id": url + "#academy", "name": "Zytrostyle Academy",
+        return [{"@type": "EducationalOrganization", "@id": url + "#academy", "name": "Zyrostyle Academy",
                  "url": url, "parentOrganization": {"@id": ORG_ID},
                  "address": {"@type": "PostalAddress", "addressLocality": "Patna", "addressRegion": "Bihar", "addressCountry": "IN"}}]
     return []
@@ -1037,6 +1134,8 @@ def build_landing(l):
                  meta=["Patna, Bihar", "Award-Winning Agency", "Transparent Reporting"])
     for i, sec in enumerate(l["sections"]):
         body += section_html(ctx, sec, i)
+        if i == 0:
+            body += img_band(ctx, l.get("strap") or "Get Found. Get Noticed. Get Chosen.", label=proper(l["primary"]))
     body += faq_section(l["faqs"], title=f"{esc(proper(l['primary']))} — <em>FAQs.</em>")
     rel = "".join(f'<li><a href="{ctx.href(r)}">{esc(NAMES[r])}</a></li>' for r in l["related"])
     rel += f'<li><a href="{ctx.href("digital-marketing-patna-guide")}">All Patna Guides</a></li>'
@@ -1071,7 +1170,7 @@ def build_hub():
     body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, extra, page_type="CollectionPage")) + nav(ctx)
     body += '<main id="main">\n'
     body += hero(ctx, "Patna Digital Marketing Hub", "Everything Patna searches for <em>in digital marketing.</em>",
-                 "Agencies, costs, local services, lead generation and courses — answered honestly by Zytrostyle, an award-winning content marketing and SEO agency in Patna, Bihar.",
+                 "Agencies, costs, local services, lead generation and courses — answered honestly by Zyrostyle, an award-winning content marketing and SEO agency in Patna, Bihar.",
                  crumbs, strap="Get Found. Get Noticed. Get Chosen.")
     for i, (gname, slugs) in enumerate(HUB_GROUPS):
         cards = []
@@ -1081,11 +1180,12 @@ def build_hub():
             elif sl in SVC:
                 blurb = SVC[sl]["card_text"]
             else:
-                blurb = {"services": "All Zytrostyle digital marketing services in Patna — SEO, content, social, ads, GEO & AEO.",
+                blurb = {"services": "All Zyrostyle digital marketing services in Patna — SEO, content, social, ads, GEO & AEO.",
                          "areas-we-serve": "Every Patna neighbourhood and Bihar city we serve."}.get(sl, "")
             cards.append(f'<article class="card service-card reveal"><h3><a href="{ctx.href(sl)}" style="text-decoration:none">{esc(NAMES[sl])}</a></h3><p>{blurb}</p><a class="link-arrow" href="{ctx.href(sl)}">Read more</a></article>')
         cls = "warm" if i % 2 else ""
         body += f'<section class="section {cls}"><div class="wrap"><div class="section-head single reveal"><div><span class="label">{i+1:02d}</span><h2 class="h-lg">{gname}</h2></div></div><div class="grid-3">{"".join(cards)}</div></div></section>\n'
+    body += mega_marquee()
     body += cta_section(ctx)
     body += "</main>\n" + footer(ctx)
     write("digital-marketing-patna-guide", body, "0.8")
