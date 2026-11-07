@@ -785,3 +785,82 @@ body.home .nav-links .mega-foot a { color: var(--gold); }
   .cg-grid, .dir { grid-template-columns: 1fr; }
 }
 @media (min-width: 961px) { .nav { position: static; } }
+
+/* ═══ HERO v2 — bigger type, statements below ═══ */
+.bh-wrap { max-width: none; padding: 64px clamp(20px, 3vw, 56px) 96px; }
+.bh-grid { grid-template-columns: 1fr; gap: 64px; }
+.bh-title { font-size: clamp(54px, 11.2vw, 230px); line-height: .88; letter-spacing: -0.05em; }
+.bh-row { gap: .12em; }
+.bh-row + .bh-row { margin-top: .04em; }
+.bh-pill { height: .76em; width: 1.9em; border-radius: .14em; }
+.bh-pill.wide { width: 2.4em; }
+.bh-row:nth-child(2) .bh-pill { width: 1.55em; }
+.bh-side { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; gap: 40px; align-items: end;
+  border-top: 1px solid rgba(255,255,255,.22); padding-top: 32px; }
+.bh-side p { margin: 0; font-size: clamp(17px, 1.3vw, 22px); }
+.bh-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.bh-side .bh-ask { margin: 0; }
+@media (max-width: 1100px) { .bh-side { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) {
+  .bh-title { font-size: 12.4vw; }
+  .bh-row:nth-child(1) .bh-pill { width: 1.8em; }
+  .bh-row:nth-child(2) .bh-pill { width: 1.15em; }
+  .bh-row:nth-child(3) .bh-pill { width: 2.1em; }
+  .bh-side { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* ═══ "DO BIG THINGS" band — solid over outline, reference style ═══ */
+.bm { background: #181818; padding: 40px 0 120px; }
+.bm .mm-track span:not(.bm-dot) { font-size: clamp(80px, 13vw, 240px); font-weight: 700; letter-spacing: -0.035em; padding: 0 .18em; }
+.bm .mm-row + .mm-row { margin-top: -.02em; }
+.bm .mm-row.outline .mm-track span:not(.bm-dot) { -webkit-text-stroke: 2px #fafafa; }
+.bm-dot { width: .22em; height: .22em; font-size: clamp(80px, 13vw, 240px); background: var(--gold); }
+
+/* ═══ WhatsApp chat widget ═══ */
+.float-wa { display: none; }
+.wa { position: fixed; right: 22px; bottom: 22px; z-index: 300; font-family: var(--display); }
+.wa-fab { width: 64px; height: 64px; border-radius: 50%; border: 0; background: #25D366; color: #fff; cursor: pointer; position: relative;
+  display: grid; place-items: center; box-shadow: 0 10px 30px rgba(37,211,102,.4), 0 4px 12px rgba(0,0,0,.2); transition: transform .3s cubic-bezier(.16,1,.3,1), background .3s; }
+.wa-fab:hover { transform: scale(1.07); background: #1ebe5b; }
+.wa-fab::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: #25D366; z-index: -1; animation: waPulse 2.4s ease-out infinite; }
+@keyframes waPulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.6); opacity: 0; } }
+.wa-x { display: none; font-size: 34px; line-height: 1; font-weight: 300; }
+.wa.open .wa-ico, .wa.open .wa-badge { display: none; }
+.wa.open .wa-x { display: block; }
+.wa.open .wa-fab::before { animation: none; opacity: 0; }
+.wa-badge { position: absolute; top: -2px; right: -2px; min-width: 22px; height: 22px; border-radius: 11px; background: #e53935; color: #fff;
+  font-size: 12px; font-weight: 700; display: grid; place-items: center; border: 2px solid #fff; }
+.wa-panel { position: absolute; right: 0; bottom: 82px; width: min(370px, calc(100vw - 32px)); background: #fff; border-radius: 22px; overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0,0,0,.28), 0 6px 18px rgba(0,0,0,.12); transform-origin: 100% 100%;
+  animation: waIn .45s cubic-bezier(.16,1,.3,1); }
+.wa-panel[hidden] { display: none; }
+@keyframes waIn { from { opacity: 0; transform: translateY(16px) scale(.94); } to { opacity: 1; transform: none; } }
+.wa-head { background: #111; color: #fff; display: flex; align-items: center; gap: 14px; padding: 18px 18px 18px 20px; }
+.wa-avatar { width: 48px; height: 48px; flex: 0 0 48px; border-radius: 50%; background: var(--gold); color: #000; display: grid; place-items: center;
+  font-weight: 800; font-size: 16px; letter-spacing: .02em; }
+.wa-name { font-weight: 700; font-size: 18px; letter-spacing: .04em; text-transform: uppercase; line-height: 1.1; margin: 0; }
+.wa-status { font-family: var(--sans); font-size: 14px; color: rgba(255,255,255,.7); margin: 4px 0 0; display: flex; align-items: center; gap: 7px; }
+.wa-dot { width: 9px; height: 9px; border-radius: 50%; background: #25D366; box-shadow: 0 0 0 3px rgba(37,211,102,.25); }
+.wa-close { margin-left: auto; background: none; border: 0; color: #fff; font-size: 30px; line-height: 1; cursor: pointer; padding: 4px 6px; opacity: .85; }
+.wa-close:hover { opacity: 1; }
+.wa-body { background: #f5f0eb; padding: 20px 18px 18px; }
+.wa-bubble { background: #fff; border-radius: 4px 18px 18px 18px; padding: 16px 18px 10px; box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  animation: waBubble .5s cubic-bezier(.16,1,.3,1) .15s both; }
+@keyframes waBubble { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.wa-bubble p { font-family: var(--sans); font-size: 16px; line-height: 1.45; color: #111; margin: 0; font-weight: 400; }
+.wa-bubble strong { font-weight: 600; }
+.wa-time { display: block; text-align: right; font-family: var(--sans); font-size: 12px; color: #8a8a8a; margin-top: 6px; }
+.wa-chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
+.wa-chip { font-family: var(--sans); font-size: 14px; color: #111; background: #fff; border: 1px solid rgba(37,211,102,.45); border-radius: 999px;
+  padding: 8px 14px; cursor: pointer; transition: background .2s, border-color .2s; }
+.wa-chip:hover, .wa-chip:focus-visible { background: #e9fbef; border-color: #25D366; }
+.wa-cta { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; padding: 17px; background: #25D366; color: #fff;
+  text-decoration: none; font-weight: 700; font-size: 18px; letter-spacing: -0.005em; transition: background .2s; }
+.wa-cta:hover { background: #1ebe5b; }
+.wa-panel .wa-cta { margin: 0 14px 14px; border-radius: 14px; }
+.wa-panel { padding-bottom: 0; }
+.wa-panel .wa-body + .wa-cta { margin-top: 0; }
+.wa-panel { background: #f5f0eb; }
+@media (max-width: 640px) { .wa { right: 14px; bottom: 14px; } .wa-fab { width: 58px; height: 58px; } .wa-panel { bottom: 74px; } }
+@media (prefers-reduced-motion: reduce) { .wa-fab::before, .wa-panel, .wa-bubble { animation: none; } }
+.bw, .bm { background: #161616; }

@@ -16,8 +16,8 @@ SITE = {
     "legal_name": "Zyrostyle",
     "url": "https://www.zyrostyle.com",          # TODO: confirm live domain
     "email": "hello@zyrostyle.com",              # TODO: confirm inbox
-    "phone": "",                                   # e.g. "+91 98XXXXXXXX" — shown + added to schema when set
-    "whatsapp": "",                                # digits only, e.g. "9198XXXXXXXX" — enables WhatsApp button
+    "phone": "+91 91727 12982",                    # shown + added to schema when set
+    "whatsapp": "919172712982",                    # digits only — enables the WhatsApp chat widget
     "street": "",                                  # e.g. "2nd Floor, ..., Boring Road"
     "locality": "Patna",
     "region": "Bihar",

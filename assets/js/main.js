@@ -176,6 +176,29 @@
     });
   }
 
+  // ── WhatsApp chat widget ─────────────────────────────────────────────
+  var wa = document.querySelector('.wa');
+  if (wa) {
+    var num = wa.getAttribute('data-wa'), panel = wa.querySelector('.wa-panel'), fab = wa.querySelector('.wa-fab');
+    var setOpen = function (open) {
+      wa.classList.toggle('open', open); panel.hidden = !open;
+      fab.setAttribute('aria-expanded', open ? 'true' : 'false');
+      fab.setAttribute('aria-label', open ? 'Close WhatsApp chat' : 'Chat with Zyrostyle on WhatsApp');
+      if (open) { try { sessionStorage.setItem('zs-wa-seen', '1'); } catch (e) {} }
+    };
+    fab.addEventListener('click', function () { setOpen(panel.hidden); });
+    wa.querySelector('.wa-close').addEventListener('click', function () { setOpen(false); fab.focus(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) setOpen(false); });
+    wa.querySelectorAll('.wa-chip').forEach(function (c) {
+      c.addEventListener('click', function () {
+        window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(c.getAttribute('data-msg')), '_blank', 'noopener');
+      });
+    });
+    // gentle auto-open once per session on larger screens
+    var seen = false; try { seen = sessionStorage.getItem('zs-wa-seen') === '1'; } catch (e) {}
+    if (!seen && window.innerWidth > 960 && !reduce) setTimeout(function () { if (panel.hidden) setOpen(true); }, 9000);
+  }
+
   var yr = document.getElementById('year');
   if (yr) yr.textContent = new Date().getFullYear();
 })();
