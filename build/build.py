@@ -20,8 +20,15 @@ from content import (AI_SEARCH, AREAS, BIHAR_CITIES, HOME_FAQS, INDUSTRIES, PATN
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = SITE["url"].rstrip("/")
 TODAY = date.today().isoformat()
+
+
+def _ver(rel):
+    import hashlib
+    with open(os.path.join(ROOT, "assets", rel), "rb") as fh:
+        return hashlib.md5(fh.read()).hexdigest()[:8]
 FONTS = ("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;"
-         "1,300;1,400&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@400;500&display=swap")
+         "1,300;1,400&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@400;500"
+         "&family=Inter+Tight:wght@400;500;600;700;800&display=swap")
 SVC = {s["slug"]: s for s in SERVICES}
 NAMES = {**{s["slug"]: s["nav"] for s in SERVICES}, AI_SEARCH["slug"]: AI_SEARCH["nav"],
          "industries": "Industries", "services": "Services", "areas-we-serve": "Areas We Serve",
@@ -195,7 +202,7 @@ def head(ctx, title, desc, keywords, schema, robots="index, follow, max-image-pr
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
-<link rel="stylesheet" href="{ctx.asset('css/style.css')}">
+<link rel="stylesheet" href="{ctx.asset('css/style.css')}?v={_ver('css/style.css')}">
 <script type="application/ld+json">
 {schema}
 </script>
@@ -283,7 +290,7 @@ def footer(ctx):
   </div>
 </footer>
 {wa}
-<script src="{ctx.asset('js/main.js')}" defer></script>
+<script src="{ctx.asset('js/main.js')}?v={_ver('js/main.js')}" defer></script>
 </body>
 </html>
 """
@@ -588,72 +595,113 @@ def build_home():
     kw = ("digital marketing agency in patna, best digital marketing company in patna, seo company in patna, "
           "content marketing agency in patna, social media marketing agency in patna, digital marketing services patna, "
           "seo services in patna, top digital marketing agency in patna, lead generation agency in patna, bihar")
-    pillars = "".join(f'<div class="pillar"><h3>{n}</h3><p>{d}</p></div>' for n, d in PILLARS)
     body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, None, faqs=HOME_FAQS)) + nav(ctx)
-    body += '<main id="main">\n'
-    body += x3d_home(ctx)
-    body += ticker()
-    body += f"""<section class="section">
-  <div class="wrap grid-2">
-    <div class="reveal">
-      <span class="label">We Don't Just Market Brands. We Make Them Matter.</span>
-      <h2 class="h-lg">A content-led growth partner <em>for ambitious brands.</em></h2>
+    body = body.replace("<body>", '<body class="home">', 1)
+
+    def pill(name, cls=""):
+        return f'<span class="bh-pill {cls}" aria-hidden="true">{pic(ctx, name, eager=True, sizes="30vw", alt="")}</span>'
+
+    # 1 ── HERO
+    body += f"""<main id="main">
+<section class="bh">
+  <div class="bh-wrap">
+    <p class="bh-eyebrow">Award-winning digital marketing, SEO &amp; content agency · Patna, Bihar</p>
+    <div class="bh-grid">
+      <h1 class="bh-title" aria-label="We are Zyrostyle. We do big things.">
+        <span class="bh-row" data-shift="-0.06"><span class="bh-w">We are</span> {pill("creative-team-collaboration")}</span>
+        <span class="bh-row" data-shift="0.05">{pill("video-editing-content-creation", "wide")} <span class="bh-w">Zyrostyle</span></span>
+        <span class="bh-row" data-shift="-0.04"><span class="bh-w">We</span> {pill("client-success-celebration", "wide")} <span class="bh-w">do</span></span>
+        <span class="bh-row" data-shift="0.07"><span class="bh-w">Big things</span></span>
+      </h1>
+      <div class="bh-side">
+        <p>We solve big growth problems with strategy, search and creative that make a measurable impact.</p>
+        <p>We partner with brands across Patna and Bihar that have the biggest ambitions.</p>
+        <p>We hire big talent and give it big opportunities to build boundless careers.</p>
+        <p class="bh-ask">Ready to do big things?</p>
+        <a class="pill-btn" href="{ctx.href('contact')}">Contact us</a>
+      </div>
     </div>
-    <div class="prose reveal">
-      <p>Zyrostyle is a content-led <strong>digital marketing and SEO agency in Patna, Bihar</strong>, helping businesses increase their online visibility, attract qualified customers and turn marketing into a powerful engine for sustainable growth.</p>
-      <p>We bring together <strong>Search Engine Optimisation (SEO)</strong>, <strong>Generative Engine Optimisation (GEO)</strong>, <strong>Answer Engine Optimisation (AEO)</strong>, content marketing, creative storytelling, social media and performance advertising to help ambitious brands compete, connect and convert.</p>
-      <p>Whether you are a startup building your first digital presence, a local business looking for more customers, or an established company ready to scale across Bihar and India, we create marketing strategies aligned with your business goals.</p>
-      <p class="tagline">Your customers are searching. Make sure they find you.</p>
-    </div>
-  </div>
-</section>
-<section class="section warm">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div><span class="label">Your Brand Deserves More Than Just Visibility</span><h2 class="h-lg">It deserves <em>market leadership.</em></h2></div>
-      <div class="prose"><p class="scrub">Every day, potential customers search Google, explore social media, compare brands, read reviews and increasingly turn to AI-powered search tools before making purchasing decisions. The real challenge is not simply appearing online — it's being discovered by the right audience, trusted at the right moment and chosen over your competitors.</p></div>
-    </div>
-    <div class="pillars reveal">{pillars}</div>
-    <p class="tagline reveal">Because great marketing doesn't just attract attention. It creates commercial momentum.</p>
-  </div>
-</section>
-"""
-    body += showcase(ctx)
-    body += kinetic_statement()
-    body += mega_marquee()
-    body += img_band(ctx, "We don't chase vanity metrics. <em>We build marketing around business outcomes.</em>", label="The Zyrostyle Way")
-    body += triad_section(ctx)
-    body += why_section()
-    body += f"""<section class="section warm">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div><span class="label">Digital Marketing Solutions for Patna's Growing Businesses</span><h2 class="h-lg">Every industry has a different audience. <em>Every brand deserves a smarter strategy.</em></h2></div>
-      <p class="lead">From Boring Road to Kankarbagh, from Patna to markets across Bihar — we help businesses communicate, compete and grow.</p>
-    </div>
-    {industries_cards(ctx, 6)}
-    <div class="btn-row reveal"><a class="btn btn-dark" href="{ctx.href('industries')}">Discuss Your Industry</a></div>
   </div>
 </section>
 """
-    body += process_section()
-    body += locations_section(ctx)
-    body += faq_section(HOME_FAQS, cls="")
-    body += cta_section(ctx)
-    body += f"""<section class="section warm" id="consultation">
-  <div class="wrap grid-2">
-    <div class="reveal">
-      <span class="label">Request Your Free Marketing Consultation</span>
-      <h2 class="h-lg">Let's grow <em>your business.</em></h2>
-      <p class="lead" style="margin-top:24px">Share a few details and a Zyrostyle strategist will get back to you with ideas tailored to your business, audience and goals.</p>
+    # 2 ── WHAT WE DO (compact image grid)
+    tiles = []
+    for i, sv in enumerate(SERVICES):
+        tiles.append(f"""<a class="bw-tile t{i+1} reveal" href="{ctx.href(sv['slug'])}">
+  <span class="bw-img">{pic(ctx, PAGE_PHOTOS[sv['slug']][0], sizes="(max-width: 760px) 100vw, 30vw")}</span>
+  <span class="bw-cap"><strong>{sv['nav']}</strong><i></i><em>{sv['card_sub'].split('.')[0]}</em></span>
+</a>""")
+    body += f"""<section class="bw" id="services">
+  <div class="bw-wrap">
+    <p class="bw-vert" aria-hidden="true" data-speed="-0.12">What we do</p>
+    <div>
+      <h2 class="bw-h">Six connected capabilities. <em>One growth engine.</em></h2>
+      <div class="bw-grid">{"".join(tiles)}</div>
+      <div class="bw-more"><a class="pill-btn pill-dark" href="{ctx.href('services')}">View all services</a></div>
     </div>
-    <div class="reveal">{enquiry_form(ctx, heading=False)}</div>
+  </div>
+</section>
+"""
+    # 3 ── GIANT MARQUEE
+    body += """<section class="bm" aria-hidden="true">
+  <div class="mm-row" data-dir="1"><div class="mm-track">""" + ("<span>Do big things</span><span class='bm-dot'></span>" * 6) + """</div></div>
+  <div class="mm-row outline" data-dir="-1"><div class="mm-track">""" + ("<span>Get found · Get chosen</span><span class='bm-dot'></span>" * 6) + """</div></div>
+</section>
+"""
+    # 4 ── SEO / GEO / AEO positioning (keyword-rich, clean)
+    body += f"""<section class="bs">
+  <div class="bs-wrap">
+    <div class="bs-head reveal">
+      <span class="label">Digital marketing &amp; SEO agency in Patna</span>
+      <h2 class="bs-h">Your customers are searching. <em>Make sure they find you.</em></h2>
+    </div>
+    <div class="bs-body reveal">
+      <p class="bs-lead">Zyrostyle is a content-led digital marketing and SEO agency in Patna, Bihar. We bring together SEO, content, social media and performance advertising to help ambitious brands compete, connect and convert — across Patna, Bihar and India.</p>
+      <div class="bs-cols">
+        <div><span>SEO</span><p>Rank on Google and Google Maps for the searches that bring customers.</p></div>
+        <div><span>GEO</span><p>Be understood and cited by AI-powered search and assistants.</p></div>
+        <div><span>AEO</span><p>Own the answers to your customers' real questions.</p></div>
+      </div>
+      <a class="link-arrow" href="{ctx.href(AI_SEARCH['slug'])}">How we optimise for AI search</a>
+    </div>
+  </div>
+</section>
+"""
+    # 5 ── WHO WE HELP (compact image row)
+    inds = "".join(f"""<a class="bi-card" href="{ctx.href('industries')}#{key}">
+  <span class="bi-img">{pic(ctx, INDUSTRY_PHOTOS[key], sizes="260px")}</span>
+  <span class="bi-name">{name.split(',')[0].split('&')[0].strip()}</span>
+</a>""" for key, name, _s, _l, _p in INDUSTRIES)
+    body += f"""<section class="bi">
+  <div class="bi-head"><h2 class="bi-h">Who we help</h2><a class="link-arrow" href="{ctx.href('industries')}">All industries</a></div>
+  <div class="bi-row">{inds}</div>
+</section>
+"""
+    # 6 ── HOW WE WORK (compact)
+    steps = "".join(f'<li><span>{i+1:02d}</span><strong>{n}</strong><p>{d}</p></li>' for i, (n, d) in enumerate(PROCESS))
+    body += f"""<section class="bp">
+  <div class="bp-wrap">
+    <h2 class="bp-h">How we work</h2>
+    <ol class="bp-list reveal">{steps}</ol>
+  </div>
+</section>
+"""
+    # 7 ── FAQ (AEO)
+    body += faq_section(HOME_FAQS, title="Questions, <em>answered.</em>", cls="")
+    # 8 ── FINAL CTA (gold field)
+    areas = " · ".join(PATNA_AREAS[:8])
+    body += f"""<section class="bc">
+  <div class="bc-wrap">
+    <h2 class="bc-h">Want to do<br>big things?</h2>
+    <div class="bc-side">
+      <p>Tell us about your business. A Zyrostyle strategist will reply within one working day with ideas for your growth.</p>
+      <a class="pill-btn pill-dark" href="{ctx.href('contact')}">Contact us</a>
+      <p class="bc-areas">Serving {areas} &amp; all of Bihar.</p>
+    </div>
   </div>
 </section>
 """
     body += "</main>\n" + footer(ctx)
-    body = body.replace("<body>", '<body class="home">', 1)
-    body = body.replace("</body>", f'<script src="{ctx.asset("js/vendor/three.min.js")}" defer></script>\n'
-                        f'<script src="{ctx.asset("js/home3d.js")}" defer></script>\n</body>')
     write("", body, "1.0")
 
 

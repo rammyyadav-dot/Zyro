@@ -35,10 +35,11 @@ Before launch, fill in the `SITE` block: domain, phone, WhatsApp, address, PIN c
 
 The output is plain static HTML, CSS and JS, so it works on GitHub Pages, Netlify, Vercel, Cloudflare Pages or any web host. Internal links use clean directory URLs (`/seo-services-patna/`), which need a web server. Opening the files directly with `file://` won't follow those links.
 
-## 3D home page and motion
+## Home page design and motion
 
-- `assets/js/home3d.js` drives the home page's WebGL "growth engine": about 7,000 particles that morph as you scroll, from a globe (Discover) to a torus (Connect), a vortex (Grow) and the Zyrostyle "Z". It also runs the kinetic headline, the 3D word flip, the fly-in statement and the 3D tilt cards.
-- `assets/js/vendor/three.min.js` is Three.js r128 (MIT licence), self-hosted and loaded on the home page only.
-- `assets/js/main.js` handles the site-wide motion: word reveals, scroll-driven marquees, parallax, the pinned showcase and the scroll progress bar.
-- If a browser has no WebGL, the hero shows a photo instead. Visitors who set their device to reduce motion get a static, readable layout.
+- The home page is a bold editorial layout. The hero reads "We are Zyrostyle / We do big things", with photos set into the lines of type, next to the agency statements.
+- Below the hero: a compact "What we do" image grid, a giant moving text band, the SEO/GEO/AEO positioning, a "Who we help" image row, the six-step process, FAQs and a gold "Want to do big things?" closing band.
+- Type: Inter Tight for display headings, Cormorant italic for accents, Barlow for body text.
+- `assets/js/main.js` handles all motion: hero entrance, rows that slide sideways on scroll, word reveals, moving text bands with velocity skew, parallax and the scroll progress bar. Motion turns off for visitors who set their device to reduce motion.
+- CSS and JS links include a content hash (`?v=…`), so browsers never pair a new page with a cached old stylesheet.
 - Photos are from Unsplash (Unsplash License) and live in `assets/img/photos/`; see `build/photos.py`.

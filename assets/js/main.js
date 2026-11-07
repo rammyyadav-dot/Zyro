@@ -41,7 +41,7 @@
     })(el);
     el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
   }
-  var splits = Array.prototype.slice.call(document.querySelectorAll('.split, .section .h-lg, .manifesto h2'));
+  var splits = Array.prototype.slice.call(document.querySelectorAll('.split, .section .h-lg, .manifesto h2, .bw-h, .bs-h'));
   splits = splits.filter(function (el) { return !el.classList.contains('scrub'); });
   if (!reduce) splits.forEach(function (el) { el.classList.add('split'); splitWords(el); });
 
@@ -67,6 +67,11 @@
   } else {
     revealables.forEach(function (r) { r.classList.add('visible', 'in'); });
   }
+
+  // ── Bold hero: entrance + rows that slide sideways on scroll ─────────
+  var bh = document.querySelector('.bh');
+  if (bh) requestAnimationFrame(function () { requestAnimationFrame(function () { bh.classList.add('in'); }); });
+  var shifters = Array.prototype.slice.call(document.querySelectorAll('[data-shift]'));
 
   // ── Horizontal pinned showcase ───────────────────────────────────────
   var hs = document.querySelector('.hs');
@@ -110,6 +115,10 @@
         var dir = parseFloat(row.getAttribute('data-dir')) || 1;
         var shift = (r.top - vh) * 0.45 * dir - (dir > 0 ? vw * 0.6 : vw * 0.2);
         row.firstElementChild.style.transform = 'translate3d(' + shift.toFixed(1) + 'px,0,0) skewX(' + skew.toFixed(2) + 'deg)';
+      });
+      shifters.forEach(function (el) {
+        var f = parseFloat(el.getAttribute('data-shift'));
+        el.style.transform = 'translate3d(' + (y * f * 4).toFixed(1) + 'px,0,0)';
       });
       if (hs && hs.classList.contains('pinned')) {
         var hr = hs.getBoundingClientRect();
