@@ -10,6 +10,28 @@
   function setHdr() { var h = document.querySelector('.site-header'); if (h) root.style.setProperty('--hdr', h.offsetHeight + 'px'); }
   setHdr(); window.addEventListener('resize', setHdr);
 
+  // Decorative hero film: respect motion preferences and expose playback control.
+  var film = document.querySelector('.home-hero-video');
+  var filmToggle = document.querySelector('.home-hero-toggle');
+  if (film && filmToggle) {
+    var motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function syncFilmControl() { filmToggle.textContent = film.paused ? 'Play video' : 'Pause video'; }
+    function syncMotion() {
+      film.autoplay = !motionPreference.matches;
+      filmToggle.hidden = motionPreference.matches;
+      if (motionPreference.matches) film.pause();
+      else film.play().catch(function () { syncFilmControl(); });
+    }
+    filmToggle.addEventListener('click', function () {
+      if (film.paused) film.play().catch(syncFilmControl);
+      else film.pause();
+    });
+    film.addEventListener('play', syncFilmControl);
+    film.addEventListener('pause', syncFilmControl);
+    motionPreference.addEventListener('change', syncMotion);
+    syncMotion();
+  }
+
   // ── Mobile navigation ────────────────────────────────────────────────
   var toggle = document.querySelector('.nav-toggle');
   var menu = document.getElementById('nav-menu');

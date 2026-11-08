@@ -704,30 +704,20 @@ def build_home():
     body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, None, faqs=HOME_FAQS)) + nav(ctx)
     body = body.replace("<body>", '<body class="home">', 1)
 
-    def pill(name, cls=""):
-        return f'<span class="bh-pill {cls}" aria-hidden="true">{pic(ctx, name, eager=True, sizes="30vw", alt="")}</span>'
-
-    # 1 ── HERO
+    # 1 ── HERO: one message and one action over the uploaded film.
     body += f"""<main id="main">
-<section class="bh">
-  <div class="bh-wrap">
-    <p class="bh-eyebrow">digital marketing, SEO &amp; content agency · Patna, Bihar</p>
-    <div class="bh-grid">
-      <h1 class="home-heading">Digital Marketing Agency in Patna</h1>
-      <div class="bh-title" aria-hidden="true">
-        <span class="bh-row" data-shift="-0.06"><span class="bh-w">We are</span> {pill("creative-team-collaboration")}</span>
-        <span class="bh-row" data-shift="0.05">{pill("video-editing-content-creation", "wide")} <span class="bh-w">Zyrostyle</span></span>
-        <span class="bh-row" data-shift="-0.04"><span class="bh-w">We</span> {pill("client-success-celebration", "wide")} <span class="bh-w">do</span></span>
-        <span class="bh-row" data-shift="0.07"><span class="bh-w">Big things</span></span>
-      </div>
-      <div class="bh-side">
-        <p>Zyrostyle helps businesses in Patna and Bihar connect search, content, social media and paid advertising around their growth goals.</p>
-        <p>We partner with brands across Patna and Bihar that have the biggest ambitions.</p>
-        <p>We hire big talent and give it big opportunities to build boundless careers.</p>
-        <div class="bh-cta"><p class="bh-ask">Ready to do big things?</p><a class="pill-btn" href="{ctx.href('contact')}">Book a free consultation</a></div>
-      </div>
-    </div>
+<section class="home-hero" aria-labelledby="home-title">
+  <video class="home-hero-video" autoplay muted loop playsinline preload="metadata" poster="{ctx.asset('img/home-hero-poster.webp')}" aria-hidden="true" tabindex="-1">
+    <source src="{ctx.asset('video/home-hero.mp4')}" type="video/mp4">
+  </video>
+  <div class="home-hero-shade" aria-hidden="true"></div>
+  <div class="home-hero-content">
+    <p class="home-hero-eyebrow">Zyrostyle · Patna, Bihar</p>
+    <h1 id="home-title">Big ideas.<br><span>Real growth.</span></h1>
+    <p class="home-hero-lead">Digital marketing, SEO and content that help your business get found and grow.</p>
+    <a class="pill-btn home-hero-cta" href="{ctx.href('contact')}">Book a free consultation <span aria-hidden="true">↗</span></a>
   </div>
+  <button class="home-hero-toggle" type="button" hidden>Pause video</button>
 </section>
 """
     # 2 ── WHAT WE DO (compact image grid)
