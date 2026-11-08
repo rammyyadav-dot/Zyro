@@ -23,6 +23,8 @@ from content import (AI_SEARCH, AREAS, BIHAR_CITIES, HOME_FAQS, INDUSTRIES, PATN
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = SITE["url"].rstrip("/")
 TODAY = date.today().isoformat()
+with open(os.path.join(ROOT, "assets/img/photos/uploaded.json")) as fh:
+    PHOTO_DIMENSIONS = json.load(fh)
 
 
 def _ver(rel):
@@ -389,8 +391,13 @@ def breadcrumb(ctx, crumbs):
 def pic(ctx, name, cls="", eager=False, sizes="100vw", alt=None):
     base = ctx.asset(f"img/photos/{name}")
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
-    return (f'<img class="{cls}" src="{base}.webp" srcset="{base}-sm.webp 900w, {base}.webp 1800w" sizes="{sizes}" '
-            f'alt="{esc(alt if alt is not None else ALT[name])}" width="1800" height="1200" {load} decoding="async">')
+    dimensions = PHOTO_DIMENSIONS.get(name, {"width": 1800, "height": 1200, "small_width": 900})
+    width, height, small_width = (dimensions[k] for k in ("width", "height", "small_width"))
+    candidates = f"{base}.webp {width}w"
+    if small_width < width:
+        candidates = f"{base}-sm.webp {small_width}w, " + candidates
+    return (f'<img class="{cls}" src="{base}.webp" srcset="{candidates}" sizes="{sizes}" '
+            f'alt="{esc(alt if alt is not None else ALT[name])}" width="{width}" height="{height}" {load} decoding="async">')
 
 
 def img_band(ctx, text, photo=None, label=""):

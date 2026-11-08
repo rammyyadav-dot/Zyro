@@ -42,4 +42,5 @@ The output is plain static HTML, CSS and JS, so it works on GitHub Pages, Netlif
 - Type: Inter Tight for display headings, Cormorant italic for accents, Barlow for body text.
 - `assets/js/main.js` handles all motion: hero entrance, rows that slide sideways on scroll, word reveals, moving text bands with velocity skew, parallax and the scroll progress bar. Motion turns off for visitors who set their device to reduce motion.
 - CSS and JS links include a content hash (`?v=…`), so browsers never pair a new page with a cached old stylesheet.
-- Photos are from Unsplash (Unsplash License) and live in `assets/img/photos/`; see `build/photos.py`.
+- Photography combines the original Unsplash library with uploaded replacements; assignments and alt text live in `build/photos.py`.
+- To reprocess uploaded images, install Pillow (`python3 -m pip install Pillow`), run `python3 build/prepare_images.py`, then rebuild. This preserves source files, honors image orientation, strips metadata, and creates WebP variants without upscaling. Commit the generated `assets/img/photos/uploaded.json` along with the images; normal site builds do not require Pillow.

@@ -1,10 +1,11 @@
 """
 Photo assignments and alt text.
 
-All photos are from Unsplash (https://unsplash.com/license — free for commercial
+The original library is from Unsplash (https://unsplash.com/license — free for commercial
 use, no attribution required), downloaded, checked and converted to WebP in
 assets/img/photos/ as <name>.webp (1800px) and <name>-sm.webp (900px).
-Replace any image with your own shoot photography by keeping the same file name.
+Uploaded replacements are declared in UPLOADED_PHOTOS below and prepared with
+python3 build/prepare_images.py. Original uploads stay unchanged in the root.
 """
 
 ALT = {
@@ -91,3 +92,17 @@ INDUSTRY_PHOTOS = {
     "travel": "travel-tourism-planning",
     "b2b": "b2b-modern-office",
 }
+
+# Original uploaded filename, descriptive alt text. Only relevant placements change.
+UPLOADED_PHOTOS = {
+    "marketing-strategy-team-patna": ("indian-marketing-team-brainstorming-vibrant-openplan-office-with-colorful-posters_868783-50121.avif", "Team planning a marketing campaign with colorful notes"),
+    "creative-team-collaboration": ("indian-marketing-team-working-new-campaign-bright-colorful-workspace_868783-50136.avif", "Creative team collaborating on a campaign in a colorful workspace"),
+    "agency-presentation-workshop": ("man-suit-standing-office-with-clipboard-pointing-poster-with-words.jpg", "Presenter explaining a marketing plan on a clipboard"),
+    "video-editing-content-creation": ("photo-1686061592315-af9342dc8d74.avif", "Video editing timeline on a studio screen"),
+    "photographer-landscape-creative": ("content-creation-process-vloggers-youtubers-scaled-1-1024x683.webp", "Camera recording a content production session"),
+    "content-strategy-wireframes": ("corporate-management-strategy-solution-branding-concept_53876-167088.avif", "Laptop workspace with digital communication and marketing icons"),
+    "social-media-content-studio": ("pngtree-high-quality-audio-recording-setup-for-professional-content-creation-and-broadcasting-image_17599581.webp", "Microphone in an audio recording studio"),
+    "team-laptops-top-view": ("video-call-group-business-people-meeting-virtual-workplace-remote-office-scaled.jpg", "Overhead view of a team reviewing campaign charts and laptops"),
+    "local-business-meeting": ("marketing-team-sitting-meeting-table-looking-laptop-screen-talking_658385-1371.avif", "Team discussing a project around a laptop"),
+}
+ALT.update({name: details[1] for name, details in UPLOADED_PHOTOS.items()})
