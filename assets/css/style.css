@@ -913,3 +913,25 @@ body.home .nav-links .mega-foot a { color: var(--gold); }
  .bm-track { animation: none; transform: none; will-change: auto; }
  .bm-group { gap: 20px; }
 }
+
+/* Aligned capability grid: consistent text slots and image frames. */
+.bw { padding: clamp(56px, 7vw, 104px) 0; }
+.bw-wrap { display: block; max-width: 1440px; }
+.bw-vert { writing-mode: horizontal-tb; transform: none; font-size: 11px; font-weight: 500; line-height: 1.5; letter-spacing: .18em; margin-bottom: 20px; }
+.bw-h { max-width: 740px; font-size: clamp(28px, 3vw, 44px); line-height: 1.18; margin-bottom: clamp(28px, 4vw, 48px); }
+.bw-h em { font-weight: 400; }
+.bw-grid { align-items: stretch; gap: 36px 24px; }
+.bw .bw-tile:nth-child(n) { margin-top: 0; min-width: 0; display: flex; flex-direction: column; }
+.bw-cap { position: relative; display: grid; grid-template-columns: 24px minmax(0, 1fr); align-content: start; align-items: start; gap: 8px 12px; min-height: 100px; padding: 16px 0 20px; border-top: 1px solid rgba(255,255,255,.2); }
+.bw-card-number { color: var(--gold); font-size: 11px; line-height: 24px; font-family: var(--label); }
+.bw-cap strong { font-size: clamp(16px, 1.4vw, 20px); line-height: 1.3; letter-spacing: -.015em; text-transform: none; white-space: normal; }
+.bw-cap em { grid-column: 2; font-size: 13px; line-height: 1.5; color: #bdbbb8; white-space: normal; overflow: visible; text-overflow: clip; }
+.bw-img { width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; }
+.bw-img img { transform: scale(1.06) translate3d(0, var(--service-shift, 0px), 0); transition: transform .7s cubic-bezier(.16,1,.3,1), filter .4s; }
+.bw-tile:hover .bw-img img { transform: scale(1.09) translate3d(0, var(--service-shift, 0px), 0); }
+.bw-tile:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; border-radius: 4px; }
+.bw-more { margin-top: 40px; }
+@media (max-width: 960px) { .bw-grid { gap: 28px 20px; } .bw-cap { min-height: 104px; } }
+@media (max-width: 640px) { .bw-grid { gap: 28px; } .bw-cap { min-height: 0; padding-bottom: 18px; } .bw-cap strong { font-size: 19px; } }
+@media (prefers-reduced-motion: reduce) { .bw-img img, .bw-tile:hover .bw-img img { transform: none; transition: none; } }
+@media (min-width: 641px) { .bw-cap strong { min-height: 2.6em; } .bw-cap em { min-height: 3em; } }

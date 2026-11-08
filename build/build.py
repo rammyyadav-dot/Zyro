@@ -724,12 +724,12 @@ def build_home():
     tiles = []
     for i, sv in enumerate(SERVICES):
         tiles.append(f"""<a class="bw-tile t{i+1} reveal" href="{ctx.href(sv['slug'])}">
-  <span class="bw-img">{pic(ctx, PAGE_PHOTOS[sv['slug']][0], sizes="(max-width: 760px) 100vw, 30vw")}</span>
-  <span class="bw-cap"><strong>{sv['nav']}</strong><i></i><em>{sv['card_sub'].split('.')[0]}</em></span>
+  <span class="bw-cap"><span class="bw-card-number">0{i+1}</span><strong>{sv['nav']}</strong><em>{sv['card_sub'].split('.')[0]}</em></span>
+  <span class="bw-img">{pic(ctx, PAGE_PHOTOS[sv['slug']][0], sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw")}</span>
 </a>""")
     body += f"""<section class="bw" id="services">
   <div class="bw-wrap">
-    <p class="bw-vert" aria-hidden="true" data-speed="-0.12">What we do</p>
+    <p class="bw-vert">What we do</p>
     <div>
       <h2 class="bw-h">Six connected capabilities. <em>One growth engine.</em></h2>
       <div class="bw-grid">{"".join(tiles)}</div>
