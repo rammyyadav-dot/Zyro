@@ -712,9 +712,9 @@ def build_home():
   </video>
   <div class="home-hero-shade" aria-hidden="true"></div>
   <div class="home-hero-content">
-    <p class="home-hero-eyebrow">Zyrostyle · Patna, Bihar</p>
+    <p class="home-hero-eyebrow">A global award-winning digital marketing Company</p>
     <h1 id="home-title">Big ideas.<br><span>Real growth.</span></h1>
-    <p class="home-hero-lead">Digital marketing, SEO and content that help your business get found and grow.</p>
+    <p class="home-hero-lead">Putting Patna’s businesses on the world’s stage</p>
     <a class="pill-btn home-hero-cta" href="{ctx.href('contact')}">Book a free consultation <span aria-hidden="true">↗</span></a>
   </div>
   <button class="home-hero-toggle" type="button" hidden>Pause video</button>
