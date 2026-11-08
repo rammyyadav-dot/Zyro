@@ -1071,38 +1071,59 @@ def build_areas():
 
 def build_about():
     ctx = Ctx("about")
-    title = "About Zyrostyle | Content Marketing Agency, Patna"
-    desc = ("Zyrostyle is a content marketing and SEO agency in Patna, Bihar, building organic "
-            "growth engines for ambitious brands.")
-    kw = "about zyrostyle, content marketing agency patna, seo agency bihar, digital marketing expert in patna"
+    title = "About Zyrostyle | Ram Kumar, CEO & Founder"
+    desc = ("Meet Ram Kumar, CEO & Founder of Zyrostyle, with 15+ years of marketing experience with global brands. "
+            "A team of five MBA graduates connecting sales and marketing from Patna to the world.")
+    kw = "about zyrostyle, Ram Kumar CEO founder, global sales and marketing, marketing agency patna"
     crumbs = [("Home", ""), ("About", "about")]
-    body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, page_type="AboutPage")) + nav(ctx)
-    body += '<main id="main">\n'
-    body += hero(ctx, "About Zyrostyle", "We don't just market brands. <em>We make them matter.</em>",
-                 "Zyrostyle is a content marketing and SEO agency in Patna, helping brands build organic growth engines that drive traffic, leads and revenue.",
-                 crumbs, ctas=[("Work With Us", "contact", "btn-light"), ("Explore Services", "services", "btn-line")])
-    body += f"""<section class="section">
-  <div class="wrap grid-2">
-    <div class="reveal"><span class="label">Our Story</span><h2 class="h-lg">Born in Patna. <em>Built for growth.</em></h2></div>
-    <div class="prose reveal">
-      <p>Zyrostyle was founded on a simple belief: businesses in Patna and Bihar deserve marketing that is as strategic, creative and measurable as anything produced in India's biggest metros.</p>
-      <p>Too many local businesses were stuck with disconnected vendors — one for the website, another for social media, someone else for ads — and no one accountable for growth. We built Zyrostyle as <strong>one connected growth partner</strong>: strategy, content, search, social and performance working together.</p>
-      <p>Today we help startups, local businesses and established companies across healthcare, education, real estate, hospitality, retail, travel and B2B get found, get noticed and get chosen.</p>
-      <p class="tagline">Built for Visibility. Designed for Growth.</p>
+    founder = {"@type": "Person", "@id": BASE + "/about/#ram-kumar", "name": "Ram Kumar",
+               "jobTitle": "CEO & Founder", "worksFor": {"@id": ORG_ID},
+               "description": "15+ years of marketing experience working with global brands."}
+    body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, [founder], page_type="AboutPage")) + nav(ctx)
+    body += '<main id="main" class="about-page">\n'
+    body += hero(ctx, "About Zyrostyle", "Patna roots. <em>Global perspective.</em>",
+                 "A global sales and marketing company led by a team of five MBA graduates, bringing 15+ years of industry experience to ambitious businesses.",
+                 crumbs, ctas=[("Meet Our Founder", "#founder", "btn-light"), ("Work With Us", "contact", "btn-line")])
+    body += f"""<section class="about-facts" aria-label="Our experience at a glance">
+  <div class="wrap about-facts-grid">
+    <div><strong>15+</strong><span>Years of industry experience</span></div>
+    <div><strong>5</strong><span>MBA graduates. One connected team.</span></div>
+    <div><strong>Global</strong><span>Brand experience. Local understanding.</span></div>
+  </div>
+</section>
+<section class="section" id="founder">
+  <div class="wrap about-founder-grid">
+    <aside class="founder-card reveal" aria-label="Ram Kumar, CEO and Founder">
+      <div class="founder-portrait" role="img" aria-label="RK monogram representing Ram Kumar"><span>RK</span></div>
+      <div class="founder-caption"><h2>Ram Kumar</h2><p>CEO &amp; Founder, Zyrostyle</p><span>15+ years working with global brands</span></div>
+    </aside>
+    <div class="founder-message reveal">
+      <span class="label">A Message from Our CEO &amp; Founder</span>
+      <h2 class="h-lg">Your ambition deserves <em>a bigger stage.</em></h2>
+      <div class="prose">
+        <p>Working with global brands for more than 15 years has shaped how I think about growth: understand the customer, make the brand relevant, and connect every marketing decision to a clear business goal.</p>
+        <p>I founded Zyrostyle to bring that perspective to businesses with the ambition to go further. From our roots in Patna, we help brands build a stronger presence, reach the right audiences and turn interest into meaningful sales conversations.</p>
+        <p>Our team of five MBA graduates brings sales and marketing together. We connect positioning, content, search, social media and paid campaigns around one shared direction, so your business can communicate with clarity and grow with purpose.</p>
+        <p>Our ambition is simple: putting Patna’s businesses on the world’s stage. We look forward to helping you write your next chapter.</p>
+      </div>
+      <p class="founder-signature">Ram Kumar<span>CEO &amp; Founder</span></p>
     </div>
   </div>
 </section>
-{img_band(ctx, "Born in Patna. <em>Built for growth.</em>", label="Our Story")}<section class="section dark manifesto">
-  <div class="wrap reveal">
-    <span class="label">The Zyrostyle Philosophy</span>
-    <h2 class="h-lg scrub">"Great marketing doesn't just attract attention. It creates commercial momentum."</h2>
-    <a class="link-arrow" href="{ctx.href('services')}" style="color:var(--white)">See how we do it</a>
+<section class="section warm">
+  <div class="wrap">
+    <div class="section-head single reveal"><div><span class="label">The Team Behind Your Growth</span><h2 class="h-lg">Five MBA graduates. <em>One commercial mindset.</em></h2></div></div>
+    <div class="about-team-intro prose reveal"><p>Zyrostyle brings together a team of five MBA graduates with 15+ years of industry experience. Our global sales and marketing perspective helps us look beyond individual campaigns to the full customer journey: discovery, trust, enquiry and conversion.</p><p>We combine the discipline of business strategy with creative execution, building a connected plan around your market, your customers and your goals.</p></div>
+    <div class="grid-3 about-principles">
+      <article class="reveal"><span class="label">01 / Understand</span><h3>Business before channels</h3><p>We start with your audience, offer and sales goals, then choose the right mix of marketing activities.</p></article>
+      <article class="reveal"><span class="label">02 / Connect</span><h3>Sales meets marketing</h3><p>Messaging, content and campaigns work together to support the journey from first impression to enquiry.</p></article>
+      <article class="reveal"><span class="label">03 / Improve</span><h3>Clarity at every step</h3><p>Clear priorities, shared measures and ongoing refinement keep the work focused on your business.</p></article>
+    </div>
   </div>
 </section>
 """
-    body += why_section()
-    body += process_section()
-    body += cta_section(ctx)
+    body += cta_section(ctx, title="Local ambition. <em>Global possibilities.</em>",
+                        text="Tell us where your business is today and where you want to go. Let’s build a sales and marketing strategy around your next chapter.")
     body += "</main>\n" + footer(ctx)
     write("about", body, "0.7")
 

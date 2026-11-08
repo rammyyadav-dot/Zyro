@@ -935,3 +935,36 @@ body.home .nav-links .mega-foot a { color: var(--gold); }
 @media (max-width: 640px) { .bw-grid { gap: 28px; } .bw-cap { min-height: 0; padding-bottom: 18px; } .bw-cap strong { font-size: 19px; } }
 @media (prefers-reduced-motion: reduce) { .bw-img img, .bw-tile:hover .bw-img img { transform: none; transition: none; } }
 @media (min-width: 641px) { .bw-cap strong { min-height: 2.6em; } .bw-cap em { min-height: 3em; } }
+
+/* Founder-led About page. */
+.about-page .hero h1 { font-size: clamp(44px, 6.5vw, 96px); max-width: 1050px; }
+.about-page .hero .lead { max-width: 700px; }
+.about-facts { background: #171717; color: #fff; padding: 38px 0; }
+.about-facts-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 32px; }
+.about-facts-grid > div { display: flex; flex-direction: column; gap: 10px; padding-left: 24px; border-left: 1px solid #4d4439; }
+.about-facts strong { font-family: var(--display); font-size: clamp(32px, 3.5vw, 52px); line-height: 1.1; font-weight: 500; color: #d6b78f; }
+.about-facts span { font-size: 14px; line-height: 1.5; color: #d4d0ca; }
+.about-founder-grid { display: grid; grid-template-columns: minmax(240px, .8fr) minmax(0,1.2fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.founder-card { overflow: hidden; border-radius: 14px; background: #f2eee8; }
+.founder-portrait { aspect-ratio: 4 / 5; display: grid; place-items: center; background: radial-gradient(ellipse at 30% 25%, #5b4b37, #211d18 75%); color: #d9bd98; }
+.founder-portrait span { font-family: var(--serif); font-size: clamp(90px, 13vw, 190px); font-style: italic; font-weight: 300; letter-spacing: -.08em; }
+.founder-caption { padding: 26px; }
+.founder-caption h2 { font-family: var(--display); font-size: 28px; line-height: 1.2; margin-bottom: 8px; }
+.founder-caption p { font-size: 15px; margin-bottom: 14px; }
+.founder-caption > span { display: block; border-top: 1px solid #d6cdc0; padding-top: 14px; font-size: 13px; line-height: 1.5; color: #665744; }
+.founder-message .h-lg { font-size: clamp(30px, 3.2vw, 48px); line-height: 1.15; margin: 18px 0 28px; }
+.founder-message .prose { font-size: 17px; line-height: 1.75; }
+.founder-signature { font-family: var(--serif); font-size: 32px; margin-top: 28px; }
+.founder-signature span { display: block; font-family: var(--sans); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; margin-top: 6px; }
+.about-team-intro { max-width: 800px; }
+.about-principles { margin-top: 40px; }
+.about-principles article { border-top: 1px solid #c8bba8; padding-top: 24px; }
+.about-principles h3 { font-family: var(--display); font-size: 22px; line-height: 1.25; margin: 18px 0 14px; }
+.about-principles p { font-size: 16px; line-height: 1.65; }
+@media (max-width: 760px) {
+ .about-founder-grid { grid-template-columns: 1fr; }
+ .founder-card { max-width: 440px; width: 100%; }
+ .about-facts-grid { gap: 24px; grid-template-columns: 1fr; }
+ .about-facts-grid > div { padding-left: 18px; }
+ .founder-message .prose { font-size: 16px; }
+}
