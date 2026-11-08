@@ -786,6 +786,25 @@ def build_home():
   </div>
 </section>
 """
+    # Content studio: reference-inspired editorial story and four format panels.
+    body += f"""<section class="content-studio" aria-labelledby="studio-title">
+  <div class="wrap studio-layout">
+    <div class="studio-story reveal">
+      <p class="studio-label">The Zyrostyle Content Studio</p>
+      <h2 id="studio-title">We create <em>winning content.</em><br>You build a <em>lasting brand.</em></h2>
+      <p class="studio-intro">Big ideas deserve more than another post. We turn your expertise, personality and ambition into podcasts, Reels and brand stories people want to watch, hear and share.</p>
+      <p>From the first hook to the final edit, we connect strategy, scripting, production and design. One strong idea becomes a full-length conversation, a series of short clips and a consistent story across your channels.</p>
+      <a class="studio-cta" href="{ctx.href('contact')}">Let’s create something worth watching <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="studio-formats" aria-label="Explore content creation formats">
+      <a class="studio-format reveal" href="{ctx.href('podcast-production-patna')}"><span class="studio-format-index">01 / Start a conversation</span><h3>Podcasts<span aria-hidden="true">+</span></h3><p>Thoughtful conversations. A voice your audience remembers.</p><span class="studio-format-link">Explore podcast production <span aria-hidden="true">&rarr;</span></span></a>
+      <a class="studio-format reveal" href="{ctx.href('instagram-reels-production-patna')}"><span class="studio-format-index">02 / Make every second count</span><h3>Reels<span aria-hidden="true">+</span></h3><p>Sharp hooks, purposeful edits and stories made for the scroll.</p><span class="studio-format-link">Explore Reels production <span aria-hidden="true">&rarr;</span></span></a>
+      <a class="studio-format reveal" href="{ctx.href('brand-storytelling-patna')}"><span class="studio-format-index">03 / Give your brand meaning</span><h3>Stories<span aria-hidden="true">+</span></h3><p>People, purpose and personality brought into focus.</p><span class="studio-format-link">Explore brand storytelling <span aria-hidden="true">&rarr;</span></span></a>
+      <a class="studio-format reveal" href="{ctx.href('content-creation-services-patna')}"><span class="studio-format-index">04 / Keep the story going</span><h3>Content<span aria-hidden="true">+</span></h3><p>A connected mix of video, copy and design, built around your goals.</p><span class="studio-format-link">Explore content creation <span aria-hidden="true">&rarr;</span></span></a>
+    </div>
+  </div>
+</section>
+"""
     body += f"""<section class="section warm">
   <div class="wrap">
     <h2 class="h-md">Choose the right marketing starting point</h2>
