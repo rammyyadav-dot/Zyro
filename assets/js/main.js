@@ -122,6 +122,7 @@
   var progress = document.querySelector('.scroll-progress span');
   var parallax = Array.prototype.slice.call(document.querySelectorAll('[data-speed]'));
   var rows = Array.prototype.slice.call(document.querySelectorAll('.mm-row'));
+  var ribbons = Array.prototype.slice.call(document.querySelectorAll('.bm-track'));
   var ticking = false, lastScroll = window.scrollY || 0, velocity = 0;
 
   function frame() {
@@ -138,6 +139,12 @@
         if (r.bottom < -200 || r.top > vh + 200) return;
         var center = r.top + r.height / 2 - vh / 2;
         el.style.transform = 'translate3d(0,' + (-center * parseFloat(el.getAttribute('data-speed'))).toFixed(1) + 'px,0)';
+      });
+      // Keep ribbon phase continuous while gently increasing speed during scroll.
+      ribbons.forEach(function (track) {
+        if (!track.getAnimations) return;
+        var rate = 1 + Math.min(Math.abs(velocity) * 0.015, 0.75);
+        track.getAnimations().forEach(function (animation) { animation.updatePlaybackRate(rate); });
       });
       rows.forEach(function (row) {
         var r = row.getBoundingClientRect();

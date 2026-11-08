@@ -738,10 +738,13 @@ def build_home():
   </div>
 </section>
 """
-    # 3 ── GIANT MARQUEE
-    body += """<section class="bm" aria-hidden="true">
-  <div class="mm-row" data-dir="1"><div class="mm-track">""" + ("<span>Do big things</span><span class='bm-dot'></span>" * 6) + """</div></div>
-  <div class="mm-row outline" data-dir="-1"><div class="mm-track">""" + ("<span>Do big things</span><span class='bm-dot'></span>" * 6) + """</div></div>
+    # 3 ── Seamless, opposing text ribbons with equal duplicated groups.
+    phrase = '<span class="bm-word">Do big things</span><i class="bm-separator" aria-hidden="true"></i>'
+    group = '<div class="bm-group">' + phrase * 4 + '</div>'
+    body += f"""<section class="bm" aria-label="Do big things">
+  <div class="bm-heading"><span>Ideas into impact</span><span>Built to move you forward</span></div>
+  <div class="bm-ribbon" aria-hidden="true"><div class="bm-track">{group}{group}</div></div>
+  <div class="bm-ribbon bm-outline" aria-hidden="true"><div class="bm-track">{group}{group}</div></div>
 </section>
 """
     # 4 ── SEO / GEO / AEO positioning (keyword-rich, clean)
