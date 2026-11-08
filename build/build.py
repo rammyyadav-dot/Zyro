@@ -1078,7 +1078,8 @@ def build_about():
     crumbs = [("Home", ""), ("About", "about")]
     founder = {"@type": "Person", "@id": BASE + "/about/#ram-kumar", "name": "Ram Kumar",
                "jobTitle": "CEO & Founder", "worksFor": {"@id": ORG_ID},
-               "description": "15+ years of marketing experience working with global brands."}
+               "description": "15+ years of marketing experience working with global brands.",
+               "image": BASE + "/assets/img/ram-kumar-founder.webp"}
     body = head(ctx, title, desc, kw, page_schema(ctx, title, desc, crumbs, [founder], page_type="AboutPage")) + nav(ctx)
     body += '<main id="main" class="about-page">\n'
     body += hero(ctx, "About Zyrostyle", "Patna roots. <em>Global perspective.</em>",
@@ -1094,7 +1095,7 @@ def build_about():
 <section class="section" id="founder">
   <div class="wrap about-founder-grid">
     <aside class="founder-card reveal" aria-label="Ram Kumar, CEO and Founder">
-      <div class="founder-portrait" role="img" aria-label="RK monogram representing Ram Kumar"><span>RK</span></div>
+      <div class="founder-portrait"><img src="{ctx.asset('img/ram-kumar-founder.webp')}" alt="Ram Kumar, CEO and Founder of Zyrostyle" width="400" height="400" loading="lazy" decoding="async"></div>
       <div class="founder-caption"><h2>Ram Kumar</h2><p>CEO &amp; Founder, Zyrostyle</p><span>15+ years working with global brands</span></div>
     </aside>
     <div class="founder-message reveal">
