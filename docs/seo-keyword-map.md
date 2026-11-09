@@ -1,6 +1,6 @@
 # Zyrostyle: SEO, GEO and AEO keyword map (Patna and Bihar)
 
-Each page gets one main keyword cluster, so pages don't compete with each other for the same search. Main keywords go in the `<title>`, H1, first paragraph, meta description and URL. Secondary keywords appear naturally in the body copy, the FAQs and the "What's included" lists.
+Each page has a primary intent. This mapping does not prove absence of search overlap; validate page/query performance in Search Console. Relevant phrases belong naturally in the `<title>`, H1, first paragraph, meta description and URL. Secondary keywords appear naturally in the body copy, the FAQs and the "What's included" lists.
 
 | Page (URL) | Primary keyword | Secondary / long-tail keywords |
 |---|---|---|
@@ -9,7 +9,7 @@ Each page gets one main keyword cluster, so pages don't compete with each other 
 | `/content-creation-services-patna/` | content creation services in patna | content writing agency in patna, video content creation agency patna, blog writing services patna, website content creation services patna, copywriter / ad copywriter in patna, reels video shoot patna, corporate video creation in patna, product photography and video patna, flyer and catalog design patna, content creation packages patna |
 | `/content-strategy-patna/` | content strategy consultant patna | digital content strategy services patna, content plan for small businesses patna, content calendar creation patna, brand storytelling services patna, content strategy for coaching institutes patna, ecommerce content strategy patna |
 | `/content-marketing-services-patna/` | content marketing agency in patna | content marketing services in patna, b2b content marketing agency patna, seo content marketing services patna, content distribution agency patna, inbound marketing agency patna, lead conversion content marketing patna, content marketing pricing in patna |
-| `/digital-marketing-agency-patna/` | digital marketing agency in patna | best / top 10 digital marketing agency in patna, digital marketing services patna, digital marketing expert in patna, online marketing agency patna, digital marketing package cost in patna, digital marketing services for small business patna, b2b digital marketing agency patna, lead generation agency in patna, google ads agency in patna, full service digital marketing firm patna, best agency for lead generation in bihar |
+| `/digital-marketing-agency-patna/` | Google and Meta Ads management in Patna | best / top 10 digital marketing agency in patna, digital marketing services patna, digital marketing expert in patna, online marketing agency patna, digital marketing package cost in patna, digital marketing services for small business patna, b2b digital marketing agency patna, lead generation agency in patna, google ads agency in patna, full service digital marketing firm patna, best agency for lead generation in bihar |
 | `/social-media-marketing-patna/` | social media marketing agency in patna | social media management services patna, instagram marketing agency patna, meta ads agency in patna, facebook ads expert patna, instagram reels creation service patna, social media handle manager patna, influencer marketing agency in patna, smm packages cost in patna, youtube channel promotion agency patna, restaurant social media marketing patna |
 | `/ai-search-optimisation-geo-aeo/` | generative engine optimisation patna | answer engine optimisation, ai search optimisation, google ai overviews optimisation, llm seo agency bihar |
 | `/industries/` | industry digital marketing patna | digital marketing services for doctors in patna, hospital digital marketing services patna, real estate digital marketing agency patna, coaching institute marketing agency patna, school promotion agency in patna, social media management for real estate patna |
@@ -20,11 +20,11 @@ Each page gets one main keyword cluster, so pages don't compete with each other 
 
 | # | Keyword | Page | Angle that keeps it distinct |
 |---|---|---|---|
-| 1 | digital marketing agency in patna | `/digital-marketing-agency-patna/` (existing) | Main service page, now linking to the new pages |
+| 1 | Google and Meta Ads management in Patna | `/digital-marketing-agency-patna/` | Paid campaigns, landing pages and qualified lead reporting |
 | 2 | best digital marketing company in patna | `/best-digital-marketing-company-patna/` | 8 criteria for choosing an agency, comparison table |
 | 3 | digital marketing services patna | `/services/` (existing, strengthened) | New H1 and FAQ block (FAQPage schema) |
 | 4 | digital marketing institute in patna | `/digital-marketing-institute-patna/` | Academy run by a working agency, training formats |
-| 5 | top 10 digital marketing agency in patna | `/top-digital-marketing-agencies-patna/` | 10-point test plus red flags (Article schema) |
+| 5 | how to choose a digital marketing agency in Patna | `/top-digital-marketing-agencies-patna/` | Agency selection questions; no ranked list (Article schema) |
 | 6 | digital marketing course in patna | `/digital-marketing-course-patna/` | 12-module curriculum (Course schema) |
 | 7 | digital marketing expert in patna | `/digital-marketing-expert-patna/` | Audits, consultation, part-time marketing lead |
 | 8 | online marketing agency patna | `/online-marketing-agency-patna/` | Getting an offline business online, 7-step checklist |
@@ -126,7 +126,7 @@ Each new page has one primary search intent. Keywords that mean the same thing s
 | 99 best agency for lead generation in bihar | `/lead-generation-agency-patna/` (existing) |
 | 100 digital marketing strategy consultation | `/digital-marketing-expert-patna/` (existing) |
 
-**Check before publishing:** the podcast page (studio setup), the SEO training page (only if you run training) and the election page (whether you want political clients). Also replace the "Custom quote" placeholders with real prices.
+**Check before publishing:** the podcast page (studio setup), the SEO training page (only if you run training) and the election page (whether you want political clients). The package page now compares scope; publish amounts only when verified.
 
 ## Keywords left out on purpose
 
@@ -135,10 +135,10 @@ Each new page has one primary search intent. Keywords that mean the same thing s
 
 - Every page has its own `<title>`, meta description, canonical URL, `hreflang en-IN` and Open Graph / Twitter tags.
 - **Geo tags** on every page: `geo.region=IN-BR`, `geo.placename=Patna, Bihar, India`, `geo.position` and `ICBM`.
-- **JSON-LD on every page:** `ProfessionalService` (a LocalBusiness type) with address, geo coordinates, areaServed (Patna and 12 Bihar cities), opening hours and an offer catalogue. Pages also carry `WebSite`, `WebPage`, `BreadcrumbList`, and where relevant `Service`, `FAQPage` and `ItemList` markup.
+- **JSON-LD:** Organization with areaServed and an offer catalogue. Do not invent addresses, coordinates or local offices. Pages also carry `WebSite`, `WebPage`, `BreadcrumbList`, and where relevant `Service`, `FAQPage` and `ItemList` markup.
 - **AEO:** every service page has 4 to 6 FAQs, written answer-first. They render as `<details>` and are mirrored in the `FAQPage` schema.
-- **GEO:** `llms.txt` gives AI crawlers a short, citable summary of the business and its services. The business name and description are worded the same way on every page.
-- `sitemap.xml` and `robots.txt` are included, plus clean URLs, one H1 per page, a strong internal-link structure (dropdown menu, related services, footer) and fast pages that load no images (good for Core Web Vitals).
+- **GEO:** `llms.txt` is an optional summary with no guaranteed ranking benefit; it gives AI crawlers a short, citable summary of the business and its services. The business name and description are worded the same way on every page.
+- `sitemap.xml` and `robots.txt` are included, plus clean URLs, one H1 per page, a strong internal-link structure (dropdown menu, related services, footer) and responsive images. Core Web Vitals require field measurement.
 
 ## Launch checklist (do these first)
 
@@ -148,3 +148,7 @@ Each new page has one primary search intent. Keywords that mean the same thing s
 4. Connect a form backend (Formspree, Netlify Forms or a CRM) through `form_endpoint`.
 5. Submit `sitemap.xml` in Google Search Console and Bing Webmaster Tools. Add GA4 and Google Tag Manager.
 6. Content roadmap: publish 2 to 4 Patna-focused blog posts a month (for example "Digital marketing cost in Patna 2026", "How to rank on Google Maps in Patna", "Admission marketing for coaching institutes in Patna"), plus case studies with real numbers.
+
+## November 2026 implementation
+
+Canonical host: https://zyrostyle.com. Homepage: broad agency discovery; ads page: paid campaigns. Packages: scope comparison without invented fees. No fabricated award claims or case studies. Sitemap omits unsupported lastmod dates. See seo-measurement.md for event semantics, consent, CRM qualification and the GSC reporting command.

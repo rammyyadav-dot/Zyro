@@ -22,7 +22,6 @@ from content import (AI_SEARCH, AREAS, BIHAR_CITIES, HOME_FAQS, INDUSTRIES, PATN
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = SITE["url"].rstrip("/")
-TODAY = date.today().isoformat()
 with open(os.path.join(ROOT, "assets/img/photos/uploaded.json")) as fh:
     PHOTO_DIMENSIONS = json.load(fh)
 
@@ -192,6 +191,7 @@ def head(ctx, title, desc, keywords, schema, robots="index, follow, max-image-pr
 <meta name="keywords" content="{esc(keywords)}">
 <meta name="robots" content="{robots}">
 <meta name="author" content="{SITE['name']}">
+<meta name="ga4-measurement-id" content="{esc(SITE['ga4_measurement_id'])}">
 <link rel="canonical" href="{url}">
 <link rel="alternate" hreflang="en-IN" href="{url}">
 <link rel="alternate" hreflang="x-default" href="{url}">
@@ -234,7 +234,7 @@ MENU_EXTRA = {
     "seo": [("ai-search-optimisation-geo-aeo", "AI Search (GEO & AEO)")],
     "content": [("content-strategy-patna", "Content Strategy")],
     "ads": [("lead-generation-agency-patna", "Lead Generation"), ("full-service-digital-marketing-firm-patna", "Full-Service Marketing"),
-            ("digital-marketing-packages-cost-patna", "Packages & Pricing")],
+            ("digital-marketing-packages-cost-patna", "Packages & Scope")],
 }
 PATNA_MENU = [("digital-marketing-patna-guide", "Patna Hub"), ("areas-we-serve", "All Areas We Serve"),
               ("digital-marketing-company-boring-road-patna", "Boring Road"), ("digital-marketing-company-kankarbagh-patna", "Kankarbagh"),
@@ -327,7 +327,7 @@ def footer(ctx):
     contact += f"<li><a href=\"{ctx.href('contact')}\">{esc(addr)}, India</a></li>"
     social = "".join(f'<li><a href="{u}" rel="noopener" target="_blank">{u.split("//")[-1].split("/")[0].replace("www.", "").split(".")[0].title()}</a></li>' for u in SITE["social"])
     hubs = [("digital-marketing-patna-guide", "Patna Digital Marketing Guide"),
-            ("digital-marketing-packages-cost-patna", "Marketing Packages & Costs"),
+            ("digital-marketing-packages-cost-patna", "Marketing Packages & Scope"),
             ("areas-we-serve", "Areas We Serve"),
             ("digital-marketing-course-patna", "Digital Marketing Course"),
             ("services", "All Services")]
@@ -371,6 +371,7 @@ def footer(ctx):
   </div>
 </footer>
 {wa}
+<script src="{ctx.asset('js/measurement.js')}?v={_ver('js/measurement.js')}" defer></script>
 <script src="{ctx.asset('js/main.js')}?v={_ver('js/main.js')}" defer></script>
 </body>
 </html>
@@ -696,7 +697,7 @@ def write(slug, body, priority="0.8"):
 # ── PAGES ────────────────────────────────────────────────────────────────────
 def build_home():
     ctx = Ctx("")
-    title = "SEO & Digital Marketing Agency in Patna | Zyrostyle"
+    title = "Digital Marketing & SEO Agency in Patna | Zyrostyle"
     desc = "Grow your Patna business with SEO, content, social media and Google Ads. Get a tailored marketing plan from Zyrostyle. Book your free consultation."
     kw = ("digital marketing agency in patna, best digital marketing company in patna, seo company in patna, "
           "content marketing agency in patna, social media marketing agency in patna, digital marketing services patna, "
@@ -712,9 +713,9 @@ def build_home():
   </video>
   <div class="home-hero-shade" aria-hidden="true"></div>
   <div class="home-hero-content">
-    <p class="home-hero-eyebrow">A global award-winning digital marketing Company</p>
-    <h1 id="home-title">Big ideas.<br><span>Real growth.</span></h1>
-    <p class="home-hero-lead">Putting Patna’s businesses on the world’s stage</p>
+    <p class="home-hero-eyebrow">Content-led marketing. Clear scope. Transparent reporting.</p>
+    <h1 id="home-title">Digital marketing for<br><span>ambitious businesses in Patna.</span></h1>
+    <p class="home-hero-lead">SEO, content, social media and paid advertising. Request a proposal with clear deliverables, costs and reporting.</p>
     <a class="pill-btn home-hero-cta" href="{ctx.href('contact')}">Book a free consultation <span aria-hidden="true">↗</span></a>
   </div>
   <button class="home-hero-toggle" type="button" hidden>Pause video</button>
@@ -786,6 +787,12 @@ def build_home():
   </div>
 </section>
 """
+    body += f"""<section class="section warm"><div class="wrap prose">
+<span class="label">Evaluate the evidence</span><h2 class="h-md">Know what your proposal <em>is based on.</em></h2>
+<p>Ask us to explain the audit findings, proposed deliverables and how results will be measured. For any example of past work, ask for its scope, dates and measurement source so you can assess its relevance to your business.</p>
+<p>Reporting should separate search visibility, website visits and contact handoffs from received enquiries and staff-qualified leads. Rankings and lead volumes are not guaranteed.</p>
+<a class="link-arrow" href="{ctx.href('about')}">Meet the team</a></div></section>"""
+
     # Content studio: reference-inspired editorial story and four format panels.
     body += f"""<section class="content-studio" aria-labelledby="studio-title">
   <div class="wrap studio-layout">
@@ -821,7 +828,7 @@ def build_home():
         </tbody>
       </table>
     </div>
-    <p><a class="link-arrow" href="{ctx.href('digital-marketing-packages-cost-patna')}">Digital marketing packages and costs</a></p>
+    <p><a class="link-arrow" href="{ctx.href('digital-marketing-packages-cost-patna')}">Compare digital marketing package scope</a></p>
   </div>
 </section>"""
     # 7 ── FAQ (AEO)
@@ -1196,13 +1203,14 @@ def build_privacy():
     crumbs = [("Home", ""), ("Privacy Policy", "privacy-policy")]
     body = head(ctx, title, desc, "zyrostyle privacy policy", page_schema(ctx, title, desc, crumbs)) + nav(ctx)
     body += '<main id="main">\n'
-    body += hero(ctx, "Legal", "Privacy <em>Policy.</em>", "Last updated: " + date.today().strftime("%d %B %Y"), crumbs,
+    body += hero(ctx, "Legal", "Privacy <em>Policy.</em>", "Last updated: " + date.fromisoformat(SITE["privacy_updated"]).strftime("%d %B %Y"), crumbs,
                  ctas=[("Contact Us", "contact", "btn-light")])
     body += f"""<section class="section"><div class="wrap prose">
 <p><strong>Who we are.</strong> Zyrostyle is a digital marketing agency based in Patna, Bihar, India. This policy explains how we handle personal information submitted through this website.</p>
 <p><strong>Information we collect.</strong> When you submit an enquiry, we collect the details you provide — such as your name, company, website, phone/WhatsApp number, email address, services of interest, budget range and business goals.</p>
 <p><strong>How we use it.</strong> We use this information only to respond to your enquiry, prepare proposals and provide services you request. We do not sell your personal information.</p>
-<p><strong>Analytics and cookies.</strong> We may use privacy-respecting analytics (such as Google Analytics) to understand how visitors use our website. You can control cookies through your browser settings.</p>
+<p><strong>Analytics and cookies.</strong> Our hosting provider supplies aggregate traffic analytics. The website prepares interaction events without including form details, message text or full link URLs. Optional analytics collection requires a configured provider and your analytics consent. If you allow analytics, session storage keeps the landing page and broad acquisition channel so later handoffs can be attributed. A WhatsApp or email handoff does not confirm that an enquiry was sent. You can change analytics consent using the controls below.</p>
+<p><button class="btn btn-dark btn-sm" type="button" data-analytics-consent="grant">Allow optional analytics</button> <button class="btn btn-dark btn-sm" type="button" data-analytics-consent="deny">Decline optional analytics</button></p><p id="analytics-consent-status" role="status" aria-live="polite"></p>
 <p><strong>Data retention and security.</strong> We keep enquiry information only as long as needed for the purposes above and apply reasonable safeguards to protect it, in line with applicable Indian law, including the Digital Personal Data Protection Act, 2023.</p>
 <p><strong>Your rights.</strong> You may request access to, correction of, or deletion of your personal information by emailing <a href="mailto:{SITE['email']}">{SITE['email']}</a>.</p>
 <p><strong>Changes.</strong> We may update this policy from time to time. The latest version will always be available on this page.</p>
@@ -1228,7 +1236,7 @@ def build_404():
 
 
 def build_meta_files():
-    urls = "".join(f"  <url><loc>{canonical(s)}</loc><lastmod>{TODAY}</lastmod><priority>{p}</priority></url>\n"
+    urls = "".join(f"  <url><loc>{canonical(s)}</loc><priority>{p}</priority></url>\n"
                    for s, p in PAGES)
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1262,7 +1270,7 @@ def build_meta_files():
 def packages_html(ctx):
     cards = []
     for p in PACKAGES:
-        price = f'<p class="pkg-price">{esc(p["price"])}</p>' if p["price"] else '<p class="pkg-price muted">Custom quote</p>'
+        price = f'<p class="pkg-price">{esc(p["price"])}</p>' if p["price"] else '<p class="pkg-price muted">Quoted after scope review</p>'
         pts = "".join(f"<li>{x}</li>" for x in p["points"])
         cards.append(f"""<article class="card pkg reveal"><span class="num">{p['sub']}</span><h3>{p['name']}</h3>{price}
 <p>{p['for']}</p><ul>{pts}</ul><a class="btn btn-dark btn-sm" href="{ctx.href('contact')}">Get {p['name']} Quote</a></article>""")
@@ -1307,13 +1315,13 @@ def section_html(ctx, sec, idx):
 <div class="table-wrap reveal"><table class="data-table"><thead><tr>{th}</tr></thead><tbody>{rows}</tbody></table></div></div></section>
 """
     if t == "packages":
-        note = '<p class="form-note reveal" style="margin-top:20px">Ad spend is paid directly to Google/Meta and is not included in management fees. All packages are customised after a free consultation.</p>'
+        note = '<p class="form-note reveal" style="margin-top:20px">No fixed prices are published. Your written proposal should state agency fees, setup or production charges, applicable taxes, advertising spend, billing frequency, minimum term and cancellation conditions. Advertising spend is separate from management fees.</p>'
         return f'<section class="section {cls}"><div class="wrap">{headblock}{packages_html(ctx)}{note}</div></section>\n'
     if t == "tiers":
         cards = []
         for p in sec["tiers"]:
             pts = "".join(f"<li>{x}</li>" for x in p["points"])
-            cards.append(f"""<article class="card pkg reveal"><span class="num">{p['sub']}</span><h3>{p['name']}</h3><p class="pkg-price muted">Custom quote</p>
+            cards.append(f"""<article class="card pkg reveal"><span class="num">{p['sub']}</span><h3>{p['name']}</h3><p class="pkg-price muted">Quoted after scope review</p>
 <p>{p['for']}</p><ul>{pts}</ul><a class="btn btn-dark btn-sm" href="{ctx.href('contact')}">Get {p['name']} Quote</a></article>""")
         note = '<p class="form-note reveal" style="margin-top:20px">Every plan is customised after a free consultation. Ad budgets are paid directly to the platform and kept separate from fees.</p>'
         return f'<section class="section {cls}"><div class="wrap">{headblock}<div class="grid-3">{"".join(cards)}</div>{note}</div></section>\n'
@@ -1406,7 +1414,7 @@ def build_landing(l):
 HUB_GROUPS = [
     ("Choosing an Agency", ["digital-marketing-agency-patna", "best-digital-marketing-company-patna", "top-digital-marketing-agencies-patna",
                             "full-service-digital-marketing-firm-patna", "online-marketing-agency-patna", "digital-marketing-expert-patna"]),
-    ("Pricing &amp; Small Business", ["digital-marketing-packages-cost-patna", "cheap-digital-marketing-services-patna",
+    ("Packages &amp; Small Business", ["digital-marketing-packages-cost-patna", "cheap-digital-marketing-services-patna",
                                      "digital-marketing-small-business-patna", "freelance-digital-marketer-patna"]),
     ("Leads &amp; B2B", ["lead-generation-agency-patna", "b2b-digital-marketing-agency-patna", "services"]),
     ("Near You in Patna", ["digital-marketing-agency-near-me-patna", "digital-marketing-company-boring-road-patna",

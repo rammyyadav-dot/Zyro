@@ -1,6 +1,6 @@
 # Zyrostyle website
 
-A multi-page static website for **Zyrostyle**, an award-winning content marketing, SEO and digital marketing agency in Patna, Bihar. It is built for SEO, local SEO with geo tags, GEO (AI search) and AEO (answer engines).
+A multi-page static website for **Zyrostyle**, a content marketing, SEO and digital marketing agency in Patna, Bihar. It is built for SEO, local SEO with geo tags, GEO (AI search) and AEO (answer engines).
 
 ## Pages
 
@@ -44,3 +44,7 @@ The output is plain static HTML, CSS and JS, so it works on GitHub Pages, Netlif
 - CSS and JS links include a content hash (`?v=…`), so browsers never pair a new page with a cached old stylesheet.
 - Photography combines the original Unsplash library with uploaded replacements; assignments and alt text live in `build/photos.py`.
 - To reprocess uploaded images, install Pillow (`python3 -m pip install Pillow`), run `python3 build/prepare_images.py`, then rebuild. This preserves source files, honors image orientation, strips metadata, and creates WebP variants without upscaling. Commit the generated `assets/img/photos/uploaded.json` along with the images; normal site builds do not require Pillow.
+
+## SEO operations
+
+Production is Cloudflare Pages (`zyro`), deployed automatically from GitHub main. Canonical host: https://zyrostyle.com. See `docs/seo-measurement.md` for host redirects, event collection readiness, lead qualification and weekly Search Console reporting. Run `python3 scripts/check_seo.py` after rebuilding.

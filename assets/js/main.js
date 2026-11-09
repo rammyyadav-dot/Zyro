@@ -205,6 +205,7 @@
         'Goals: ' + (d.get('goals') || '')
       ].join('\n');
       var wa = form.getAttribute('data-whatsapp'), mail = form.getAttribute('data-email');
+      if (window.ZyroMeasurement && (wa || mail)) window.ZyroMeasurement.handoff(wa ? 'whatsapp' : 'email', 'enquiry_form');
       if (wa) window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(body), '_blank', 'noopener');
       else if (mail) window.location.href = 'mailto:' + mail + '?subject=' + encodeURIComponent('Marketing consultation request — ' + (d.get('company') || d.get('name') || '')) + '&body=' + encodeURIComponent(body);
       var status = document.getElementById('form-status');
@@ -227,6 +228,7 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) setOpen(false); });
     wa.querySelectorAll('.wa-chip').forEach(function (c) {
       c.addEventListener('click', function () {
+        if (window.ZyroMeasurement) window.ZyroMeasurement.handoff('whatsapp', 'chat_chip');
         window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(c.getAttribute('data-msg')), '_blank', 'noopener');
       });
     });

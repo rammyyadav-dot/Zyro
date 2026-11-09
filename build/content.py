@@ -14,7 +14,7 @@ after editing to regenerate the static HTML.
 SITE = {
     "name": "Zyrostyle",
     "legal_name": "Zyrostyle",
-    "url": "https://www.zyrostyle.com",          # TODO: confirm live domain
+    "url": "https://zyrostyle.com",          # Primary host: Cloudflare Pages production domain
     "email": "hello@zyrostyle.com",              # TODO: confirm inbox
     "phone": "+91 91727 12982",                    # shown + added to schema when set
     "whatsapp": "919172712982",                    # digits only — enables the WhatsApp chat widget
@@ -35,6 +35,8 @@ SITE = {
         # "https://www.facebook.com/zyrostyle",
         # "https://www.youtube.com/@zyrostyle",
     ],
+    "ga4_measurement_id": "",  # Configure a verified G-... ID; collection requires consent.
+    "privacy_updated": "2026-11-09",
     "tagline": "Built for Visibility. Designed for Growth.",
     "slogan": "Get Found. Get Noticed. Get Chosen.",
     "short": "content marketing, SEO and digital marketing agency in Patna, Bihar.",
@@ -73,11 +75,11 @@ SERVICES = [
         "card_text": "Technical SEO, local SEO, Google Business Profile optimisation and search-intent content that put your business in front of customers who are ready to buy.",
         "card_points": ["Technical & on-page SEO audits", "Local SEO & Google Maps ranking", "Keyword & competitor research", "E-commerce & B2B SEO"],
         "service_type": "Search Engine Optimization",
-        "title": "Best SEO Company in Patna | SEO Services & Local SEO — Zyrostyle",
-        "description": "Zyrostyle is a SEO agency in Patna. Technical SEO, local SEO, Google Business Profile & Google Maps ranking that drive leads across Bihar.",
+        "title": "SEO Services in Patna | Local & Technical SEO | Zyrostyle",
+        "description": "Zyrostyle is an SEO agency in Patna. Technical SEO, local SEO, Google Business Profile & Google Maps ranking that drive leads across Bihar.",
         "keywords": "best seo company in patna, seo services in patna, seo agency in patna, local seo services patna, gmb optimization services patna, google map ranking expert patna, seo consultant in patna, affordable seo services in patna, technical seo company patna, ecommerce seo agency patna, website ranking agency patna, link building services in patna, google business profile setup patna, best seo agency near me patna, seo agency near me",
         "eyebrow": "SEO Agency in Patna, Bihar",
-        "h1": "SEO Services in Patna That Put You <em>on Page One.</em>",
+        "h1": "SEO Services in Patna Focused on <em>Qualified Enquiries.</em>",
         "lead": "Looking for the best SEO company in Patna? Zyrostyle helps businesses across Patna and Bihar rank higher on Google, appear in the Google Maps local pack and turn organic traffic into enquiries, calls and revenue.",
         "strap": "Rank for What Matters. Grow Organically.",
         "intro_label": "Why SEO, why now",
@@ -288,18 +290,18 @@ SERVICES = [
         "card_text": "Google Ads, Meta Ads, lead-generation campaigns, landing pages, remarketing and conversion tracking focused on measurable outcomes.",
         "card_points": ["Google Ads & search advertising", "Facebook & Instagram ads", "Lead-generation campaigns", "Conversion tracking & analytics"],
         "service_type": "Digital Marketing",
-        "title": "Digital Marketing Agency in Patna | Google Ads & Lead Generation",
-        "description": "Top digital marketing agency in Patna for Google Ads, Meta Ads, lead generation and full-service digital marketing for small businesses and brands across Bihar.",
+        "title": "Google & Meta Ads Management in Patna | Zyrostyle",
+        "description": "Google and Meta Ads management in Patna, with campaign strategy, landing pages and reporting focused on qualified leads. Request a tailored proposal.",
         "keywords": "digital marketing agency in patna, best digital marketing company in patna, digital marketing services patna, top 10 digital marketing agency in patna, digital marketing expert in patna, online marketing agency patna, digital marketing agency near me patna, digital marketing package cost in patna, digital marketing services for small business patna, b2b digital marketing agency patna, lead generation agency in patna, full service digital marketing firm patna, google ads agency in patna, best agency for lead generation in bihar",
-        "eyebrow": "Digital Marketing Agency in Patna",
-        "h1": "The Digital Marketing Agency in Patna Built for <em>Measurable Growth.</em>",
-        "lead": "Zyrostyle is a full-service digital marketing company in Patna combining SEO, content, Google Ads, Meta Ads and conversion-focused landing pages to generate qualified leads for businesses across Bihar.",
+        "eyebrow": "Paid Advertising & Lead Generation in Patna",
+        "h1": "Google & Meta Ads in Patna Built Around <em>Qualified Leads.</em>",
+        "lead": "Zyrostyle plans and manages Google and Meta advertising for businesses in Patna and Bihar. Campaign strategy, landing pages and reporting connect advertising activity with enquiries your team can qualify.",
         "strap": "Less Guesswork. More Growth Intelligence.",
         "intro_label": "Performance with purpose",
         "intro_h2": "Make every marketing rupee <em>work harder.</em>",
         "intro": [
             "Running ads is easy. Running profitable campaigns is not. Without the right targeting, landing pages and tracking, budgets disappear into clicks that never become customers.",
-            "As a <strong>digital marketing agency in Patna</strong>, we connect organic visibility with targeted paid campaigns — Google Search, Performance Max, YouTube, Facebook and Instagram — and measure everything against the outcomes that matter: enquiries, calls, WhatsApp messages, admissions, bookings and sales.",
+            "As a <strong>digital marketing agency in Patna</strong>, we connect organic visibility with targeted paid campaigns — Google Search, Performance Max, YouTube, Facebook and Instagram — and distinguish clicks and WhatsApp handoffs from received enquiries, qualified leads and sales.",
             "From <strong>small businesses</strong> seeking their first consistent leads to growing companies entering new markets, we build campaigns around clearly defined goals and transparent reporting.",
         ],
         "includes_h2": "Our digital marketing capabilities",
@@ -325,7 +327,7 @@ SERVICES = [
         ],
         "closing": "Less Guesswork. More Growth Intelligence.",
         "faqs": [
-            ("Which is the best digital marketing agency in Patna?", "The best digital marketing agency for you is one that understands your industry, combines SEO, content and paid media, and reports transparently on leads and revenue. Zyrostyle is an content-led digital marketing agency in Patna built around exactly these principles."),
+            ("Which is the best digital marketing agency in Patna?", "The best digital marketing agency for you is one that understands your industry, combines SEO, content and paid media, and reports transparently on leads and revenue. Zyrostyle is a content-led digital marketing agency in Patna built around exactly these principles."),
             ("What does a digital marketing package cost in Patna?", "Digital marketing package costs in Patna vary by channels, content volume and ad spend. Small businesses often start with a focused package (for example local SEO plus social media), while growth brands combine SEO, content and paid advertising. We provide a custom quote after understanding your goals."),
             ("Do you provide digital marketing services for small businesses?", "Yes. We design affordable, focused digital marketing plans for small businesses in Patna — typically starting with Google Business Profile, local SEO, social media and a simple lead-generation campaign."),
             ("Do you manage Google Ads in Patna?", "Yes. We plan, build and optimise Google Search, Display, YouTube and Performance Max campaigns, with conversion tracking set up so you can see exactly which campaigns generate enquiries."),
