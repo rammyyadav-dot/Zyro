@@ -49,6 +49,7 @@ ALT = {
 
 # slug -> (hero photo, full-bleed band photo)
 PAGE_PHOTOS = {
+    "ai-seo-services-in-patna": ("ai-search-optimisation-workspace", "expert-whiteboard-session"),
     "": ("marketing-strategy-team-patna", "creative-team-collaboration"),
     "services": ("team-laptops-top-view", "agency-presentation-workshop"),
     "seo-services-patna": ("seo-analytics-dashboard", "open-office-workspace"),

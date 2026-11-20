@@ -38,7 +38,7 @@ NAMES = {**{s["slug"]: s["nav"] for s in SERVICES}, AI_SEARCH["slug"]: AI_SEARCH
          "industries": "Industries", "services": "Services", "areas-we-serve": "Areas We Serve",
          "about": "About", "contact": "Contact", "": "Home", "privacy-policy": "Privacy Policy",
          "digital-marketing-patna-guide": "Patna Marketing Hub"}
-NAMES.update({l["slug"]: l["primary"].title().replace(" In ", " in ") for l in LANDINGS})
+NAMES.update({l["slug"]: l.get("nav") or l["primary"].title().replace(" In ", " in ") for l in LANDINGS})
 
 ORG_ID = BASE + "/#organization"
 
@@ -714,8 +714,8 @@ def build_home():
   <div class="home-hero-shade" aria-hidden="true"></div>
   <div class="home-hero-content">
     <p class="home-hero-eyebrow">Content-led marketing. Clear scope. Transparent reporting.</p>
-    <h1 id="home-title">Digital marketing for<br><span>ambitious businesses in Patna.</span></h1>
-    <p class="home-hero-lead">SEO, content, social media and paid advertising. Request a proposal with clear deliverables, costs and reporting.</p>
+    <h1 id="home-title" aria-label="WE DO BIG THINGS">WE<br>DO<br><span>BIG<br>THINGS</span></h1>
+    <p class="home-hero-lead">We solve big problems with strategy and creative that make a big impact</p>
     <a class="pill-btn home-hero-cta" href="{ctx.href('contact')}">Book a free consultation <span aria-hidden="true">↗</span></a>
   </div>
   <button class="home-hero-toggle" type="button" hidden>Pause video</button>
@@ -955,6 +955,8 @@ def build_services_hub():
     for key, title, parent, pages in CLUSTERS:
         items = "".join(f'<li><a href="{ctx.href(p["slug"])}">{p["nav"]}</a></li>' for p in pages)
         items += "".join(f'<li><a href="{ctx.href(sl)}">{lb}</a></li>' for sl, lb in MENU_EXTRA.get(key, []))
+        if parent == "seo-services-patna":
+            items += f'<li><a href="{ctx.href("ai-seo-services-in-patna")}">AI SEO Services in Patna</a></li>'
         groups.append(f'<div class="reveal"><h3><a href="{ctx.href(parent)}">{title}</a></h3><ul>{items}</ul></div>')
     body += f"""<section class="section warm"><div class="wrap">
 <div class="section-head single reveal"><div><span class="label">Service Directory</span><h2 class="h-lg">Every service, <em>one place.</em></h2></div></div>
@@ -1279,7 +1281,8 @@ def packages_html(ctx):
 
 def section_html(ctx, sec, idx):
     t = sec["type"]
-    cls = ["", "warm", "", "stone"][idx % 4]
+    cls = sec.get("tone", ["", "warm", "", "stone"][idx % 4])
+    anchor = f' id="{esc(sec["anchor"])}"' if sec.get("anchor") else ""
     label = sec.get("label", "")
     h2 = sec.get("h2", "")
     lead = f'<p class="lead">{sec["lead"]}</p>' if sec.get("lead") else "<div></div>"
@@ -1307,7 +1310,7 @@ def section_html(ctx, sec, idx):
             pts = "".join(f"<li>{x}</li>" for x in (c[2] if len(c) > 2 else []))
             cards.append(f'<article class="card reveal"><h3>{c[0]}</h3><p>{c[1]}</p>{"<ul>" + pts + "</ul>" if pts else ""}</article>')
         grid = "grid-4" if len(cards) == 4 else "grid-3"
-        return f'<section class="section {cls}"><div class="wrap">{headblock}<div class="{grid}">{"".join(cards)}</div></div></section>\n'
+        return f'<section class="section {cls}"{anchor}><div class="wrap">{headblock}<div class="{grid}">{"".join(cards)}</div></div></section>\n'
     if t == "table":
         th = "".join(f'<th scope="col">{h}</th>' for h in sec["head"])
         rows = "".join("<tr>" + "".join((f'<th scope="row">{c}</th>' if j == 0 else f"<td>{c}</td>") for j, c in enumerate(r)) + "</tr>" for r in sec["rows"])
@@ -1412,6 +1415,7 @@ def build_landing(l):
 
 
 HUB_GROUPS = [
+    ("Search visibility", ["ai-seo-services-in-patna", "seo-services-patna"]),
     ("Choosing an Agency", ["digital-marketing-agency-patna", "best-digital-marketing-company-patna", "top-digital-marketing-agencies-patna",
                             "full-service-digital-marketing-firm-patna", "online-marketing-agency-patna", "digital-marketing-expert-patna"]),
     ("Packages &amp; Small Business", ["digital-marketing-packages-cost-patna", "cheap-digital-marketing-services-patna",
